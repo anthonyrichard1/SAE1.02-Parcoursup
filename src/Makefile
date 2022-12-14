@@ -1,7 +1,7 @@
-all : menus
+all : structures
 
-menus : menus.c testMenus.c
-	gcc -Wall $^ -o menus.o
+structures : structures.c testStructures.c
+	gcc -Wall structures.c testStructures.c -o structures
 	
 clean :
-	rm -f *.o
+	rm structures
