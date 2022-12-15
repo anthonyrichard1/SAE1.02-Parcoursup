@@ -50,3 +50,5 @@ typedef struct
     char ville[30];
     ListeDept ldept;
 }VilleIUT;
+
+ListeDept creerListeDept(void);
