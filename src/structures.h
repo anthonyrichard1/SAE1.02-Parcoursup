@@ -63,4 +63,10 @@ int testFopen(char *nomFichier);
 
 int rechercheIUT(VilleIUT **tab, int *nbIUT, char *val, bool *trouve);
 
+void afficher1Depart(VilleIUT *v);
+
 void afficherDepart(VilleIUT ** tiut, int *nbIUT);
+
+#define ROUGE "\e[1;31m"
+#define VERT "\e[1;32m"
+#define BLANC "\e[0m"

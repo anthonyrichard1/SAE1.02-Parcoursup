@@ -21,7 +21,7 @@ void testMalloc(void *elt, char *procedure)
 {
     if (elt == NULL)
     {
-        printf("%s : erreur d'allocation mémoire", procedure);
+        fprintf(stderr, "%s : erreur d'allocation mémoire", procedure);
         perror("");
         exit(errno);
     }
@@ -167,7 +167,7 @@ void afficherDepart(VilleIUT ** tiut, int *nbIUT)
 				}
 				else
 				{
-					fprintf(stderr, "Erreur : la ville %s ne possède pas d'IUT !\n", choix);
+					fprintf(stderr, ROUGE"Erreur : la ville %s ne possède pas d'IUT !\n"BLANC, choix);
 				}
 				
 			}
