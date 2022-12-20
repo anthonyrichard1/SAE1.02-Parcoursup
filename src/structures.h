@@ -61,4 +61,6 @@ void testMalloc(void *elt, char *procedure);
 
 int testFopen(char *nomFichier);
 
-int rechercheIUT(VilleIUT **tab, int nbIUT, char *val, bool *trouve);
+int rechercheIUT(VilleIUT **tab, int *nbIUT, char *val, bool *trouve);
+
+void afficherDepart(VilleIUT ** tiut, int *nbIUT);

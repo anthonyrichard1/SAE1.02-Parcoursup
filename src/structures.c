@@ -46,8 +46,7 @@ int testFopen(char *nomFichier)
 VilleIUT **chargerIUT(int *nbIUT)
 {
     FILE *f;
-    int i, j, trouve, pos, nbDepart;
-    char *nomRes;
+    int i, j;
     VilleIUT **tab;
 
     while ((f = fopen("iut.don", "r")) == NULL)
@@ -97,9 +96,9 @@ VilleIUT **chargerIUT(int *nbIUT)
     return tab;
 }
 
-int rechercheIUT(VilleIUT **tab, int nbIUT, char *val, bool *trouve)
+int rechercheIUT(VilleIUT **tab, int *nbIUT, char *val, bool *trouve)
 {
-    int debut = 0, milieu, fin = nbIUT-1, cmp;
+    int debut = 0, milieu, fin = *nbIUT-1, cmp;
 
     while (debut <= fin)
     {
@@ -123,4 +122,39 @@ int rechercheIUT(VilleIUT **tab, int nbIUT, char *val, bool *trouve)
 
     *trouve = 0;
     return debut;
+}
+
+
+void afficherDepart(VilleIUT ** tiut, int *nbIUT)
+{
+		char choix[30] = "";
+		int i, j;
+		MaillonDept *m;
+		
+		while (strcmp(choix, "-1") != 0)
+		{
+			printf("Quel IUT souhaitez-vous voir en détail (nom de ville/tous/-1 pour annuler) ? ");
+			scanf("%s", choix);
+			
+			if (strcmp(choix, "tous") == 0)
+			{
+				for (i = 0 ; i < *nbIUT ; i++)
+				{
+					printf("Liste des départements de l'IUT de %s\n", tiut[i]->ville);
+					m = tiut[i]->ldept->premier;
+					
+					for (j = 0 ; j < tiut[i]->ldept->nb ; j++)
+					{
+						printf("%s %d %s\n", m->departement, m->nbP, m->nomRes); 
+						m = m->suivant;
+					}
+				}
+			}
+			else if (strcmp(choix, "-1") != 0)
+			{
+				printf("rien pour l'instant\n");
+			}
+		}
+		
+		printf("Abandon de l'opération...\n");
 }
