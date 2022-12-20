@@ -108,7 +108,7 @@ int rechercheIUT(VilleIUT **tab, int *nbIUT, char *val, bool *trouve)
         if (!cmp)
         {
             *trouve = 1;
-            break;
+            return milieu;
         }
         if (cmp < 0)
         {
@@ -124,12 +124,26 @@ int rechercheIUT(VilleIUT **tab, int *nbIUT, char *val, bool *trouve)
     return debut;
 }
 
-
+void afficher1Depart(VilleIUT *v)
+{
+	int i;
+	MaillonDept *m;
+	
+	printf("\nListe des départements de l'IUT de %s\n", v->ville);
+	m = v->ldept->premier;
+	
+	for (i = 0 ; i < v->ldept->nb ; i++)
+	{
+		printf("\t%s %d %s\n", m->departement, m->nbP, m->nomRes); 
+		m = m->suivant;
+	}
+	
+	printf("\n");
+}
 void afficherDepart(VilleIUT ** tiut, int *nbIUT)
 {
 		char choix[30] = "";
-		int i, j;
-		MaillonDept *m;
+		int i, pos, trouve;
 		
 		while (strcmp(choix, "-1") != 0)
 		{
@@ -140,19 +154,22 @@ void afficherDepart(VilleIUT ** tiut, int *nbIUT)
 			{
 				for (i = 0 ; i < *nbIUT ; i++)
 				{
-					printf("Liste des départements de l'IUT de %s\n", tiut[i]->ville);
-					m = tiut[i]->ldept->premier;
-					
-					for (j = 0 ; j < tiut[i]->ldept->nb ; j++)
-					{
-						printf("%s %d %s\n", m->departement, m->nbP, m->nomRes); 
-						m = m->suivant;
-					}
+					afficher1Depart(tiut[i]);
 				}
 			}
 			else if (strcmp(choix, "-1") != 0)
 			{
-				printf("rien pour l'instant\n");
+				pos = rechercheIUT(tiut, nbIUT, choix, &trouve);
+				
+				if (trouve)
+				{
+					afficher1Depart(tiut[pos]);
+				}
+				else
+				{
+					fprintf(stderr, "Erreur : la ville %s ne possède pas d'IUT !\n", choix);
+				}
+				
 			}
 		}
 		
