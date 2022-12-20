@@ -19,7 +19,7 @@ struct MaillonDept
 {
     char departement[30];
     int nbP;
-    char *nomRes;
+    char nomRes[50];
     MaillonDept *suivant;
 };
 
@@ -51,4 +51,14 @@ typedef struct
     ListeDept ldept;
 }VilleIUT;
 
+typedef int bool;
+
 ListeDept creerListeDept(void);
+
+VilleIUT **chargerIUT(int *nbIUT);
+
+void testMalloc(void *elt, char *procedure);
+
+int testFopen(char *nomFichier);
+
+int rechercheIUT(VilleIUT **tab, int nbIUT, char *val, bool *trouve);
