@@ -1,6 +1,5 @@
 #include "structures.h"
 
-#include <stdio.h>
 int main (void)
 {
     int nbIUT = 0;

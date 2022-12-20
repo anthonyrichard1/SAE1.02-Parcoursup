@@ -1,10 +1,5 @@
 #include "structures.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-
 ListeDept creerListeDept(void)
 {
     ListeDept ld = (ListeDept)malloc(sizeof(struct ListeDept));

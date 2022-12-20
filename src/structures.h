@@ -4,6 +4,15 @@
  * \author Léana BESSON
  * \date 14/12/2022
 */
+#ifndef STRUCTURES_H
+#define STRUCTURES_H
+
+#include "menus.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 
 typedef struct MaillonDept MaillonDept;
 
@@ -70,3 +79,5 @@ void afficherDepart(VilleIUT ** tiut, int *nbIUT);
 #define ROUGE "\e[1;31m"
 #define VERT "\e[1;32m"
 #define BLANC "\e[0m"
+
+#endif

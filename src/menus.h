@@ -4,7 +4,7 @@
  * \date 14/12/2022
  * \brief Dans ce fichier sont répertoriées toutes les fonctions qui gère les menus de l'application.
  */
- 
+#include "administrateurs.h" 
  /**
  * \brief Cette fonction affiche le menu principal, un menu permettant de choisir entre les deux sous menus administrateur et utilisateur. Elle ne possède aucun paramètre car l'option choisie est récupéré par une saisie au clavier.
  */

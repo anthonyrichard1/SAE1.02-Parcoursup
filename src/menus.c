@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "menus.h"
+#include "structures.h"
 
 void menuPrincipal(void) {
 	int choix;
