@@ -1,6 +1,6 @@
-all : menus structures parcoursup
+all : administrateurs #parcoursup menus structures
 
-parcoursup : structures.h structures.c testStructures.c
+parcoursup : structures.c testStructures.c
 	gcc -Wall $^ -o parcoursup
 
 menus : menus.c testMenus.c
@@ -9,7 +9,8 @@ menus : menus.c testMenus.c
 structures : structures.c testStructures.c
 	gcc -Wall $^ -o structures
 	
+administrateurs : administrateurs.c testAdministrateurs.c structures.c
+	gcc -Wall $^ -o administrateurs
+	
 clean :
-	rm menus
-	rm structures
-	rm parcoursup
+	rm administrateurs #menus structures parcoursup
