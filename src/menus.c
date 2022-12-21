@@ -1,4 +1,4 @@
-#include "structures.h"
+#include "menus.h"
 
 void menuPrincipal(void) {
 	int choix;

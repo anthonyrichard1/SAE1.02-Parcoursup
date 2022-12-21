@@ -1,1 +1,2 @@
-#include "informations.h"
+#include "structures.h"
+#include "responsable.h"

@@ -1,16 +1,13 @@
-all : administrateurs #parcoursup menus structures
-
-parcoursup : structures.c testStructures.c
-	gcc -Wall $^ -o parcoursup
+all : menus informations administrateurs
 
 menus : menus.c testMenus.c
 	gcc -Wall $^ -o menus
-
-structures : structures.c testStructures.c
-	gcc -Wall $^ -o structures
 	
-administrateurs : administrateurs.c testAdministrateurs.c structures.c
+informations : informations.c testInformations.c
+	gcc -Wall $^ -o informations
+	
+administrateurs : administrateurs.c informations.c testAdministrateurs.c
 	gcc -Wall $^ -o administrateurs
 	
 clean :
-	rm administrateurs #menus structures parcoursup
+	rm menus informations administrateurs

@@ -1,13 +1,12 @@
+#ifndef STRUCT_H
+#define STRUCT_H
+
 /**
  * \file structures.h
  * \author Anthony RICHARD
  * \author Léana BESSON
  * \date 14/12/2022
 */
-#ifndef STRUCTURES_H
-#define STRUCTURES_H
-
-#include "menus.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -61,20 +60,6 @@ typedef struct
 }VilleIUT;
 
 typedef int bool;
-
-ListeDept creerListeDept(void);
-
-VilleIUT **chargerIUT(int *nbIUT);
-
-void testMalloc(void *elt, char *procedure);
-
-int testFopen(char *nomFichier);
-
-int rechercheIUT(VilleIUT **tab, int *nbIUT, char *val, bool *trouve);
-
-void afficher1Depart(VilleIUT *v);
-
-void afficherDepart(VilleIUT **tiut, int *nbIUT);
 
 #define ROUGE "\e[1;31m"
 #define VERT "\e[1;32m"
