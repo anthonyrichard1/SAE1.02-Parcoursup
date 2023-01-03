@@ -27,8 +27,6 @@ VilleIUT **ajouterIUT(VilleIUT **tiut, int *nbIUT)
 				strcpy(iut->ville, ville);
 				iut->ldept = creerListeDept();
 				
-				//décalage
-				
 				while (i >= pos)
 				{
 					ntiut[i+1] = ntiut[i];
@@ -36,7 +34,7 @@ VilleIUT **ajouterIUT(VilleIUT **tiut, int *nbIUT)
 				}
 				
 				ntiut[pos] = iut;
-				
+				printf(VERT"IUT ajouté !\n"BLANC);
 				return ntiut;
 			}
 			else
@@ -48,4 +46,38 @@ VilleIUT **ajouterIUT(VilleIUT **tiut, int *nbIUT)
 	
 	printf("Abandon de l'opération...\n");
 	return tiut;
+}
+
+void supprimerIUT(VilleIUT **tiut, int *nbIUT)
+{
+	char choix[30] = "";
+	int pos, trouve, i;	
+
+	while (strcmp(choix, "-1") != 0)
+	{
+		printf("Entrez le nom de l'IUT à supprimer (-1 pour annuler) : ");
+		scanf("%s", choix);
+
+		if (strcmp(choix, "-1") != 0)
+		{
+			pos = rechercheIUT(tiut, nbIUT, choix, &trouve);
+
+			if (trouve)
+			{
+				for (i = pos; i < *nbIUT-2 ; i++)
+				{
+					tiut[pos] = tiut[pos+1];
+				}
+
+				*nbIUT-=1;
+				printf(VERT"IUT supprimé !\n"BLANC);
+			}
+			else fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"BLANC);
+		}
+	}
+}
+
+void supprimerDepart(VilleIUT **tiut, int *nbIUT)
+{
+
 }

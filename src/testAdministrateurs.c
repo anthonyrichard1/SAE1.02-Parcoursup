@@ -4,7 +4,10 @@ int main(void)
 {
 	int nbIUT;
 	VilleIUT **tiut = chargerIUT(&nbIUT);
-	tiut = ajouterIUT(tiut, &nbIUT);
+	//tiut = ajouterIUT(tiut, &nbIUT);
+	//printf("%d\n", nbIUT);
+	//afficherDepart(tiut, &nbIUT);
+	supprimerIUT(tiut, &nbIUT);
 	printf("%d\n", nbIUT);
 	afficherDepart(tiut, &nbIUT);
 	return 0;
