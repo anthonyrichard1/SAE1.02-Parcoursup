@@ -21,7 +21,7 @@ typedef struct MaillonDept MaillonDept;
  * \param departement Chaîne de 30 caractères - Nom du département.
  * \param nbP Entier - Nombre de places en première année.
  * \param nomRes Chaîne de caractères - Nom du responsable du département.
- * \param suivant Pointeur sur un département - Le département suivant.
+ * \param *suivant Pointeur sur un département - Le département suivant.
 */
 struct MaillonDept
 {
@@ -36,8 +36,8 @@ typedef struct ListeDept *ListeDept;
 /**
  * \struct ListeDept structures.h
  * \brief Cette structure représente une liste de départements.
- * \param premier Pointeur sur un département - Le premier département de la liste.
- * \param dernier Pointeur sur un département - Le dernier département de la liste.
+ * \param *premier Pointeur sur un département - Le premier département de la liste.
+ * \param *dernier Pointeur sur un département - Le dernier département de la liste.
  * \param nb Entier - Nombre de départements dans la liste.
 */
 struct ListeDept
