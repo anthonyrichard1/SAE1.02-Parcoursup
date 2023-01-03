@@ -2,31 +2,46 @@
 
 void menuPrincipal(void) {
 	int choix;
-	
+
 	while (1) {
 		printf("\n----------------------------------------\n");
 
 		printf(
-		"\nMenu principal\n\n"
-		"1 - Menu des administrateurs\n"
-		"2 - Menu des utilisateurs\n"
-		"9 - Quitter\n"
+		"\nMenu des utilisateurs\n\n"
+		"1 - Afficher les informations des IUT\n"
+		"2 - \n"
+		"3 - \n"
+		"4 - \n"
+		"7 - Menu des administrateurs\n\n"
+		"9 - Menu principal\n"
 		"Votre choix : ");
 
 		scanf("%d", &choix);
 
-		switch(choix) {
+		switch (choix) {
 			case 1 :
-				menuAdministrateur();
+				afficherDepart(tiut, &nbIUT);
 				break;
 
 			case 2 :
-				menuUtilisateur();
+				
+				break;
+
+			case 3 :
+				
+				break;
+
+			case 4 :
+				
+				break;
+
+			case 7 :
+				menuAdministrateur();
 				break;
 
 			case 9 :
-				
-				exit(0);
+			sauvegarde(tiut, nbIUT);
+				return;
 
 			default :
 				printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
@@ -43,12 +58,14 @@ void menuAdministrateur(void) {
 
 		printf(
 		"\nMenu des administrateurs\n\n"
-		"1 - Modifier le nombre de places\n"
+		"1 - Créer un IUT\n"
 		"2 - Créer un département\n"
-		"3 - Supprimer un département\n"
-		"4 - Lancer la phase de candidature\n"
-		"5 - Arrêter la phase de candidature\n" 
-		"6 - Modifier le nom du responsable de département\n"
+		"3 - Supprimer un IUT\n"
+		"4 - Supprimer un département\n"
+		"5 - Lancer la phase de candidature\n"
+		"6 - Arrêter la phase de candidature\n"
+		"7 - Modifier le nombre de places\n"
+		"8 - Modifier le nom du responsable de département\n"
 		"7 - \n"
 		"9 - Menu principal\n"
 		"Votre choix : ");
@@ -57,7 +74,7 @@ void menuAdministrateur(void) {
 
 		switch (choix) {
 			case 1 :
-				
+				ajouterIUT(tiut, &nbIUT);
 				break;
 
 			case 2 :
@@ -85,6 +102,7 @@ void menuAdministrateur(void) {
 				break;
 
 			case 9 :
+			menuPrincipal();
 				return;
 
 			default :
@@ -94,62 +112,19 @@ void menuAdministrateur(void) {
 	}
 }
 
-void menuUtilisateur(void) {
-	int choix;
+void sauvegarde(VilleIUT ** tiut, int nbIUT) {
+	FILE *fo;
+	int i, j;
 
-	while (1) {
-		printf("\n----------------------------------------\n");
+	fo = fopen("iut.don", "w");
+	testFopen("iut.don");
 
-		printf(
-		"\nMenu des utilisateurs\n\n"
-		"1 - Villes où il y a un IUT\n"
-		"2 - Départements de chaque IUT\n"
-		"3 - Nombre de place en première année\n"
-		"4 - Département en fonction de l'IUT\n"
-		"5 - \n" 
-		"6 - \n"
-		"7 - \n"
-		"9 - Menu principal\n"
-		"Votre choix : ");
-
-		scanf("%d", &choix);
-
-		switch (choix) {
-			case 1 :
-				
-				break;
-
-			case 2 :
-				
-				break;
-
-			case 3 :
-				
-				break;
-
-			case 4 :
-				
-				break;
-
-			case 5:
-				
-				break;
-
-			case 6 :
-				
-				break;
-
-			case 7 :
-				
-				break;
-
-			case 9 :
-				return;
-
-			default :
-				printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
-				break;
+	fprintf(fo, "%d\n", nbIUT);
+	for(i=0; i<0; i++) {
+		fprintf(fo, "%s %d ", tiut[i]->ville, tiut[i]->ldept->nb);
+		for(; tiut[i]->ldept->premier; tiut[i]->ldept->premier = tiut[i]->ldept->suivant) {
+			fprintf(fo, "%s %d %s ", tiut[i]->ldept->premier->departement, tiut[i]->ldept->premier->->nbP, tiut[i]->ldept->premier->nomRes);
 		}
+		fprintf(fo, "\n");
 	}
 }
-

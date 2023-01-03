@@ -1,13 +1,9 @@
 #include "structures.h" 
-#include "candidats.h"
+#include "erreur.h"
 
 ListeDept creerListeDept(void);
 
 VilleIUT **chargerIUT(int *nbIUT);
-
-void testMalloc(void *elt, char *procedure);
-
-int testFopen(char *nomFichier);
 
 int rechercheIUT(VilleIUT **tab, int *nbIUT, char *val, bool *trouve);
 
