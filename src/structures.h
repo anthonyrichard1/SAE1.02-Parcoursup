@@ -59,7 +59,7 @@ typedef struct
 {
     char ville[30];
     ListeDept ldept;
-}VilleIUT;
+} VilleIUT;
 
 typedef int Bool;
 
