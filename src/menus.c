@@ -2,6 +2,10 @@
 
 void menuPrincipal(void) {
 	int choix;
+	VilleIUT** tiut;
+	int nbIUT;
+
+	tiut = chargerIUT(&nbIUT);
 
 	while (1) {
 		printf("\n----------------------------------------\n");
@@ -36,11 +40,11 @@ void menuPrincipal(void) {
 				break;
 
 			case 7 :
-				menuAdministrateur();
+				menuAdministrateur(tiut, nbIUT);
 				break;
 
 			case 9 :
-			sauvegarde(tiut, nbIUT);
+				sauvegarde(tiut, nbIUT);
 				return;
 
 			default :
@@ -50,9 +54,9 @@ void menuPrincipal(void) {
 	}
 }
 
-void menuAdministrateur(void) {
+void menuAdministrateur(VilleIUT** tiut, int nbIUT) {
 	int choix;
-
+	
 	while (1) {
 		printf("\n----------------------------------------\n");
 
@@ -114,17 +118,18 @@ void menuAdministrateur(void) {
 
 void sauvegarde(VilleIUT ** tiut, int nbIUT) {
 	FILE *fo;
-	int i, j;
+	int i;
 
 	fo = fopen("iut.don", "w");
-	testFopen("iut.don");
 
 	fprintf(fo, "%d\n", nbIUT);
-	for(i=0; i<0; i++) {
+	for(i=0; i < nbIUT; i++) {
 		fprintf(fo, "%s %d ", tiut[i]->ville, tiut[i]->ldept->nb);
-		for(; tiut[i]->ldept->premier; tiut[i]->ldept->premier = tiut[i]->ldept->suivant) {
-			fprintf(fo, "%s %d %s ", tiut[i]->ldept->premier->departement, tiut[i]->ldept->premier->->nbP, tiut[i]->ldept->premier->nomRes);
+		for(; tiut[i]->ldept->premier; tiut[i]->ldept->premier = tiut[i]->ldept->premier->suivant) {
+			fprintf(fo, "%s %d %s ", tiut[i]->ldept->premier->departement, tiut[i]->ldept->premier->nbP, tiut[i]->ldept->premier->nomRes);
 		}
 		fprintf(fo, "\n");
 	}
+
+	fclose(fo);
 }

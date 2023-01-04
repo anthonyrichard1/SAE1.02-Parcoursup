@@ -12,18 +12,22 @@
 #include "informations.h"
  
  /**
- * \brief Cette fonction affiche le menu principal, un menu permettant de choisir entre les deux sous menus administrateur et utilisateur. Elle ne possède aucun paramètre car l'option choisie est récupéré par une saisie au clavier.
+ * \brief Cette fonction affiche le menu principal, un menu permettant de sélectionner l'opération que l'on souhaite effectuer ou d'aller dans le menus administrateur. Elle ne possède aucun paramètre car l'option choisie est récupéré par une saisie au clavier.
  */
 void menuPrincipal(void);
 
 /**
  * \brief Cette fonction affiche le menu des administrateurs, et permet de sélectionner l'opération que l'on souhaite effectuer. Le choix de l'utilisateur est récupéré par une saisie au clavier.
  */
-void menuAdministrateur(void);
- 
- /**
+void menuAdministrateur(VilleIUT** tiut, int nbIUT);
+
+/**
  * \brief Cette fonction affiche le menu des utilisateurs, et permet de sélectionner l'opération que l'on souhaite effectuer. Le choix de l'utilisateur est récupéré par une saisie au clavier.
  */
-void menuUtilisateur(void);
+void sauvegarde(VilleIUT ** tiut, int nbIUT);
+
+
+
+
 
 #endif
