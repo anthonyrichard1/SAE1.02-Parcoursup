@@ -65,7 +65,7 @@ VilleIUT **chargerIUT(int *nbIUT)
     return tab;
 }
 
-int rechercheIUT(VilleIUT **tab, int *nbIUT, char *val, bool *trouve)
+int rechercheIUT(VilleIUT **tab, int *nbIUT, char *val, Bool *trouve)
 {
     int debut = 0, milieu, fin = *nbIUT-1, cmp;
 

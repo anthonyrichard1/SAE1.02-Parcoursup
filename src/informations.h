@@ -25,10 +25,10 @@ VilleIUT **chargerIUT(int *nbIUT);
  * \param **tab Tableau de pointeurs sur des VilleIUT - le tableau dans lequel il faut rechercher une ville.
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau **tab (taille logique du tableau).
  * \param *val Chaîne de caractères - la ville à chercher dans le tableau.
- * \param *trouve Pointeur sur un entier - cet entier est égal à 1 si l'IUT à chercher est dans le tableau et 0 dans le cas contraire.
+ * \param *trouve Pointeur sur un entier (type bool) - cet entier est égal à 1 si l'IUT à chercher est dans le tableau et 0 dans le cas contraire.
  * \return Entier - la position de l'IUT s'il est dans le tableau, sa position d'insertion dans le cas contraire.
  */
-int rechercheIUT(VilleIUT **tab, int *nbIUT, char *val, bool *trouve);
+int rechercheIUT(VilleIUT **tab, int *nbIUT, char *val, Bool *trouve);
 
 /**
  * \brief Cette fonction permet d'afficher les informations de l'IUT passé en argument, à savoir la liste de ses départements avec à chaque le nom du département, le nombre de places en première année et le nom du responsable.

@@ -13,6 +13,10 @@
 #include <string.h>
 #include <errno.h>
 
+#define ROUGE "\e[1;31m"
+#define VERT "\e[1;32m"
+#define BLANC "\e[0m"
+
 typedef struct MaillonDept MaillonDept;
 
 /**
@@ -31,8 +35,6 @@ struct MaillonDept
     MaillonDept *suivant;
 };
 
-typedef struct ListeDept *ListeDept;
-
 /**
  * \struct ListeDept structures.h
  * \brief Cette structure représente une liste de départements.
@@ -40,12 +42,12 @@ typedef struct ListeDept *ListeDept;
  * \param *dernier Pointeur sur un département - Le dernier département de la liste.
  * \param nb Entier - Nombre de départements dans la liste.
 */
-struct ListeDept
+typedef struct ListeDept
 {
     MaillonDept *premier;
     MaillonDept *dernier;
     int nb;
-};
+}*ListeDept;
 
 /**
  * \struct VilleIUT structures.h
@@ -59,10 +61,19 @@ typedef struct
     ListeDept ldept;
 }VilleIUT;
 
-typedef int bool;
+typedef int Bool;
 
-#define ROUGE "\e[1;31m"
-#define VERT "\e[1;32m"
-#define BLANC "\e[0m"
+typedef struct Voeux Voeux;
+
+typedef int Decision;
+
+struct Voeux
+{
+    Voeux *suivant;
+    char ville[30];
+    char departement[30];
+    Decision decDepartement;
+    Decision decCandidat;
+};
 
 #endif
