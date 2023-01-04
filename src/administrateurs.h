@@ -31,3 +31,7 @@ void supprimerIUT(VilleIUT **tiut, int *nbIUT);
 void supprimerDepart(VilleIUT **tiut, int *nbIUT);
 
 void ModifPlaces(VilleIUT** tiut, int *nbIUT);
+
+void afficherPhase(Phase *phase);
+
+void StopperCandidature(Phase *phase);
