@@ -2,6 +2,11 @@
 
 int main (void)
 {
-	menuPrincipal();
+	VilleIUT** tiut;
+	int nbIUT;
+
+	tiut = chargerIUT(&nbIUT);
+
+	menuPrincipal(tiut, &nbIUT);
 	return 0;
 }

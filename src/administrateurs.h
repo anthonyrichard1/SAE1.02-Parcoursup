@@ -29,3 +29,5 @@ void supprimerIUT(VilleIUT **tiut, int *nbIUT);
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
  */
 void supprimerDepart(VilleIUT **tiut, int *nbIUT);
+
+void ModifPlaces(VilleIUT** tiut, int *nbIUT);

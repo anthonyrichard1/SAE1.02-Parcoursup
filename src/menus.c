@@ -1,17 +1,13 @@
 #include "menus.h"
 
-void menuPrincipal(void) {
+void menuPrincipal(VilleIUT** tiut, int *nbIUT) {
 	int choix;
-	VilleIUT** tiut;
-	int nbIUT;
-
-	tiut = chargerIUT(&nbIUT);
 
 	while (1) {
 		printf("\n----------------------------------------\n");
 
 		printf(
-		"\nMenu des utilisateurs\n\n"
+		"\nMenu principal\n\n"
 		"1 - Afficher les informations des IUT\n"
 		"2 - Afficher les villes où il y a un département\n"
 		"3 - \n"
@@ -24,11 +20,11 @@ void menuPrincipal(void) {
 
 		switch (choix) {
 			case 1 :
-				afficherDepart(tiut, &nbIUT);
+				afficherDepart(tiut, nbIUT);
 				break;
 
 			case 2 :
-				afficherDepartPrecis(tiut, &nbIUT);
+				afficherDepartPrecis(tiut, nbIUT);
 				break;
 
 			case 3 :
@@ -45,7 +41,7 @@ void menuPrincipal(void) {
 
 			case 9 :
 				sauvegarde(tiut, nbIUT);
-				return;
+				exit(0);
 
 			default :
 				printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
@@ -54,7 +50,7 @@ void menuPrincipal(void) {
 	}
 }
 
-void menuAdministrateur(VilleIUT** tiut, int nbIUT) {
+void menuAdministrateur(VilleIUT** tiut, int *nbIUT) {
 	int choix;
 	
 	while (1) {
@@ -78,7 +74,7 @@ void menuAdministrateur(VilleIUT** tiut, int nbIUT) {
 
 		switch (choix) {
 			case 1 :
-				ajouterIUT(tiut, &nbIUT);
+				ajouterIUT(tiut, nbIUT);
 				break;
 
 			case 2 :
@@ -102,11 +98,11 @@ void menuAdministrateur(VilleIUT** tiut, int nbIUT) {
 				break;
 
 			case 7 :
-				
+				ModifPlaces(tiut, nbIUT);
 				break;
 
 			case 9 :
-			menuPrincipal();
+				menuPrincipal(tiut, nbIUT);
 				return;
 
 			default :
@@ -116,20 +112,20 @@ void menuAdministrateur(VilleIUT** tiut, int nbIUT) {
 	}
 }
 
-void sauvegarde(VilleIUT ** tiut, int nbIUT) {
+void sauvegarde(VilleIUT ** tiut, int *nbIUT) {
 	FILE *fo;
 	int i;
 
 	fo = fopen("iut.don", "w");
 
-	fprintf(fo, "%d\n", nbIUT);
-	for(i=0; i < nbIUT; i++) {
+	fprintf(fo, "%d\n", *nbIUT);
+	for(i=0; i < *nbIUT; i++) {
 		fprintf(fo, "%s %d ", tiut[i]->ville, tiut[i]->ldept->nb);
 		for(; tiut[i]->ldept->premier; tiut[i]->ldept->premier = tiut[i]->ldept->premier->suivant) {
 			fprintf(fo, "%s %d %s ", tiut[i]->ldept->premier->departement, tiut[i]->ldept->premier->nbP, tiut[i]->ldept->premier->nomRes);
 		}
 		fprintf(fo, "\n");
 	}
-
 	fclose(fo);
+	return;
 }
