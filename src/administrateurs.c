@@ -51,7 +51,8 @@ VilleIUT **ajouterIUT(VilleIUT **tiut, int *nbIUT)
 void supprimerIUT(VilleIUT **tiut, int *nbIUT)
 {
 	char choix[30] = "";
-	int pos, trouve, i;	
+	int pos, i;
+	Bool trouve;
 
 	while (strcmp(choix, "-1") != 0)
 	{
