@@ -82,3 +82,35 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT)
 {
 	// a faire quand on aura la recherche depart
 }
+
+void ModifPlaces(VilleIUT** tuit, int *nbIUT) {
+	char ville[30] = "", dept[30] = "";
+	Bool *trouve;
+	int pos, newNbPlaces;
+
+	while (strcmp(ville, "-1") != 0 || strcmp(dept, "-1") != 0) {
+		printf("\nEntrez le nom de la ville où ce trouve le département (-1 pour annuler) : ");
+		scanf("%s%*c", ville);
+		
+		if (strcmp(ville, "-1") != 0) {
+			pos = rechercheIUT(tiut, &nbIUT, ville, &trouve);
+
+			if(trouve == 1) {
+				printf("\nEntrez le nom du département pour lequel vous souhaitez modifier le nombre de place (-1 pour annuler) : ");
+				scanf("%s%*c", dept);
+
+				if (strcmp(dept, "-1") != 0) {
+					for(tmp=tiut[pos]->ldept->premier; tmp; tmp = tmp->suivant) {									
+						if(strcmp(tmp->departement, dept) == 0) {
+							printf("Nouveau nombre de place pour le département %s de %s : ", dept, ville);
+							scanf("%d", tmp->nbP);
+						}		
+					}
+				}
+			}
+			else {
+				printf("L'IUT que vous cherchez n'a pas été trouvé.");
+			}
+		}
+	}
+}
