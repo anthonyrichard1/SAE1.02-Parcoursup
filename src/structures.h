@@ -6,6 +6,7 @@
  * \author Anthony RICHARD
  * \author Léana BESSON
  * \date 14/12/2022
+ * \brief Dans ce fichier sont repertoriées les structures utilisées par l'application.
 */
 
 #include <stdio.h>
@@ -59,7 +60,7 @@ typedef struct
 {
     char ville[30];
     ListeDept ldept;
-} VilleIUT;
+}VilleIUT;
 
 /**
  * \typedef int Bool
@@ -103,7 +104,30 @@ typedef struct ListeVoeux
 {
     Voeux *premier;
     Voeux *dernier;
-    int nb;
-}*ListeVieux;
+}*ListeVoeux;
+
+typedef struct Candidat Candidat;
+
+/**
+ * \struct Candidat structures.h
+ * \brief Cette structure représente un candidat.
+ * \param *suivant Pointeur sur un Candidat - le candidat suivant.
+ * \param num Entier - le numéro du candidat.
+ * \param nom Chaîne de 30 caractères - le nom du candidat.
+ * \param prenom Chaîne de 30 caractères - le prénom du candidat.
+ * \param notes Tableau de 4 flottants - tableau contenant les notes du candidat dans l'ordre suivant : maths, français, anglais, spécialité.
+ * \param nbChoix Entier - le nombre de voeux du candidat (taille de la liste de voeux).
+ * \param choix ListeVoeux - la liste des voeux du candidat.
+*/
+struct Candidat
+{
+    Candidat *suivant;
+    unsigned num;
+    char nom[30];
+    char prenom[30];
+    float notes[4];
+    int nbChoix;
+    ListeVoeux choix;
+};
 
 #endif
