@@ -13,7 +13,7 @@ void menuPrincipal(void) {
 		printf(
 		"\nMenu des utilisateurs\n\n"
 		"1 - Afficher les informations des IUT\n"
-		"2 - \n"
+		"2 - Afficher les villes où il y a un département\n"
 		"3 - \n"
 		"4 - \n"
 		"7 - Menu des administrateurs\n\n"
@@ -28,7 +28,7 @@ void menuPrincipal(void) {
 				break;
 
 			case 2 :
-				
+				afficherDepartPrecis(tiut, &nbIUT);
 				break;
 
 			case 3 :

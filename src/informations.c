@@ -117,7 +117,7 @@ void afficherDepart(VilleIUT ** tiut, int *nbIUT)
 		
 		while (strcmp(choix, "-1") != 0)
 		{
-			printf("Quel IUT souhaitez-vous voir en détail (nom de ville/tous/-1 pour annuler) ? ");
+			printf("\nQuel IUT souhaitez-vous voir en détail (nom de ville/tous/-1 pour annuler) ? ");
 			scanf("%s", choix);
 			
 			if (strcmp(choix, "tous") == 0)
@@ -144,4 +144,27 @@ void afficherDepart(VilleIUT ** tiut, int *nbIUT)
 		}
 		
 		printf("Abandon de l'opération...\n");
+}
+
+void afficherDepartPrecis(VilleIUT ** tiut, int *nbIUT) {
+	char choix[30] = "";
+	int i;
+	MaillonDept *tmp;
+
+	while (strcmp(choix, "-1") != 0) {
+		printf("\nQuel département souhaitez-vous trouver (nom du département/-1 pour annuler) ? ");
+		scanf("%s%*c", choix);
+
+		printf("\nListe des ville où l'IUT à un département %s\n", choix);
+
+		for(i=0; i < *nbIUT; i++) {
+			for(tmp=tiut[i]->ldept->premier; tmp; tmp = tmp->suivant) {
+				if(strcmp(tmp->departement, choix) == 0) {
+					printf("\t%s\n", tiut[i]->ville);
+				}
+			}
+		}
+	}
+
+	printf("Abandon de l'opération...\n");
 }
