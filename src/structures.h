@@ -51,7 +51,7 @@ typedef struct ListeDept
 
 /**
  * \struct VilleIUT structures.h
- * \brief Cette structure représente une ville où il y a au moins 1 IUT.
+ * \brief Cette structure représente une ville où il y a un IUT.
  * \param ville Chaîne de 30 caractères - Le nom de la ville.
  * \param ldept Liste de départements - La liste des départements présents dans la ville.
 */
@@ -61,12 +61,29 @@ typedef struct
     ListeDept ldept;
 } VilleIUT;
 
+/**
+ * \typedef int Bool
+ * \brief Ce type représente un booléen ou 1 = vrai et 0 = faux.
+*/
 typedef int Bool;
+
+/**
+ * \typedef int Decision
+ * \brief Ce type représente une décision sur un voeux, par un candidat ou un membre de département où 0 = dossier non traité, 1 = admis, -1 = refusé et 2 = sur liste d'attente.
+*/
+typedef int Decision;
 
 typedef struct Voeux Voeux;
 
-typedef int Decision;
-
+/**
+ * \struct Voeux structures.h
+ * \brief Cette structure représente un voeux d'un candidat.
+ * \param *suivant Voeux - le voeux suivant.
+ * \param ville Chaîne de 30 caractères - la ville concernée.
+ * \param departement Chaîne de 30 caractères - le département concerné.
+ * \param decDepartement Decision - la décision du département sur ce voeux.
+ * \param decCandidat Decision - la décision du candidat sur ce voeux.
+*/
 struct Voeux
 {
     Voeux *suivant;
@@ -75,5 +92,18 @@ struct Voeux
     Decision decDepartement;
     Decision decCandidat;
 };
+
+/**
+ * \struct ListeVoeux structures.h
+ * \brief Cette structure représente une liste de voeux.
+ * \param *premier Voeux - le premier voeux de la liste.
+ * \param *dernier Voeux - le dernier voeux de la liste.
+*/
+typedef struct ListeVoeux
+{
+    Voeux *premier;
+    Voeux *dernier;
+    int nb;
+}*ListeVieux;
 
 #endif
