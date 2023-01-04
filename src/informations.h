@@ -43,4 +43,9 @@ void afficher1Depart(VilleIUT *v);
 */
 void afficherDepart(VilleIUT **tiut, int *nbIUT);
 
+/**
+ * \brief 
+ * \param **tiut Tableau de pointeurs sur des VilleIUT - le tableau contenant les IUT que l'on peut afficher.
+ * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de **tiut).
+*/
 void afficherDepartPrecis(VilleIUT ** tiut, int *nbIUT);
