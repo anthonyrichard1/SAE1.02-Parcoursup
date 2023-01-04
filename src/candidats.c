@@ -1,5 +1,15 @@
 #include "candidats.h"
 
+ListeVoeux creerListeVoeux(void)
+{
+	ListeVoeux v= (ListeVoeux)malloc(sizeof(struct Voeu));
+	testMalloc(v, "création d'une liste de voeux");
+
+	v->premier = v->dernier = NULL;
+	
+	return v;
+}
+
 void afficherPhase(Phase *phase)
 {
 	if (!*phase)
@@ -47,4 +57,9 @@ void triAlpha(Candidat **tCand, int nbCand)
 
 	return;
   }
+}
+
+void ajouterVoeu(Candidat **tCand, int *nbCand, Phase phase)
+{
+
 }

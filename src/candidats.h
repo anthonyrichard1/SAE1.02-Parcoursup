@@ -11,3 +11,7 @@
 void afficherPhase(Phase *phase);
 
 void triAlpha(Candidat **tCand, int nbCand);
+
+ListeVoeux creerListeVoeux(void);
+
+void ajouterVoeu(Candidat **tCand, int *nbCand, Phase phase);
