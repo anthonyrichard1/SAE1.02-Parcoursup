@@ -113,7 +113,8 @@ void afficher1Depart(VilleIUT *v)
 void afficherDepart(VilleIUT ** tiut, int *nbIUT)
 {
 		char choix[30] = "";
-		int i, pos, trouve;
+		int i, pos;
+		Bool trouve;
 		
 		while (strcmp(choix, "-1") != 0)
 		{
