@@ -80,7 +80,65 @@ void supprimerIUT(VilleIUT **tiut, int *nbIUT)
 
 void supprimerDepart(VilleIUT **tiut, int *nbIUT)
 {
-	// a faire quand on aura la recherche depart
+	char choix[30] = "0";
+	int pos;
+	Bool trouve;
+	MaillonDept *m, *dernier;
+
+	while (strcmp(choix, "-1") != 0)
+	{
+		printf("Entrez le nom de l'IUT (-1 pour annuler) : ");
+		scanf("%s", choix);
+
+		if (strcmp(choix, "-1") != 0)
+		{
+			pos = rechercheIUT(tiut, nbIUT, choix, &trouve);
+
+			if (trouve)
+			{
+				afficher1Depart(tiut[pos]);
+
+				printf("\nEntrez le nom du département à supprimer (-1 pour annuler) : ");
+				scanf("%s", choix);
+
+				if (strcmp(choix, "-1") != 0)
+				{
+					for (m = tiut[pos]->ldept->premier ; m ; m = m->suivant)
+					{
+						if (m->suivant != NULL && m->suivant->suivant == NULL)
+						{
+							dernier = m;
+						}
+
+						if (strcmp(m->departement, choix) == 0)
+						{
+							if (m == tiut[pos]->ldept->premier)
+							{
+								tiut[pos]->ldept->premier = m->suivant;
+							}
+							else if (m == tiut[pos]->ldept->dernier)
+							{
+								tiut[pos]->ldept->dernier = dernier;
+							}
+
+							free(m);
+							tiut[pos]->ldept->nb -= 1;
+							printf(VERT"Département supprimé !\n"BLANC);
+						}
+						else if (m->suivant == NULL)
+						{
+							fprintf(stderr, ROUGE"Erreur : le département est introuvable !\n"BLANC);
+						}
+					}
+				}
+			}
+			else
+			{
+				fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"BLANC);
+			}
+			
+		}
+	}
 }
 
 void ModifPlaces(VilleIUT** tiut, int *nbIUT) {
