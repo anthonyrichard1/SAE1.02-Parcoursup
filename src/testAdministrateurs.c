@@ -9,7 +9,8 @@ int main(void)
 	//afficherDepart(tiut, &nbIUT);
 	//supprimerIUT(tiut, &nbIUT);
 	//printf("%d\n", nbIUT);
-	supprimerDepart(tiut, &nbIUT);
+	//supprimerDepart(tiut, &nbIUT);
 	afficherDepart(tiut, &nbIUT);
+	
 	return 0;
 }

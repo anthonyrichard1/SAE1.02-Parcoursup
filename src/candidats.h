@@ -9,3 +9,5 @@
 #include "responsable.h"
 
 void afficherPhase(Phase *phase);
+
+void triAlpha(Candidat **tCand, int nbCand);

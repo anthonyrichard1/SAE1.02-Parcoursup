@@ -17,6 +17,7 @@
 #define ROUGE "\e[1;31m"
 #define VERT "\e[1;32m"
 #define BLANC "\e[0m"
+#define MAX_CANDIDATS 1000
 
 typedef struct MaillonDept MaillonDept;
 
@@ -129,5 +130,7 @@ struct Candidat
     int nbChoix;
     ListeVoeux choix;
 };
+
+typedef int Phase;
 
 #endif
