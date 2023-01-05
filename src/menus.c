@@ -2,6 +2,7 @@
 
 void menuPrincipal(VilleIUT** tiut, int *nbIUT) {
 	int choix;
+	char motDePasse[12];
 
 	while (1) {
 		printf("\n----------------------------------------\n");
@@ -36,7 +37,16 @@ void menuPrincipal(VilleIUT** tiut, int *nbIUT) {
 				break;
 
 			case 7 :
-				menuAdministrateur(tiut, nbIUT);
+				printf("\n----------------------------------------\n");
+
+				printf("\nEntrez le mot de passe : ");
+				scanf("%s%*c", motDePasse);
+				if(strcmp(motDePasse, "motdepasse102") != 0) {
+					fprintf(stderr, ROUGE"Mot de passe incorrect..."BLANC);
+				}
+				else {
+					menuAdministrateur(tiut, nbIUT);
+				}
 				break;
 
 			case 9 :
@@ -55,7 +65,7 @@ void menuAdministrateur(VilleIUT** tiut, int *nbIUT) {
 	
 	while (1) {
 		printf("\n----------------------------------------\n");
-
+		
 		printf(
 		"\nMenu des administrateurs\n\n"
 		"1 - Créer un IUT\n"
@@ -66,8 +76,8 @@ void menuAdministrateur(VilleIUT** tiut, int *nbIUT) {
 		"6 - Arrêter la phase de candidature\n"
 		"7 - Modifier le nombre de places\n"
 		"8 - Modifier le nom du responsable de département\n"
-		"7 - \n"
-		"9 - Menu principal\n"
+		"10 - \n"
+		"19 - Menu principal\n"
 		"Votre choix : ");
 
 		scanf("%d", &choix);
@@ -78,7 +88,7 @@ void menuAdministrateur(VilleIUT** tiut, int *nbIUT) {
 				break;
 
 			case 2 :
-				
+				AjouterDepart(tiut, nbIUT);
 				break;
 
 			case 3 :
@@ -101,7 +111,11 @@ void menuAdministrateur(VilleIUT** tiut, int *nbIUT) {
 				ModifPlaces(tiut, nbIUT);
 				break;
 
-			case 9 :
+			case 8 :
+				ModifPlaces(tiut, nbIUT);
+				break;
+
+			case 19 :
 				menuPrincipal(tiut, nbIUT);
 				return;
 

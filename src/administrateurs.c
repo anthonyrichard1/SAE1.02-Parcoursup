@@ -121,3 +121,68 @@ void ModifPlaces(VilleIUT** tiut, int *nbIUT) {
 		}
 	}
 }
+
+MaillonDept* nouveauMaillonDept(char* newDept) {
+	MaillonDept* maillon;
+	
+	maillon = (MaillonDept*) malloc(sizeof(MaillonDept));
+
+	strcpy(maillon->departement, newDept);
+
+	printf("Entrez le nombre de place du nouveau département : ");
+	scanf("%d", &maillon->nbP);
+
+	printf("Entrez le nom du responsable du nouveau département (nom-prénom) : ");
+	scanf("%s", maillon->nomRes);
+
+	maillon->suivant = NULL;
+
+	return maillon;
+}
+
+void AjouterDepart(VilleIUT** tiut, int *nbIUT) {
+	char ville[30] = "", newDept[30] = "";
+	Bool trouve, existant = 0;
+	int pos;
+	MaillonDept *tmp;
+
+	while (strcmp(ville, "-1") != 0 && strcmp(newDept, "-1") != 0) {
+		printf("\nEntrez le nom de la ville où ce trouve le département (-1 pour annuler) : ");
+		scanf("%s%*c", ville);
+		
+		if (strcmp(ville, "-1") != 0) {
+			pos = rechercheIUT(tiut, nbIUT, ville, &trouve);
+
+			if(trouve == 1) {
+				printf("Entrez le nom du nouveau département (-1 pour annuler) : ");
+				scanf("%s%*c", newDept);
+
+				for(tmp=tiut[pos]->ldept->premier; tmp; tmp = tmp->suivant) {		
+					existant = 0;							
+					if(strcmp(tmp->departement, newDept) == 0) {
+						printf(ROUGE"Dans le département %s existe déjà.\n"BLANC, newDept);
+						existant = 1;
+					}
+				}
+
+				if(existant == 0) {
+					if(tiut[pos]->ldept->premier == NULL) {
+						tiut[pos]->ldept->premier = nouveauMaillonDept(newDept);
+						tiut[pos]->ldept->dernier = tiut[pos]->ldept->premier;
+						tiut[pos]->ldept->nb += 1;
+					}
+					else {
+						tiut[pos]->ldept->dernier->suivant = nouveauMaillonDept(newDept);
+						tiut[pos]->ldept->dernier = tiut[pos]->ldept->dernier->suivant;
+						tiut[pos]->ldept->nb += 1;
+					}
+
+					printf(VERT"Ajout du département effectué.\n"BLANC);
+				}
+			}
+			else {
+				printf(ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"BLANC);
+			}
+		}
+	}
+}
