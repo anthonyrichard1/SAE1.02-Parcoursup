@@ -17,20 +17,6 @@
 VilleIUT **ajouterIUT(VilleIUT **tiut, int *nbIUT);
 
 /**
- * \brief 
- * \param 
- * \return 
- */
-MaillonDept* nouveauMaillonDept(char* newDept);
-
-/**
- * \brief Cette fonction d'ajouter un département dans un tableau de pointeurs sur des VilleIUT.
- * \param **tiut Tableau de pointeurs sur des VilleIUT - le tableau dans lequel il faut supprimer la ville.
- * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
- */
-void AjouterDepart(VilleIUT** tiut, int *nbIUT);
-
-/**
  * \brief Cette fonction permet de supprimer un IUT dans un tableau de pointeurs sur des VilleIUT.
  * \param **tiut Tableau de pointeurs sur des VilleIUT - le tableau dans lequel il faut supprimer la ville.
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
@@ -44,22 +30,10 @@ void supprimerIUT(VilleIUT **tiut, int *nbIUT);
  */
 void supprimerDepart(VilleIUT **tiut, int *nbIUT);
 
-/**
- * \brief 
- * \param 
- */
-void StopperCandidature(Phase *phase);
-
-/**
- * \brief 
- * \param **tiut Tableau de pointeurs sur des VilleIUT - le tableau dans lequel il faut supprimer la ville.
- * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
- */
 void ModifPlaces(VilleIUT** tiut, int *nbIUT);
 
-/**
- * \brief 
- * \param **tiut Tableau de pointeurs sur des VilleIUT - le tableau dans lequel il faut supprimer la ville.
- * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
- */
-void ModifierRes(VilleIUT** tiut, int *nbIUT);
+<<<<<<< HEAD
+void AjouterDepart(VilleIUT** tiut, int *nbIUT);
+=======
+void StopperCandidature(Phase *phase);
+>>>>>>> 90f9c5593a11c4ce62eb69f5a189692b714fd39a

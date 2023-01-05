@@ -1,6 +1,7 @@
 #include "menus.h"
 
-void menuPrincipal(VilleIUT** tiut, int *nbIUT) {
+void menuPrincipal(VilleIUT** tiut, int *nbIUT) 
+{
 	int choix;
 	char motDePasse[12];
 
@@ -60,7 +61,8 @@ void menuPrincipal(VilleIUT** tiut, int *nbIUT) {
 	}
 }
 
-void menuAdministrateur(VilleIUT** tiut, int *nbIUT) {
+void menuAdministrateur(VilleIUT** tiut, int *nbIUT) 
+{
 	int choix;
 	
 	while (1) {
@@ -112,7 +114,7 @@ void menuAdministrateur(VilleIUT** tiut, int *nbIUT) {
 				break;
 
 			case 8 :
-				ModifPlaces(tiut, nbIUT);
+				ModifierRes(tiut, nbIUT);
 				break;
 
 			case 19 :
@@ -126,7 +128,8 @@ void menuAdministrateur(VilleIUT** tiut, int *nbIUT) {
 	}
 }
 
-void sauvegarde(VilleIUT ** tiut, int *nbIUT) {
+void sauvegarde(VilleIUT ** tiut, int *nbIUT) 
+{
 	FILE *fo;
 	int i;
 

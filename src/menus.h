@@ -3,7 +3,8 @@
 
 /**
  * \file menus.h
- * \author Anthony RICHARD Léana BESSON
+ * \author Anthony RICHARD 
+ * \author Léana BESSON
  * \date 14/12/2022
  * \brief Dans ce fichier sont répertoriées toutes les fonctions qui gère les menus de l'application.
  */
