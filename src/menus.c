@@ -86,7 +86,7 @@ void menuAdministrateur(VilleIUT** tiut, int *nbIUT)
 
 		switch (choix) {
 			case 1 :
-				ajouterIUT(tiut, nbIUT);
+				tiut = ajouterIUT(tiut, nbIUT);
 				break;
 
 			case 2 :
