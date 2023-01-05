@@ -33,3 +33,7 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT);
 void ModifPlaces(VilleIUT** tiut, int *nbIUT);
 
 void AjouterDepart(VilleIUT** tiut, int *nbIUT);
+
+MaillonDept* nouveauMaillonDept(char* newDept)
+
+void StopperCandidature(Phase *phase);

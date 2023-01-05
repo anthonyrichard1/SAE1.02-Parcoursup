@@ -17,6 +17,7 @@
 #define ROUGE "\e[1;31m"
 #define VERT "\e[1;32m"
 #define BLANC "\e[0m"
+#define MAX_CANDIDATS 1000
 
 typedef struct MaillonDept MaillonDept;
 
@@ -70,24 +71,24 @@ typedef int Bool;
 
 /**
  * \typedef int Decision
- * \brief Ce type représente une décision sur un voeux, par un candidat ou un membre de département où 0 = dossier non traité, 1 = admis, -1 = refusé et 2 = sur liste d'attente.
+ * \brief Ce type représente une décision sur un voeu, par un candidat ou un membre de département où 0 = dossier non traité, 1 = admis, -1 = refusé et 2 = sur liste d'attente.
 */
 typedef int Decision;
 
-typedef struct Voeux Voeux;
+typedef struct Voeu Voeu;
 
 /**
- * \struct Voeux structures.h
- * \brief Cette structure représente un voeux d'un candidat.
- * \param *suivant Voeux - le voeux suivant.
+ * \struct Voeu structures.h
+ * \brief Cette structure représente un voeu d'un candidat.
+ * \param *suivant Voeu - le voeu suivant.
  * \param ville Chaîne de 30 caractères - la ville concernée.
  * \param departement Chaîne de 30 caractères - le département concerné.
- * \param decDepartement Decision - la décision du département sur ce voeux.
- * \param decCandidat Decision - la décision du candidat sur ce voeux.
+ * \param decDepartement Decision - la décision du département sur ce voeu.
+ * \param decCandidat Decision - la décision du candidat sur ce voeu.
 */
-struct Voeux
+struct Voeu
 {
-    Voeux *suivant;
+    Voeu *suivant;
     char ville[30];
     char departement[30];
     Decision decDepartement;
@@ -97,13 +98,13 @@ struct Voeux
 /**
  * \struct ListeVoeux structures.h
  * \brief Cette structure représente une liste de voeux.
- * \param *premier Voeux - le premier voeux de la liste.
- * \param *dernier Voeux - le dernier voeux de la liste.
+ * \param *premier Voeu - le premier voeu de la liste.
+ * \param *dernier Voeu - le dernier voeu de la liste.
 */
 typedef struct ListeVoeux
 {
-    Voeux *premier;
-    Voeux *dernier;
+    Voeu *premier;
+    Voeu *dernier;
 }*ListeVoeux;
 
 typedef struct Candidat Candidat;
@@ -129,5 +130,7 @@ struct Candidat
     int nbChoix;
     ListeVoeux choix;
 };
+
+typedef int Phase;
 
 #endif
