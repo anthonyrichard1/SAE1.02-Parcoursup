@@ -14,8 +14,8 @@ Phase afficherPhase(Phase *phase)
 {
 	if (!*phase) printf("La phase de candidature n'est pas encore lancée...\n");
 
-	else if (*phase) printf("La phase de candidature est en cours !\n");
-	
+	else if (*phase == 1) printf("La phase de candidature est en cours !\n");
+
 	else printf("La phase de candidature est terminée...\n");
 
 	return *phase;
