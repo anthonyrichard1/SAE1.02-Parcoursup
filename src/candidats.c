@@ -83,11 +83,11 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 
 		if (num > 0)
 		{
-			if (num <= *nbCand)
+			if (num-1 <= *nbCand)
 			{
-				printf("Bonjour %s %s\n", tCand[num]->prenom, tCand[num]->nom); 
+				printf("Bonjour %s %s\n", tCand[num-1]->prenom, tCand[num-1]->nom); 
 
-				if (tCand[num]->choix->premier == NULL) printf("Vous n'avez pas encore de voeux\n");
+				if (tCand[num-1]->choix->premier == NULL) printf("Vous n'avez pas encore de voeux\n");
 				else
 				{
 					printf("Voici vos voeux :\n"); 
@@ -106,7 +106,6 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 
 						if (trouve)
 						{
-							printf("Voici les départements de l'IUT %s", tiut[posIut]->ville);
 							afficher1Depart(tiut[posIut]);
 
 							while (strcmp(depart, "-1") != 0)
@@ -121,19 +120,23 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 								}		
 								else
 								{
+									int trouve = 0;
 									for(mDept = tiut[posIut]->ldept->premier; mDept != NULL ; mDept = mDept->suivant)
 									{
 										if (strcmp(mDept->departement, depart) == 0)
 										{
-											if (tCand[num]->nbChoix == 0) tCand[num]->choix->premier = creerVoeu(nom, depart);
+											if (tCand[num-1]->nbChoix == 0) tCand[num-1]->choix->premier = creerVoeu(nom, depart);
 
-											tCand[num]->choix->dernier = creerVoeu(nom, depart);
-											tCand[num]->nbChoix += 1;
+											tCand[num-1]->choix->dernier = creerVoeu(nom, depart);
+											tCand[num-1]->nbChoix += 1;
 
 											printf(VERT"Voeu ajouté !\n"BLANC);
 											strcpy(depart, "-1"); strcpy(nom, "-1");
+											trouve = 1;
 										}
+										
 									}
+									if (!trouve) fprintf(stderr, ROUGE"Erreur : le département est introuvable !\n"BLANC);
 								}		
 							}
 						}
