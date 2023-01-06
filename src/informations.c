@@ -110,7 +110,7 @@ void afficher1Depart(VilleIUT *v)
 	printf("\n");
 }
 
-void afficherDepart(VilleIUT ** tiut, int *nbIUT)
+void afficherDepart(VilleIUT **tiut, int *nbIUT)
 {
 		char choix[30] = "";
 		int i, pos;
@@ -147,7 +147,7 @@ void afficherDepart(VilleIUT ** tiut, int *nbIUT)
 		printf("Abandon de l'opération...\n");
 }
 
-void afficherDepartPrecis(VilleIUT ** tiut, int *nbIUT) 
+void afficherDepartPrecis(VilleIUT **tiut, int *nbIUT) 
 {
 	char choix[30] = "";
 	int i;

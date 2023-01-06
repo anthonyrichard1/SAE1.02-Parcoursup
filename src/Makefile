@@ -9,7 +9,7 @@ informations : informations.c erreur.c testInformations.c
 administrateurs : administrateurs.c informations.c erreur.c testAdministrateurs.c
 	gcc -Wall $^ -o administrateurs
 
-candidats : candidats.c testCandidats.c erreur.c
+candidats : candidats.c testCandidats.c erreur.c informations.c
 	gcc -Wall $^ -o candidats
 	
 clean :

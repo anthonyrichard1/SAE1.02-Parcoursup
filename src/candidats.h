@@ -8,10 +8,12 @@
 #include "structures.h"
 #include "responsable.h"
 
-void afficherPhase(Phase *phase);
+Phase afficherPhase(Phase *phase);
 
 void triAlpha(Candidat **tCand, int nbCand);
 
 ListeVoeux creerListeVoeux(void);
 
-void ajouterVoeu(Candidat **tCand, int *nbCand, Phase phase);
+Voeu *creerVoeu(char *iut, char *dept);
+
+void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Phase *phase);
