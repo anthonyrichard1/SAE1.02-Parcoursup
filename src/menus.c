@@ -87,10 +87,12 @@ void menuAdministrateur(VilleIUT** tiut, int *nbIUT)
 		switch (choix) {
 			case 1 :
 				tiut = ajouterIUT(tiut, nbIUT);
+				sauvegarde(tiut, nbIUT);
 				break;
 
 			case 2 :
 				AjouterDepart(tiut, nbIUT);
+				sauvegarde(tiut, nbIUT);
 				break;
 
 			case 3 :
@@ -111,10 +113,12 @@ void menuAdministrateur(VilleIUT** tiut, int *nbIUT)
 
 			case 7 :
 				ModifPlaces(tiut, nbIUT);
+				sauvegarde(tiut, nbIUT);
 				break;
 
 			case 8 :
 				ModifierRes(tiut, nbIUT);
+				sauvegarde(tiut, nbIUT);
 				break;
 
 			case 19 :
