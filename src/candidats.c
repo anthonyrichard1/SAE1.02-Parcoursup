@@ -67,6 +67,21 @@ Voeu *creerVoeu(char *iut, char *dept)
 	return v;
 }
 
+int ExisteVoeu(Candidat *c, char *iut, char *depart)
+{
+	Voeu *v;
+
+	for (v = c->choix->premier ; v != NULL ; v = v->suivant)
+	{
+		if (strcmp(v->ville, iut) == 0 && strcmp(v->departement, depart) == 0)
+		{
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
 void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Phase *phase)
 {
 	int num = 0, posIut;
