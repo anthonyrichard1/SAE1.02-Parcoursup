@@ -190,3 +190,52 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 
 	printf("Fin de l'opération...\n");	
 }
+
+Candidat **ChargerCandidats(int *nbCand)
+{
+	FILE *f;
+	Candidat **tCand;
+	int i, j;
+
+	while ((f = fopen("candidats.don", "rb")) == NULL)
+	{
+		testFopen("candidats.don");
+	}
+
+	fread(nbCand, sizeof(int), 1, f);
+
+	tCand = (Candidat **)malloc(sizeof(Candidat *)*(*nbCand));
+	testMalloc(tCand, "création d'un tableau de candidats");
+
+	for (i = 0 ; i < *nbCand ; i++)
+	{
+		Candidat *c = (Candidat *)malloc(sizeof(Candidat));
+		testMalloc(c, "Création d'un candidat");
+
+		fread(&c->num, sizeof(int), 1, f);
+		fread(&c->prenom, sizeof(c->prenom), 1, f);
+		fread(&c->nom, sizeof(c->nom), 1, f);
+		fread(&c->notes, sizeof(float), 4, f);
+		fread(&c->nbChoix, sizeof(int), 1, f);
+		ListeVoeux lv = creerListeVoeux();
+
+		for (j = 0 ; j < c->nbChoix ; j++)
+		{
+			Voeu *v = (Voeu*)malloc(sizeof(Voeu));
+			
+			fread(v, sizeof(Voeu), 1, f);
+
+			if (lv->premier == NULL) lv->premier = lv->dernier = v;
+			else
+			{
+				lv->dernier->suivant = v;
+				lv->dernier = v;
+			}
+		}
+
+		c->choix = lv;
+		tCand[i] = c;
+	}
+
+	return tCand;	
+}
