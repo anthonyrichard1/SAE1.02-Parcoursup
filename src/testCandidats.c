@@ -2,33 +2,38 @@
 
 int main(void)
 {
-    int nbCand = 3;
-    Candidat **tCand = (Candidat**)malloc(sizeof(Candidat*)*MAX_CANDIDATS);
-    testMalloc(tCand, "création d'un tableau de candidats");
+    int nbCand = 1, nbIUT;
     
-        Candidat *t = (Candidat*)malloc(sizeof(Candidat));
-        testMalloc(t, "création d'un candidat");
+    Phase phase = 1;
+    Candidat **tCand = chargerCandidats(&nbCand);
+    printf("num : %d nom : %s prenom : %s notes %f %f %f %f\n", tCand[0]->num, tCand[0]->nom, tCand[0]->prenom, tCand[0]->notes[0], tCand[0]->notes[1], tCand[0]->notes[2], tCand[0]->notes[3]);
+    printf("nbVoeux : %d\n", tCand[0]->nbChoix);
+    /* Candidat **tCand = (Candidat **)malloc(sizeof(Candidat *)*100);
+    testMalloc(tCand, "tCand");
+    printf("nbCand : %d\n", nbCand);
 
-        strcpy(t->nom, "D");
-        tCand[0] = t;
+    //testMalloc(tCand, "création d'un tableau de candidats");
 
-        Candidat *u = (Candidat*)malloc(sizeof(Candidat));
-        testMalloc(u, "création d'un candidat");
+    Candidat *t = (Candidat*)malloc(sizeof(Candidat));
+    testMalloc(t, "création d'un candidat");
 
-        strcpy(u->nom, "Z");
-        tCand[1] = u;
+    strcpy(t->nom, "RICHARD");
+    strcpy(t->prenom, "Anthony");
+    t->num = 1;
+    t->notes[0] = 10;
+    t->notes[1] = 20;
+    t->notes[2] = 30;
+    t->notes[3] = 40;
+    t->nbChoix = 0;
+    t->choix = creerListeVoeux();
 
-        Candidat *v = (Candidat*)malloc(sizeof(Candidat));
-        testMalloc(v, "création d'un candidat");
+    VilleIUT **tiut = chargerIUT(&nbIUT);
 
-        strcpy(v->nom, "A");
-        tCand[2] = v;
-        
+    tCand[0] = t;
 
-    triAlpha(tCand, nbCand);
-
-    //printf("%s %s %s", tCand[0]->nom, tCand[1]->nom, tCand[2]->nom);
-
+    ajouterVoeu(tiut, &nbIUT, tCand, &nbCand, &phase);
+    printf("nbVoeux : %d ville : %s depart : %s\n", tCand[0]->nbChoix, tCand[0]->choix->premier->ville, tCand[0]->choix->dernier->ville);
+    sauvegarderCandidats(tCand, &nbCand); */
     
-    return 0;
+    return 0; 
 }
