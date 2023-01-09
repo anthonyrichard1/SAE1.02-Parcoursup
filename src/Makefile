@@ -13,4 +13,4 @@ candidats : candidats.c testCandidats.c erreur.c informations.c
 	gcc -Wall $^ -o candidats
 	
 clean :
-	rm menus informations administrateurs candidats
+	rm -f menus informations administrateurs candidats
