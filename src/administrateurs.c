@@ -53,7 +53,7 @@ MaillonDept* nouveauMaillonDept(char* newDept)
 	MaillonDept* maillon;
 	
 	maillon = (MaillonDept*) malloc(sizeof(MaillonDept));
-	testMalloc(m, "Création d'un maillon département");
+	testMalloc(maillon, "Création d'un maillon département");
 
 	strcpy(maillon->departement, newDept);
 
@@ -244,7 +244,7 @@ void ModifPlaces(VilleIUT** tiut, int *nbIUT)
 							scanf("%d", &tmp->nbP);
 
 							while(tmp->nbP <= 0) {
-								printf(ROUGE"Le nombre de place doit être supérieur à 0."BLANC)
+								printf(ROUGE"Le nombre de place doit être supérieur à 0."BLANC);
 								printf("Dans le département %s de %s, il y a %d places.\nNouveau nombre de place : ", dept, ville, tmp->nbP);
 								scanf("%d", &tmp->nbP);
 							} 
