@@ -67,7 +67,7 @@ Voeu *creerVoeu(char *iut, char *dept)
 	return v;
 }
 
-int ExisteVoeu(Candidat *c, char *iut, char *depart)
+int existeVoeu(Candidat *c, char *iut, char *depart)
 {
 	Voeu *v;
 
@@ -145,7 +145,7 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 									{
 										if (strcmp(mDept->departement, depart) == 0)
 										{
-											if (!ExisteVoeu(tCand[num-1], nom, depart))
+											if (!existeVoeu(tCand[num-1], nom, depart))
 											{
 												v = creerVoeu(nom, depart);
 
@@ -191,7 +191,7 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 	printf("Fin de l'opération...\n");	
 }
 
-Candidat **ChargerCandidats(int *nbCand)
+Candidat **chargerCandidats(int *nbCand)
 {
 	FILE *f;
 	Candidat **tCand;
@@ -238,4 +238,27 @@ Candidat **ChargerCandidats(int *nbCand)
 	}
 
 	return tCand;	
+}
+
+void sauvegarderCandidats(Candidat **tCand, int *nbCand)
+{
+	FILE *f = fopen("candidats.don", "wb");
+	int i;
+	Voeu *v;
+
+	fwrite(nbCand, sizeof(int), 1, f);
+
+	for (i = 0 ; i < *nbCand ; i++)
+	{
+		fwrite(&(tCand[i]->num), sizeof(int), 1, f);
+		fwrite(&(tCand[i]->nom), sizeof(tCand[i]->nom), 1, f);
+		fwrite(&(tCand[i]->prenom), sizeof(tCand[i]->prenom), 1, f);
+		fwrite(&(tCand[i]->notes), sizeof(float), 4, f);
+		fwrite(&(tCand[i]->nbChoix), sizeof(int), 1, f);
+
+		for (v = tCand[i]->choix->premier ; v != NULL ; v = v->suivant)
+		{
+			fwrite(v, sizeof(Voeu), 1, f);
+		}
+	}
 }

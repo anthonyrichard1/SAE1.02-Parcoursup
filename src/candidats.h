@@ -16,10 +16,10 @@ ListeVoeux creerListeVoeux(void);
 
 Voeu *creerVoeu(char *iut, char *dept);
 
-int ExisteVoeu(Candidat *c, char *iut, char *depart);
+int existeVoeu(Candidat *c, char *iut, char *depart);
 
 void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Phase *phase);
 
-void SauvegarderCandidats(Candidat **tCand, int *nbCand);
+void sauvegarderCandidats(Candidat **tCand, int *nbCand);
 
-Candidat **ChargerCandidats(int *nbCand);
+Candidat **chargerCandidats(int *nbCand);
