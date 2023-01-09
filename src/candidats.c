@@ -86,8 +86,9 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 {
 	int num = 0, posIut;
 	Bool trouve;
-	char nom[30] = "0", depart[30] = "0";
+	char nom[30], depart[30];
 	MaillonDept *mDept;
+	Voeu *v;
 
 	if (afficherPhase(phase) != 1) return;
 
@@ -98,19 +99,22 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 
 		if (num > 0)
 		{
-			if (num-1 <= *nbCand)
+			if (num <= *nbCand)
 			{
 				printf("Bonjour %s %s\n", tCand[num-1]->prenom, tCand[num-1]->nom); 
 
-				if (tCand[num-1]->choix->premier == NULL) printf("Vous n'avez pas encore de voeux\n");
-				else
+				if (tCand[num-1]->nbChoix == 0) printf("Vous n'avez pas encore de voeux\n");
+				else if (tCand[num-1]->nbChoix == 3)
 				{
-					printf("Voici vos voeux :\n"); 
-					//à finir
+					fprintf(stderr, ROUGE"Erreur : vous avez déjà atteint le nombre maximal de voeux !\n"BLANC);
+					break;
 				}
+				else //afficher étudiant
 
+				strcpy(nom, "0");
 				while (strcmp(nom, "-1") != 0)
 				{
+					
 					printf("Entrez l'IUT correspondant à votre voeux (-1 pour annuler) : ");
 					scanf("%s", nom);
 
@@ -123,6 +127,7 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 						{
 							afficher1Depart(tiut[posIut]);
 
+							strcpy(depart, "0");
 							while (strcmp(depart, "-1") != 0)
 							{
 								printf("Entrez le nom du département auquel vous voulez candidater (-1 pour annuler) : ");
@@ -140,14 +145,33 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 									{
 										if (strcmp(mDept->departement, depart) == 0)
 										{
-											if (tCand[num-1]->nbChoix == 0) tCand[num-1]->choix->premier = creerVoeu(nom, depart);
+											if (!ExisteVoeu(tCand[num-1], nom, depart))
+											{
+												v = creerVoeu(nom, depart);
 
-											tCand[num-1]->choix->dernier = creerVoeu(nom, depart);
-											tCand[num-1]->nbChoix += 1;
-
-											printf(VERT"Voeu ajouté !\n"BLANC);
-											strcpy(depart, "-1"); strcpy(nom, "-1");
-											trouve = 1;
+												if (tCand[num-1]->nbChoix == 0)
+												{
+													tCand[num-1]->choix->premier = v;
+													tCand[num-1]->choix->dernier = v;
+												}
+												else
+												{
+													tCand[num-1]->choix->dernier->suivant = v;
+													tCand[num-1]->choix->dernier = v;
+												}
+												
+												tCand[num-1]->nbChoix += 1;
+												printf(VERT"Voeu ajouté !\n"BLANC);
+												strcpy(depart, "-1"); strcpy(nom, "-1");
+												trouve = 1;
+											}
+											else
+											{
+												fprintf(stderr, ROUGE"Erreur : vous avez déjà formulé ce voeu !\n"BLANC);
+												strcpy(depart, "-1"); strcpy(nom, "-1");
+												trouve = 1;
+											}
+											
 										}
 										
 									}
@@ -165,4 +189,4 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 	}	
 
 	printf("Fin de l'opération...\n");	
-}	
+}
