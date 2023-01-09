@@ -62,6 +62,7 @@ VilleIUT **chargerIUT(int *nbIUT)
 		tab[j] = iut;
 	}	
 	
+	fclose(f);
     return tab;
 }
 
