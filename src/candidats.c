@@ -347,7 +347,7 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand) {
 	int i=0, numCand;
 	Bool trouve;
 	char ville[30], dept[30], choix; 
-	Voeu* prec, *voeu;
+	Voeu* prec, *voeu, *test;
 
 
 	while(numCand != -1 && strcmp(ville, "-1") != 0 && strcmp(dept, "-1") != 0) {
@@ -365,7 +365,6 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand) {
 
 			if(strcmp(dept, "-1") != 0) {
 				trouve = 0;
-				i = 0;
 				for(voeu=tCand[i]->choix->premier, prec = voeu; voeu; prec = voeu, voeu = voeu->suivant) {
 					if(strcmp(voeu->ville, ville) == 0 && strcmp(voeu->departement, dept) == 0) {
 						afficher1Voeu(tCand, voeu);
@@ -480,4 +479,13 @@ float CalculMoyenne(float notes[]) {
 	}
 
 	return moyenne/4;
+}
+
+Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept) {
+	for(; l->premier != NULL; l->premier = l->premier->suivant) {
+		if(strcmp(l->premier->ville, iut) == 0 && strcmp(l->premier->departement, dept) == 0) {
+			return l->premier;
+		}
+	}
+	return NULL;
 }
