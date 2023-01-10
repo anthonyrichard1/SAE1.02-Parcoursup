@@ -1,13 +1,13 @@
 # ---> C
 # Prerequisites
 *.d
-*.don
 
 # Object files
 *.o
 *.ko
 *.obj
 *.elf
+*.don
 
 # Linker output
 *.ilk
