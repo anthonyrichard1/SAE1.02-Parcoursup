@@ -1,6 +1,7 @@
 # ---> C
 # Prerequisites
 *.d
+*.don
 
 # Object files
 *.o
