@@ -24,4 +24,8 @@ void sauvegarderCandidats(Candidat **tCand, int *nbCand);
 
 Candidat **chargerCandidats(int *nbCand);
 
+void afficher1Candidat(Candidat **tCand, int pos);
+
 void afficherCandidats(Candidat **tCand, int *nbCand);
+
+void afficherCandidatsDepart(Candidat **tCand, int *nbCand);

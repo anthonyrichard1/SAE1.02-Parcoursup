@@ -263,33 +263,78 @@ void sauvegarderCandidats(Candidat **tCand, int *nbCand)
 	}
 }
 
-void afficherCandidats(Candidat **tCand, int *nbCand) {
-	int i, j;
+void afficher1Candidat(Candidat **tCand, int pos) {
+	int j;
 	Voeu* v;
+
+	printf("\n\tNuméro du candidat : %d\n\tNommination : %s %s\n", tCand[pos]->num, tCand[pos]->prenom, tCand[pos]->nom);
+	printf("\tNote de mathématique : %.2f\n\tNote de français : %.2f\n\tNote d'anglais : %.2f\n\tNote de la matière de spécialité : %.2f\n", tCand[pos]->notes[0], tCand[pos]->notes[1],  tCand[pos]->notes[2], tCand[pos]->notes[3]); 
+	printf("\tNombre de voeux : %d\n", tCand[pos]->nbChoix);
+
+	for(v=tCand[pos]->choix->premier, j=1; v; v = v->suivant, ++j) {
+		printf(GRAS"\t\tChoix n°%d\n"RESET, j);
+		printf("\t\tIUT choisi : %s\n", v->ville);
+		printf("\t\tDépartement : %s\n", v->departement);
+		printf("\t\tDécision du département : ");
+			
+		if(v->decDepartement == 1) printf("admis\n");
+		else if(v->decDepartement == -1) printf("refusé\n");
+		else if(v->decDepartement == 2) printf("liste d'attente\n");
+		else printf("non traité\n");
+
+		printf("\t\tChoix du candidat : ");
+
+		if(v->decCandidat == 1) printf("accepté\n\n");
+		else if(v->decCandidat == -1) printf("refusé\n\n");
+		else printf("non décidé\n\n");
+	}
+}
+
+void afficherCandidats(Candidat **tCand, int *nbCand) {
+	int i;
 
 	printf(GRAS UNDERLINE"\nListe des candidats :"RESET);
 
 	for(i=0; i < *nbCand; ++i) {
-		printf("\n\tNuméro du candidat : %d\n\tNommination : %s %s\n", tCand[i]->num, tCand[i]->prenom, tCand[i]->nom);
-		printf("\tNote de mathématique : %.2f\n\tNote de français : %.2f\n\tNote d'anglais : %.2f\n\tNote de la matière de spécialité : %.2f\n", tCand[i]->notes[0], tCand[i]->notes[1],  tCand[i]->notes[2], tCand[i]->notes[3]); 
-		printf("\tNombre de voeux : %d\n", tCand[i]->nbChoix);
+		afficher1Candidat(tCand, i);
+	}
+}
 
-		for(v=tCand[i]->choix->premier, j=1; v; v = v->suivant, ++j) {
-			printf(GRAS"\t\tChoix n°%d\n"RESET, j);
-			printf("\t\tIUT choisi : %s\n", v->ville);
-			printf("\t\tDépartement : %s\n", v->departement);
-			printf("\t\tDécision du département : ");
-			
-			if(v->decDepartement == 1) printf("admis\n");
-			else if(v->decDepartement == -1) printf("refusé\n");
-			else if(v->decDepartement == 2) printf("liste d'attente\n");
-			else printf("non traité\n");
+void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
+	int i, nbCandDept; 
+	Voeu* v;
+	char dept[30]; 
+	Candidat** tCandDept;
 
-			printf("\t\tChoix du candidat : ");
+	while (strcmp(dept, "-1") != 0) {
+		nbCandDept = 0;
 
-			if(v->decCandidat == 1) printf("accepté\n\n");
-			else if(v->decCandidat == -1) printf("refusé\n\n");
-			else printf("non décidé\n\n");
+		printf("\nPour quel département souhaitez-vous avoir la liste des candidats (-1 pour annuler) ? ");
+		scanf("%s", dept);
+
+		if(strcmp(dept, "-1") != 0) {
+			tCandDept = (Candidat **)malloc(sizeof(Candidat *)*(*nbCand));
+			testMalloc(tCandDept, "Tableaux des candidats suivant département");
+
+			for(i=0; i < *nbCand; ++i) {
+				for(v=tCand[i]->choix->premier; v; v = v->suivant) {
+					if(strcmp(v->departement,dept)==0) {
+						tCandDept[nbCandDept]=tCand[i];
+						nbCandDept += 1;
+					}
+				}
+			}
+
+			if(nbCandDept == 0) printf(ROUGE"\nIl n'y a pas de candidat dans le département %s.\n"RESET, dept);
+			else {
+				triAlpha(tCandDept, nbCandDept);
+				printf(GRAS UNDERLINE"\nListe des candidats du département %s : \n"RESET, dept);
+				for(i=0; i<nbCandDept; ++i) {
+					afficher1Candidat(tCandDept, i);
+				}
+			}
+
+			free(tCandDept);
 		}
 	}
 }

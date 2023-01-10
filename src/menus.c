@@ -14,9 +14,9 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand)
 		"2 - Afficher les villes où il y a un département\n"
 		"3 - \n"
 		"4 - \n"
-		"7 - Menu des administrateurs\n\n"
-		"9 - Menu principal\n"
-		"Votre choix : ");
+		"7 - Menu des administrateurs\n"
+		"\n9 - Menu principal\n"
+		"\nVotre choix : ");
 
 		scanf("%d", &choix);
 
@@ -78,9 +78,10 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 		"6 - Arrêter la phase de candidature\n"
 		"7 - Modifier le nombre de places\n"
 		"8 - Modifier le nom du responsable de département\n"
-		"10 - Afficher les candidats\n"
-		"19 - Menu principal\n"
-		"Votre choix : ");
+		"10 - Afficher tous les candidats\n"
+		"11 - Afficher les candidats d'un département"
+		"\n19 - Menu principal\n"
+		"\nVotre choix : ");
 
 		scanf("%d", &choix);
 
@@ -126,6 +127,10 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 
 			case 10 :
 				afficherCandidats(tCand, nbCand);
+				break;
+
+			case 11 :
+				afficherCandidatsDepart(tCand, nbCand);
 				break;
 
 			case 19 :
