@@ -34,12 +34,12 @@ VilleIUT **ajouterIUT(VilleIUT **tiut, int *nbIUT)
 				}
 				
 				ntiut[pos] = iut;
-				printf(VERT"IUT ajouté !\n"BLANC);
+				printf(VERT"IUT ajouté !\n"RESET);
 				return ntiut;
 			}
 			else
 			{
-				fprintf(stderr, ROUGE"Erreur : la ville %s est déjà enregistrée !\n"BLANC, ville);
+				fprintf(stderr, ROUGE"Erreur : la ville %s est déjà enregistrée !\n"RESET, ville);
 			}
 		}
 	}
@@ -89,7 +89,7 @@ void AjouterDepart(VilleIUT** tiut, int *nbIUT)
 				for(tmp=tiut[pos]->ldept->premier; tmp; tmp = tmp->suivant) {		
 					existant = 0;							
 					if(strcmp(tmp->departement, newDept) == 0) {
-						printf(ROUGE"Dans le département %s existe déjà.\n"BLANC, newDept);
+						printf(ROUGE"Dans le département %s existe déjà.\n"RESET, newDept);
 						existant = 1;
 					}
 				}
@@ -106,11 +106,11 @@ void AjouterDepart(VilleIUT** tiut, int *nbIUT)
 						tiut[pos]->ldept->nb += 1;
 					}
 
-					printf(VERT"Ajout du département effectué.\n"BLANC);
+					printf(VERT"Ajout du département effectué.\n"RESET);
 				}
 			}
 			else {
-				printf(ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"BLANC);
+				printf(ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
 			}
 		}
 	}
@@ -139,9 +139,9 @@ void supprimerIUT(VilleIUT **tiut, int *nbIUT)
 				}
 
 				*nbIUT-=1;
-				printf(VERT"IUT supprimé !\n"BLANC);
+				printf(VERT"IUT supprimé !\n"RESET);
 			}
-			else fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"BLANC);
+			else fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"RESET);
 		}
 	}
 }
@@ -191,18 +191,18 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT)
 
 							free(m);
 							tiut[pos]->ldept->nb -= 1;
-							printf(VERT"Département supprimé !\n"BLANC);
+							printf(VERT"Département supprimé !\n"RESET);
 						}
 						else if (m->suivant == NULL)
 						{
-							fprintf(stderr, ROUGE"Erreur : le département est introuvable !\n"BLANC);
+							fprintf(stderr, ROUGE"Erreur : le département est introuvable !\n"RESET);
 						}
 					}
 				}
 			}
 			else
 			{
-				fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"BLANC);
+				fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"RESET);
 			}
 			
 		}
@@ -244,19 +244,19 @@ void ModifPlaces(VilleIUT** tiut, int *nbIUT)
 							scanf("%d", &tmp->nbP);
 
 							while(tmp->nbP <= 0) {
-								printf(ROUGE"Le nombre de place doit être supérieur à 0."BLANC);
+								printf(ROUGE"Le nombre de place doit être supérieur à 0."RESET);
 								printf("Dans le département %s de %s, il y a %d places.\nNouveau nombre de place : ", dept, ville, tmp->nbP);
 								scanf("%d", &tmp->nbP);
 							} 
 
-							printf(VERT"Nombre de place modifié"BLANC);
+							printf(VERT"Nombre de place modifié"RESET);
 						}	
-						else printf(ROUGE"Le département que vous cherchez n'a pas été trouvé.\n"BLANC);	
+						else printf(ROUGE"Le département que vous cherchez n'a pas été trouvé.\n"RESET);	
 					} 
 				}
 			}
 			else {
-				printf(ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"BLANC);
+				printf(ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
 			}
 		}
 	}
@@ -286,14 +286,14 @@ void ModifierRes(VilleIUT** tiut, int *nbIUT)
 							printf("Dans le département %s de %s, le responsable est %s.\nNouveau nom du responsable (nom_prénom) : ", dept, ville, tmp->nomRes);
 							scanf("%s%*c", tmp->nomRes);
 
-							printf(VERT"Nom du responsable modifié"BLANC);
+							printf(VERT"Nom du responsable modifié"RESET);
 						}	
-						else printf(ROUGE"Le département que vous cherchez n'a pas été trouvé.\n"BLANC);
+						else printf(ROUGE"Le département que vous cherchez n'a pas été trouvé.\n"RESET);
 					} 
 				}
 			}
 			else {
-				printf(ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"BLANC);
+				printf(ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
 			}
 		}
 	}

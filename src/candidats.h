@@ -23,3 +23,5 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 void sauvegarderCandidats(Candidat **tCand, int *nbCand);
 
 Candidat **chargerCandidats(int *nbCand);
+
+void afficherCandidats(Candidat **tCand, int *nbCand);

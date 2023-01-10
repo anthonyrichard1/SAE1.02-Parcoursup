@@ -139,7 +139,7 @@ void afficherDepart(VilleIUT **tiut, int *nbIUT)
 				}
 				else
 				{
-					fprintf(stderr, ROUGE"Erreur : la ville %s ne possède pas d'IUT !\n"BLANC, choix);
+					fprintf(stderr, ROUGE"Erreur : la ville %s ne possède pas d'IUT !\n"RESET, choix);
 				}
 				
 			}

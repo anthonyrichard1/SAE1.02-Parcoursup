@@ -17,14 +17,14 @@
  * \param **tiut Tableau de pointeurs sur des VilleIUT 
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
  */
-void menuPrincipal(VilleIUT** tiut, int *nbIUT);
+void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
 
 /**
  * \brief Cette fonction affiche le menu des administrateurs, et permet de sélectionner l'opération que l'on souhaite effectuer. Le choix de l'utilisateur est récupéré par une saisie au clavier.
  * \param **tiut Tableau de pointeurs sur des VilleIUT
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
  */
-void menuAdministrateur(VilleIUT** tiut, int *nbIUT);
+void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
 
 /**
  * \brief Cette fonction permet de récupérer les données contenues dans le tableau de pointeurs sur des VilleIUT pour les stocker dans le fichier iut.don. Elle est utilisée à chaque modification du tableau de pointeur sur VilleIUT et à la fermeture de l'application.

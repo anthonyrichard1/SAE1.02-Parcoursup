@@ -106,7 +106,7 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 				if (tCand[num-1]->nbChoix == 0) printf("Vous n'avez pas encore de voeux\n");
 				else if (tCand[num-1]->nbChoix == 3)
 				{
-					fprintf(stderr, ROUGE"Erreur : vous avez déjà atteint le nombre maximal de voeux !\n"BLANC);
+					fprintf(stderr, ROUGE"Erreur : vous avez déjà atteint le nombre maximal de voeux !\n"RESET);
 					break;
 				}
 				else //afficher étudiant
@@ -161,13 +161,13 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 												}
 												
 												tCand[num-1]->nbChoix += 1;
-												printf(VERT"Voeu ajouté !\n"BLANC);
+												printf(VERT"Voeu ajouté !\n"RESET);
 												strcpy(depart, "-1"); strcpy(nom, "-1");
 												trouve = 1;
 											}
 											else
 											{
-												fprintf(stderr, ROUGE"Erreur : vous avez déjà formulé ce voeu !\n"BLANC);
+												fprintf(stderr, ROUGE"Erreur : vous avez déjà formulé ce voeu !\n"RESET);
 												strcpy(depart, "-1"); strcpy(nom, "-1");
 												trouve = 1;
 											}
@@ -175,17 +175,17 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 										}
 										
 									}
-									if (!trouve) fprintf(stderr, ROUGE"Erreur : le département est introuvable !\n"BLANC);
+									if (!trouve) fprintf(stderr, ROUGE"Erreur : le département est introuvable !\n"RESET);
 								}		
 							}
 						}
-						else fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"BLANC);
+						else fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"RESET);
 					}
 				}
 			}
-			else fprintf(stderr, ROUGE"Erreur : ce numéro de candidat est introuvable !\n"BLANC);
+			else fprintf(stderr, ROUGE"Erreur : ce numéro de candidat est introuvable !\n"RESET);
 		}
-		else if (num != -1) fprintf(stderr, ROUGE"Erreur : le numéro entré n'est pas valide !\n"BLANC);
+		else if (num != -1) fprintf(stderr, ROUGE"Erreur : le numéro entré n'est pas valide !\n"RESET);
 	}	
 
 	printf("Fin de l'opération...\n");	
@@ -259,6 +259,37 @@ void sauvegarderCandidats(Candidat **tCand, int *nbCand)
 		for (v = tCand[i]->choix->premier ; v != NULL ; v = v->suivant)
 		{
 			fwrite(v, sizeof(Voeu), 1, f);
+		}
+	}
+}
+
+void afficherCandidats(Candidat **tCand, int *nbCand) {
+	int i, j;
+	Voeu* v;
+
+	printf(GRAS UNDERLINE"\nListe des candidats :"RESET);
+
+	for(i=0; i < *nbCand; ++i) {
+		printf("\n\tNuméro du candidat : %d\n\tNommination : %s %s\n", tCand[i]->num, tCand[i]->prenom, tCand[i]->nom);
+		printf("\tNote de mathématique : %.2f\n\tNote de français : %.2f\n\tNote d'anglais : %.2f\n\tNote de la matière de spécialité : %.2f\n", tCand[i]->notes[0], tCand[i]->notes[1],  tCand[i]->notes[2], tCand[i]->notes[3]); 
+		printf("\tNombre de voeux : %d\n", tCand[i]->nbChoix);
+
+		for(v=tCand[i]->choix->premier, j=1; v; v = v->suivant, ++j) {
+			printf(GRAS"\t\tChoix n°%d\n"RESET, j);
+			printf("\t\tIUT choisi : %s\n", v->ville);
+			printf("\t\tDépartement : %s\n", v->departement);
+			printf("\t\tDécision du département : ");
+			
+			if(v->decDepartement == 1) printf("admis\n");
+			else if(v->decDepartement == -1) printf("refusé\n");
+			else if(v->decDepartement == 2) printf("liste d'attente\n");
+			else printf("non traité\n");
+
+			printf("\t\tChoix du candidat : ");
+
+			if(v->decCandidat == 1) printf("accepté\n\n");
+			else if(v->decCandidat == -1) printf("refusé\n\n");
+			else printf("non décidé\n\n");
 		}
 	}
 }

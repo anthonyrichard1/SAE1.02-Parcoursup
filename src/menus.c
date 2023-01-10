@@ -1,6 +1,6 @@
 #include "menus.h"
 
-void menuPrincipal(VilleIUT** tiut, int *nbIUT) 
+void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand) 
 {
 	int choix;
 	char motDePasse[12];
@@ -9,7 +9,7 @@ void menuPrincipal(VilleIUT** tiut, int *nbIUT)
 		printf("\n----------------------------------------\n");
 
 		printf(
-		"\nMenu principal\n\n"
+		TITRE"\nMenu principal\n\n"RESET
 		"1 - Afficher les informations des IUT\n"
 		"2 - Afficher les villes où il y a un département\n"
 		"3 - \n"
@@ -42,11 +42,11 @@ void menuPrincipal(VilleIUT** tiut, int *nbIUT)
 
 				printf("\nEntrez le mot de passe : ");
 				scanf("%s%*c", motDePasse);
-				if(strcmp(motDePasse, "motdepasse102") != 0) {
-					fprintf(stderr, ROUGE"Mot de passe incorrect..."BLANC);
+				if(strcmp(motDePasse, "mdp") != 0) {
+					fprintf(stderr, ROUGE"Mot de passe incorrect..."RESET);
 				}
 				else {
-					menuAdministrateur(tiut, nbIUT);
+					menuAdministrateur(tiut, tCand, nbIUT, nbCand);
 				}
 				break;
 
@@ -61,7 +61,7 @@ void menuPrincipal(VilleIUT** tiut, int *nbIUT)
 	}
 }
 
-void menuAdministrateur(VilleIUT** tiut, int *nbIUT) 
+void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand) 
 {
 	int choix;
 	
@@ -69,7 +69,7 @@ void menuAdministrateur(VilleIUT** tiut, int *nbIUT)
 		printf("\n----------------------------------------\n");
 		
 		printf(
-		"\nMenu des administrateurs\n\n"
+		TITRE"\nMenu des administrateurs\n\n"RESET
 		"1 - Créer un IUT\n"
 		"2 - Créer un département\n"
 		"3 - Supprimer un IUT\n"
@@ -78,7 +78,7 @@ void menuAdministrateur(VilleIUT** tiut, int *nbIUT)
 		"6 - Arrêter la phase de candidature\n"
 		"7 - Modifier le nombre de places\n"
 		"8 - Modifier le nom du responsable de département\n"
-		"10 - \n"
+		"10 - Afficher les candidats\n"
 		"19 - Menu principal\n"
 		"Votre choix : ");
 
@@ -121,8 +121,15 @@ void menuAdministrateur(VilleIUT** tiut, int *nbIUT)
 				sauvegarde(tiut, nbIUT);
 				break;
 
+			case 9 :
+				break;
+
+			case 10 :
+				afficherCandidats(tCand, nbCand);
+				break;
+
 			case 19 :
-				menuPrincipal(tiut, nbIUT);
+				menuPrincipal(tiut, tCand, nbIUT, nbCand);
 				return;
 
 			default :

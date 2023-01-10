@@ -3,10 +3,12 @@
 int main (void)
 {
 	VilleIUT** tiut;
-	int nbIUT;
+	Candidat** tCand;
+	int nbIUT, nbCand;
 
 	tiut = chargerIUT(&nbIUT);
+	tCand = chargerCandidats(&nbCand);
 
-	menuPrincipal(tiut, &nbIUT);
+	menuPrincipal(tiut, tCand, &nbIUT, &nbCand);
 	return 0;
 }

@@ -16,8 +16,10 @@
 
 #define ROUGE "\e[1;31m"
 #define VERT "\e[1;32m"
-#define BLANC "\e[0m"
-#define MAX_CANDIDATS 1000
+#define RESET "\e[0m"
+#define GRAS "\e[1;37m"
+#define UNDERLINE "\e[4;37m"
+#define TITRE "\e[1;36m\e[4;36m"
 
 typedef struct MaillonDept MaillonDept;
 

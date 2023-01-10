@@ -1,6 +1,6 @@
 all : menus informations administrateurs candidats
 
-menus : menus.c testMenus.c informations.c erreur.c administrateurs.c
+menus : menus.c testMenus.c informations.c erreur.c administrateurs.c candidats.c
 	gcc -Wall $^ -o menus
 	
 informations : informations.c erreur.c testInformations.c

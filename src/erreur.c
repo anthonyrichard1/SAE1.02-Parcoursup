@@ -5,7 +5,7 @@ void testMalloc(void *elt, char *procedure)
     if (elt == NULL)
     {
         fprintf(stderr, ROUGE"%s : erreur d'allocation mémoire", procedure);
-        perror(""BLANC);
+        perror(""RESET);
         exit(errno);
     }
 }
