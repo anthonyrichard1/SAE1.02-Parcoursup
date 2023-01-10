@@ -212,11 +212,13 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT)
 void StopperCandidature(Phase *phase)
 {
 	*phase = 2;
+	printf(VERT"La phase d'admission a bien été stoppé.\n"RESET);
 }
 
 void LancerCandidature(Phase *phase)
 {
 	*phase = 1;
+	printf(VERT"La phase d'admission a bien été lancé.\n"RESET);
 }
 
 void ModifPlaces(VilleIUT** tiut, int *nbIUT) 

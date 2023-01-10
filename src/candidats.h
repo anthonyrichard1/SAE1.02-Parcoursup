@@ -26,12 +26,10 @@ Candidat **chargerCandidats(int *nbCand);
 
 void afficher1Candidat(Candidat **tCand, int pos);
 
+void afficher1Voeu(Candidat** tCand, Voeu* voeu);
+
 void afficherCandidats(Candidat **tCand, int *nbCand);
 
 void afficherCandidatsDepart(Candidat **tCand, int *nbCand);
 
-char *upperfcase(char *motIn);
-
-char *uppercase(char *motIn);
-
-Bool chiffreDansMot(char *mot);
+Candidat** supprimerVoeux(Candidat** tCand, int *nbCand);

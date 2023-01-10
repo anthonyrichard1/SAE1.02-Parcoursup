@@ -15,7 +15,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand)
 		"3 - \n"
 		"4 - \n"
 		"7 - Menu des administrateurs\n"
-		"\n9 - Menu principal\n"
+		"\n9 - Quitter\n"
 		"\nVotre choix : ");
 
 		scanf("%d", &choix);
@@ -64,6 +64,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand)
 void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand) 
 {
 	int choix;
+	Phase phase = 0;
 	
 	while (1) {
 		printf("\n----------------------------------------\n");
@@ -79,7 +80,9 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 		"7 - Modifier le nombre de places\n"
 		"8 - Modifier le nom du responsable de département\n"
 		"10 - Afficher tous les candidats\n"
-		"11 - Afficher les candidats d'un département"
+		"11 - Afficher les candidats d'un département\n"
+		"12 - Supprimer un voeu\n"
+		"13 - Ajouter un voeu\n"
 		"\n19 - Menu principal\n"
 		"\nVotre choix : ");
 
@@ -105,11 +108,11 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 				break;
 
 			case 5:
-				
+				LancerCandidature(&phase);
 				break;
 
 			case 6 :
-				
+				StopperCandidature(&phase);
 				break;
 
 			case 7 :
@@ -131,6 +134,14 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 
 			case 11 :
 				afficherCandidatsDepart(tCand, nbCand);
+				break;
+
+			case 12 :
+				tCand = supprimerVoeux(tCand, nbCand);
+				break;
+
+			case 13 :
+				ajouterVoeu(tiut, nbIUT, tCand, nbCand, &phase);
 				break;
 
 			case 19 :

@@ -273,21 +273,25 @@ void afficher1Candidat(Candidat **tCand, int pos) {
 
 	for(v=tCand[pos]->choix->premier, j=1; v; v = v->suivant, ++j) {
 		printf(GRAS"\t\tChoix n°%d\n"RESET, j);
-		printf("\t\tIUT choisi : %s\n", v->ville);
-		printf("\t\tDépartement : %s\n", v->departement);
-		printf("\t\tDécision du département : ");
-			
-		if(v->decDepartement == 1) printf("admis\n");
-		else if(v->decDepartement == -1) printf("refusé\n");
-		else if(v->decDepartement == 2) printf("liste d'attente\n");
-		else printf("non traité\n");
-
-		printf("\t\tChoix du candidat : ");
-
-		if(v->decCandidat == 1) printf("accepté\n\n");
-		else if(v->decCandidat == -1) printf("refusé\n\n");
-		else printf("non décidé\n\n");
+		afficher1Voeu(tCand, v);
 	}
+}
+
+void afficher1Voeu(Candidat** tCand, Voeu* voeu) {
+	printf("\t\tIUT choisi : %s\n", voeu->ville);
+	printf("\t\tDépartement : %s\n", voeu->departement);
+	printf("\t\tDécision du département : ");
+			
+	if(voeu->decDepartement == 1) printf("admis\n");
+	else if(voeu->decDepartement == -1) printf("refusé\n");
+	else if(voeu->decDepartement == 2) printf("liste d'attente\n");
+	else printf("non traité\n");
+
+	printf("\t\tChoix du candidat : ");
+
+	if(voeu->decCandidat == 1) printf("accepté\n\n");
+	else if(voeu->decCandidat == -1) printf("refusé\n\n");
+	else printf("non décidé\n\n");
 }
 
 void afficherCandidats(Candidat **tCand, int *nbCand) {
@@ -339,39 +343,53 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
 	}
 }
 
-char *upperfcase(char *motIn)
-{	
-	int len = strlen(motIn), i;
-	char *motOut = (char *)malloc(sizeof(char)*len);
-	testMalloc(motOut, "Mise en uppercase");
+Candidat** supprimerVoeux(Candidat** tCand, int *nbCand) {
+	int i=0, numCand;
+	Bool trouve;
+	char ville[30], dept[30], choix[2]; 
+	Voeu* prec, *voeu;
 
-	if (len != 0) motOut[0] = toupper(motIn[0]);
 
-	for (i = 1 ; i < len ; i++) motOut[i] = tolower(motIn[i]);
+	while(numCand != -1 && strcmp(ville, "-1") != 0 && strcmp(dept, "-1") != 0) {
+		printf("Quel est le numéro du candidat pour lequel vous souhaitez supprimé un voeu (-1 pour annuler) ? : ");
+		scanf("%d", &numCand);
 
-	return motOut;
-}
+		if(numCand != -1) {
+			printf("Quel est la ville de l'IUT pour lequel vous souhaitez supprimé un voeu (-1 pour annuler) ? : ");
+			scanf("%s", ville);
 
-char *uppercase(char *motIn)
-{
-	int len = strlen(motIn), i;
-	char *motOut = (char *)malloc(sizeof(char)*len);
-	testMalloc(motOut, "Mise en uppercase");
+			if(strcmp(ville, "-1") != 0) {
+				printf("Quel est le département de l'IUT de %s pour lequel vous souhaitez supprimé un voeu (-1 pour annuler) ? : ", ville);
+				scanf("%s", dept);
+			}
 
-	for (i = 0 ; i < len ; i++) motOut[i] = toupper(motIn[i]);
+			if(strcmp(dept, "-1") != 0) {
+				trouve = 0;
+				i = 0;
+				for(voeu=tCand[i]->choix->premier, prec = voeu; voeu; prec = voeu, voeu = voeu->suivant) {
+					if(strcmp(voeu->ville, ville) == 0 && strcmp(voeu->departement, dept) == 0) {
+						afficher1Voeu(tCand, voeu);
+						trouve = 1;
 
-	return motOut;
-}
+						printf("Voulez-vous supprimer ce voeu (O/Autre lettre pour annuler) ? : ");
+						scanf("%s", choix);
 
-Bool chiffreDansMot(char *mot)
-{
-	int len = strlen(mot), i;
+						if(choix != 'O' && choix != 'o') {
+							prec->suivant = voeu->suivant;
+							printf(VERT"Le voeu a bien été supprimé.\n"RESET);
+						}
+						else {
+							printf(ROUGE"Annulation de l'opération...\n"RESET);
+						}
+					}
+					++i;
+				}
+				if(trouve == 0) {
+					printf(ROUGE"Le voeu que vous cherché n'a pas été trouvé.\n"RESET);
+				}
+			}
+		}
+	}	
 
-	for (i = 0 ; i < len ; i++)
-	{
-		if (mot[i] == '0' || mot[i] == '1' || mot[i] == '2' || mot[i] == '3' || mot[i] == '4' || mot[i] == '5' || mot[i] == '6' || mot[i] == '7' || mot[i] == '8' || mot[i] == '9')
-			return 1;
-	}
-
-	return 0;
+	return tCand;
 }
