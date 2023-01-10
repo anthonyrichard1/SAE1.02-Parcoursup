@@ -41,3 +41,7 @@ char *uppercase(char *motIn);
 Bool chiffreDansMot(char *mot);
 
 void ajouterCandidats(Candidat **tCand, int *nbCand);
+
+float CalculMoyenne(float notes[]);
+
+Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept);
