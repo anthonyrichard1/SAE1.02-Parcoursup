@@ -339,7 +339,7 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
 	}
 }
 
-char *Upperfcase(char *motIn)
+char *upperfcase(char *motIn)
 {	
 	int len = strlen(motIn), i;
 	char *motOut = (char *)malloc(sizeof(char)*len);
@@ -348,6 +348,17 @@ char *Upperfcase(char *motIn)
 	if (len != 0) motOut[0] = toupper(motIn[0]);
 
 	for (i = 1 ; i < len ; i++) motOut[i] = tolower(motIn[i]);
+
+	return motOut;
+}
+
+char *uppercase(char *motIn)
+{
+	int len = strlen(motIn), i;
+	char *motOut = (char *)malloc(sizeof(char)*len);
+	testMalloc(motOut, "Mise en uppercase");
+
+	for (i = 0 ; i < len ; i++) motOut[i] = toupper(motIn[i]);
 
 	return motOut;
 }

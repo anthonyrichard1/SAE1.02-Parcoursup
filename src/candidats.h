@@ -30,4 +30,6 @@ void afficherCandidats(Candidat **tCand, int *nbCand);
 
 void afficherCandidatsDepart(Candidat **tCand, int *nbCand);
 
-char *Upperfcase(char *motIn);
+char *upperfcase(char *motIn);
+
+char *uppercase(char *motIn);
