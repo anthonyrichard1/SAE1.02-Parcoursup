@@ -470,3 +470,14 @@ void ajouterCandidats(Candidat **tCand, int *nbCand)
 		}
 	} */
 }
+
+float CalculMoyenne(float notes[]) {
+	int i;
+	float moyenne;
+
+	for(i=0; i < 4; ++i) {
+		moyenne += notes[i];
+	}
+
+	return moyenne/4;
+}
