@@ -1,13 +1,13 @@
 # ---> C
 # Prerequisites
 *.d
+*.don
 
 # Object files
 *.o
 *.ko
 *.obj
 *.elf
-*.don
 
 # Linker output
 *.ilk
@@ -55,3 +55,6 @@ dkms.conf
 
 #vscode
 .vscode
+
+# Text file
+.don
