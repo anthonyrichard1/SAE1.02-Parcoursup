@@ -9,12 +9,14 @@
  * \brief Dans ce fichier sont repertoriées les structures utilisées par l'application.
 */
 
+//Inclusion des .h
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 #include <ctype.h>
 
+//Définition des couleurs
 #define ROUGE "\e[1;31m"
 #define VERT "\e[1;32m"
 #define RESET "\e[0m"
@@ -129,6 +131,10 @@ typedef struct
     ListeVoeux choix;
 }Candidat;
 
+/**
+ * \typedef int Phase
+ * \brief Ce type représente une phase, égale à 0 si la phase de candidature n'a pas encore commencée, 1 si elle a commencée et 2 si elle est terminée.
+*/
 typedef int Phase;
 
 #endif
