@@ -82,15 +82,13 @@ int existeVoeu(Candidat *c, char *iut, char *depart)
 	return 0;
 }
 
-void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Phase *phase)
+void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand)
 {
 	int num = 0, posIut;
 	Bool trouve;
 	char nom[30], depart[30];
 	MaillonDept *mDept;
 	Voeu *v;
-
-	if (afficherPhase(phase) != 1) return;
 
 	while (num != -1)
 	{

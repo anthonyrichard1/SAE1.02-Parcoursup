@@ -141,7 +141,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 				break;
 
 			case 13 :
-				ajouterVoeu(tiut, nbIUT, tCand, nbCand, &phase);
+				ajouterVoeu(tiut, nbIUT, tCand, nbCand);
 				break;
 
 			case 19 :
