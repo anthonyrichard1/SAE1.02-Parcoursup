@@ -109,7 +109,7 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, Pha
 					fprintf(stderr, ROUGE"Erreur : vous avez déjà atteint le nombre maximal de voeux !\n"RESET);
 					break;
 				}
-				else //afficher étudiant
+				else afficher1Candidat(tCand, num-1);
 
 				strcpy(nom, "0");
 				while (strcmp(nom, "-1") != 0)
@@ -346,7 +346,7 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
 Candidat** supprimerVoeux(Candidat** tCand, int *nbCand) {
 	int i=0, numCand;
 	Bool trouve;
-	char ville[30], dept[30], choix[2]; 
+	char ville[30], dept[30], choix; 
 	Voeu* prec, *voeu;
 
 
@@ -372,7 +372,7 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand) {
 						trouve = 1;
 
 						printf("Voulez-vous supprimer ce voeu (O/Autre lettre pour annuler) ? : ");
-						scanf("%s", choix);
+						scanf("%c", &choix);
 
 						if(choix != 'O' && choix != 'o') {
 							prec->suivant = voeu->suivant;
@@ -392,4 +392,81 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand) {
 	}	
 
 	return tCand;
+}
+
+char *Upperfcase(char *motIn)
+{	
+	int len = strlen(motIn), i;
+	char *motOut = (char *)malloc(sizeof(char)*len);
+	testMalloc(motOut, "Mise en uppercase");
+
+	if (len != 0) motOut[0] = toupper(motIn[0]);
+
+	for (i = 1 ; i < len ; i++) motOut[i] = tolower(motIn[i]);
+
+	return motOut;
+}
+
+char *Uppercase(char *motIn)
+{
+	int len = strlen(motIn), i;
+	char *motOut = (char *)malloc(sizeof(char)*len);
+	testMalloc(motOut, "Mise en uppercase");
+
+	for (i = 0 ; i < len ; i++) motOut[i] = toupper(motIn[i]);
+
+	return motOut;
+}
+
+Bool chiffreDansMot(char *mot)
+{
+	int len = strlen(mot), i;
+
+	for (i = 0 ; i < len ; i++)
+	{
+		if (mot[i] == '0' || mot[i] == '1' || mot[i] == '2' || mot[i] == '3' || mot[i] == '4' || mot[i] == '5' || mot[i] == '6' || mot[i] == '7' || mot[i] == '8' || mot[i] == '9')
+			return 1;
+	}
+
+	return 0;
+}
+
+void ajouterCandidats(Candidat **tCand, int *nbCand)
+{
+	/* char prenom[30] = "0";
+	char nom[30] = "0";
+	float ma = 0, fr = 0, an = 0, spe = 0;
+	int retscanf;
+
+	while (strcmp(prenom, "-1") != 0)
+	{
+		printf("Entrez votre prénom sous la forme 'Prénom' (-1 pour annuler) : ");
+		scanf("%s", prenom);
+		strcpy(prenom, upperfcase(prenom));
+
+		if (strcmp(prenom, "") == 0 || chiffreDansMot(prenom)) fprintf(stderr, ROUGE"Erreur : prénom invalide !\n"RESET);
+		else if (strcmp(prenom, "-1") != 0)
+		{
+			while (strcmp(nom, "-1") != 0)
+			{
+				printf("Entrez votre nom (-1 pour annuler) : ");
+				scanf("%s", nom);
+				strcpy(nom, uppercase(nom));
+
+				if (strcmp(nom, "") == 0 || chiffreDansMot(nom)) fprintf(stderr, ROUGE"Erreur : nom invalide !\n"RESET);
+				else if (strcmp(nom, "-1") != 0)
+				{
+					printf("Entrez vos notes en maths français anglais et spécialité en les séparant par des espaces (-1 pour annuler) : ");
+					retscanf = scanf("%f %f %f %f", &ma, &fr, &an, &spe);
+
+					while (ma > 20 || fr > 20 || an > 20 || spe > 20 || ma < 0 || fr < 0 || an < 0 || spe < 0 || retscanf != 4)
+					{
+						printf("%d\n", retscanf);
+						fprintf(stderr, ROUGE"Erreur : saisie incorrecte !\n"RESET"Entrez vos notes en maths français anglais et spécialité en les séparant par des espaces (-1 pour annuler) : ");
+						retscanf = scanf("%*c%f %f %f %f", &ma, &fr, &an, &spe);
+					}
+				}
+			}
+		}
+	} */
 }
