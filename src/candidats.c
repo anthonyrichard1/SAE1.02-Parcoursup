@@ -329,7 +329,7 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
 				}
 			}
 
-			if(nbCandDept == 0) printf(ROUGE"\nIl n'y a pas de candidat dans le département %s.\n"RESET, dept);
+			if(nbCandDept == 0) fprintf(stderr, ROUGE"\nIl n'y a pas de candidat dans le département %s.\n"RESET, dept);
 			else {
 				triAlpha(tCandDept, nbCandDept);
 				printf(GRAS UNDERLINE"\nListe des candidats du département %s : \n"RESET, dept);
@@ -379,13 +379,13 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand) {
 							printf(VERT"Le voeu a bien été supprimé.\n"RESET);
 						}
 						else {
-							printf(ROUGE"Annulation de l'opération...\n"RESET);
+							printf("Annulation de l'opération...\n");
 						}
 					}
 					++i;
 				}
 				if(trouve == 0) {
-					printf(ROUGE"Le voeu que vous cherché n'a pas été trouvé.\n"RESET);
+					fprintf(stderr, ROUGE"Le voeu que vous cherché n'a pas été trouvé.\n"RESET);
 				}
 			}
 		}
@@ -394,7 +394,7 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand) {
 	return tCand;
 }
 
-char *Upperfcase(char *motIn)
+char *upperfcase(char *motIn)
 {	
 	int len = strlen(motIn), i;
 	char *motOut = (char *)malloc(sizeof(char)*len);
@@ -407,7 +407,7 @@ char *Upperfcase(char *motIn)
 	return motOut;
 }
 
-char *Uppercase(char *motIn)
+char *uppercase(char *motIn)
 {
 	int len = strlen(motIn), i;
 	char *motOut = (char *)malloc(sizeof(char)*len);
@@ -431,42 +431,20 @@ Bool chiffreDansMot(char *mot)
 	return 0;
 }
 
-void ajouterCandidats(Candidat **tCand, int *nbCand)
+void saisie(void *var, char *format)
 {
-	/* char prenom[30] = "0";
-	char nom[30] = "0";
-	float ma = 0, fr = 0, an = 0, spe = 0;
-	int retscanf;
+	char buffer[30];
+	int resscanf;
+	char formatL[5] = "%*c";
 
-	while (strcmp(prenom, "-1") != 0)
+	strcat(formatL, format);
+	fgets(buffer, sizeof(buffer), stdin);
+	resscanf = sscanf(buffer, format, var);
+
+	while (resscanf == 0)
 	{
-		printf("Entrez votre prénom sous la forme 'Prénom' (-1 pour annuler) : ");
-		scanf("%s", prenom);
-		strcpy(prenom, upperfcase(prenom));
-
-		if (strcmp(prenom, "") == 0 || chiffreDansMot(prenom)) fprintf(stderr, ROUGE"Erreur : prénom invalide !\n"RESET);
-		else if (strcmp(prenom, "-1") != 0)
-		{
-			while (strcmp(nom, "-1") != 0)
-			{
-				printf("Entrez votre nom (-1 pour annuler) : ");
-				scanf("%s", nom);
-				strcpy(nom, uppercase(nom));
-
-				if (strcmp(nom, "") == 0 || chiffreDansMot(nom)) fprintf(stderr, ROUGE"Erreur : nom invalide !\n"RESET);
-				else if (strcmp(nom, "-1") != 0)
-				{
-					printf("Entrez vos notes en maths français anglais et spécialité en les séparant par des espaces (-1 pour annuler) : ");
-					retscanf = scanf("%f %f %f %f", &ma, &fr, &an, &spe);
-
-					while (ma > 20 || fr > 20 || an > 20 || spe > 20 || ma < 0 || fr < 0 || an < 0 || spe < 0 || retscanf != 4)
-					{
-						printf("%d\n", retscanf);
-						fprintf(stderr, ROUGE"Erreur : saisie incorrecte !\n"RESET"Entrez vos notes en maths français anglais et spécialité en les séparant par des espaces (-1 pour annuler) : ");
-						retscanf = scanf("%*c%f %f %f %f", &ma, &fr, &an, &spe);
-					}
-				}
-			}
-		}
-	} */
+		fprintf(stderr, ROUGE"Saisie invalide, recommencez : "RESET);
+		fgets(buffer, sizeof(buffer), stdin);
+		resscanf = sscanf(buffer, formatL, var);
+	}
 }
