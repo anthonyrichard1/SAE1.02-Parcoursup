@@ -29,3 +29,5 @@ void afficher1Candidat(Candidat **tCand, int pos);
 void afficherCandidats(Candidat **tCand, int *nbCand);
 
 void afficherCandidatsDepart(Candidat **tCand, int *nbCand);
+
+char *Upperfcase(char *motIn);
