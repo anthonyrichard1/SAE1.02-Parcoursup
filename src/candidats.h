@@ -33,3 +33,5 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand);
 char *upperfcase(char *motIn);
 
 char *uppercase(char *motIn);
+
+Bool chiffreDansMot(char *mot);

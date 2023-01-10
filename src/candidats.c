@@ -362,3 +362,16 @@ char *uppercase(char *motIn)
 
 	return motOut;
 }
+
+Bool chiffreDansMot(char *mot)
+{
+	int len = strlen(mot), i;
+
+	for (i = 0 ; i < len ; i++)
+	{
+		if (mot[i] == '0' || mot[i] == '1' || mot[i] == '2' || mot[i] == '3' || mot[i] == '4' || mot[i] == '5' || mot[i] == '6' || mot[i] == '7' || mot[i] == '8' || mot[i] == '9')
+			return 1;
+	}
+
+	return 0;
+}
