@@ -431,20 +431,100 @@ Bool chiffreDansMot(char *mot)
 	return 0;
 }
 
-void saisie(void *var, char *format)
+void ajouterCandidats(Candidat **tCand, int *nbCand)
 {
-	char buffer[30];
+	char prenom[30] = "0";
+	char nom[30] = "0";
+	float ma = 50, fr = 50, an = 50, spe = 50;
 	int resscanf;
-	char formatL[5] = "%*c";
 
-	strcat(formatL, format);
-	fgets(buffer, sizeof(buffer), stdin);
-	resscanf = sscanf(buffer, format, var);
+	Candidat *c = (Candidat *)malloc(sizeof(Candidat));
+	testMalloc(c, "création d'un candidat");
+	c->num = *nbCand+1;
+	
 
-	while (resscanf == 0)
+	while (strcmp(prenom, "-1") != 0)
 	{
-		fprintf(stderr, ROUGE"Saisie invalide, recommencez : "RESET);
-		fgets(buffer, sizeof(buffer), stdin);
-		resscanf = sscanf(buffer, formatL, var);
+		printf("Entrez votre prénom (-1 pour annuler) : ");
+		scanf("%s", prenom);
+		strcpy(prenom, upperfcase(prenom));
+
+		if (strcmp(prenom, "") == 0 || (chiffreDansMot(prenom) && strcmp(prenom, "-1") != 0)) fprintf(stderr, ROUGE"Erreur : prénom invalide !\n"RESET);
+		else if (strcmp(prenom, "-1") != 0)
+		{
+			strcpy(c->prenom, prenom);
+			strcpy(prenom, "-1");
+			while (strcmp(nom, "-1") != 0)
+			{
+				printf("Entrez votre nom (-1 pour annuler) : ");
+				scanf("%s%*c", nom);
+				strcpy(nom, uppercase(nom));
+
+				if (strcmp(nom, "") == 0 || (chiffreDansMot(nom) && strcmp(nom, "-1") != 0)) fprintf(stderr, ROUGE"Erreur : nom invalide !\n"RESET);
+				else if (strcmp(nom, "-1") != 0)
+				{
+					strcpy(c->nom, nom);
+					strcpy(nom, "-1");
+					ma=0;fr=0;an=0;spe=0;
+					while (ma != -1 && fr != -1 && an != -1 && spe != -1)
+					{
+						printf("Entrez votre note de maths (-1 pour annuler) : ");
+						resscanf = scanf("%f", &ma);
+						if (ma == -1) break;
+						while (!resscanf || ma < 0 || ma > 20)
+						{
+							fprintf(stderr, ROUGE"Saisie invalide, recommencez : "RESET);
+							resscanf = scanf("%*c%f", &ma);
+							
+							if (ma == -1) break;
+						}
+
+						printf("Entrez votre note de français (-1 pour annuler) : ");
+						resscanf = scanf("%f", &fr);
+						if (fr == -1) break;
+						while (!resscanf || fr < 0 || fr > 20)
+						{
+							fprintf(stderr, ROUGE"Saisie invalide, recommencez : "RESET);
+							resscanf = scanf("%*c%f", &fr);
+							
+							if (fr == -1) break;
+						}
+
+						printf("Entrez votre note d'anglais (-1 pour annuler) : ");
+						resscanf = scanf("%f", &an);
+						if (an == -1) break;
+						while (!resscanf || an < 0 || an > 20)
+						{
+							fprintf(stderr, ROUGE"Saisie invalide, recommencez : "RESET);
+							resscanf = scanf("%*c%f", &an);
+							
+							if (an == -1) break;
+						}
+
+						printf("Entrez votre note de spécialité (-1 pour annuler) : ");
+						resscanf = scanf("%f", &spe);
+						if (spe == -1) break;
+						while (!resscanf || spe < 0 || spe > 20)
+						{
+							fprintf(stderr, ROUGE"Saisie invalide, recommencez : "RESET);
+							resscanf = scanf("%*c%f", &spe);
+							
+							if (spe == -1) break;
+						}
+
+						c->notes[0] = ma;
+						c->notes[1] = fr;
+						c->notes[2] = an;
+						c->notes[3] = spe;
+						c->nbChoix = 0;
+						c->choix = creerListeVoeux();
+						tCand[c->num-1] = c;
+						*nbCand += 1;
+						printf(VERT"Candidat ajouté !\n"RESET);
+						spe = -1;
+					}
+				}
+			}
+		}
 	}
 }

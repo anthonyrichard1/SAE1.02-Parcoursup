@@ -41,5 +41,3 @@ char *uppercase(char *motIn);
 Bool chiffreDansMot(char *mot);
 
 void ajouterCandidats(Candidat **tCand, int *nbCand);
-
-void saisie(void *var, char *format);
