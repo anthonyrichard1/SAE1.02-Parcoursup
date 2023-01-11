@@ -100,7 +100,7 @@ Bool chiffreDansMot(char *mot);
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau dans lequel il faut ajouter un candidat.
  * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
 */
-void ajouterCandidats(Candidat **tCand, int *nbCand);
+Candidat **ajouterCandidats(Candidat **tCand, int *nbCand);
 
 float CalculMoyenne(float notes[]);//LEANA
 

@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    int nbCand = 1, nbIUT;
+    int nbCand = 0, nbIUT;
 
     VilleIUT **tiut = chargerIUT(&nbIUT);
     Candidat **tCand = chargerCandidats(&nbCand);

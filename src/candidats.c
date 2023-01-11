@@ -428,7 +428,7 @@ Bool chiffreDansMot(char *mot)
 	return 0;
 }
 
-void ajouterCandidats(Candidat **tCand, int *nbCand)
+Candidat **ajouterCandidats(Candidat **tCand, int *nbCand)
 {
 	char prenom[30] = "0";
 	char nom[30] = "0";
@@ -515,15 +515,21 @@ void ajouterCandidats(Candidat **tCand, int *nbCand)
 						c->notes[3] = spe;
 						c->nbChoix = 0;
 						c->choix = creerListeVoeux();
-						tCand[c->num-1] = c;
 						*nbCand += 1;
+						Candidat **ntCand = (Candidat **)realloc(tCand, sizeof(tCand)*(*nbCand));
+						testMalloc(ntCand, "aggrandissement du tableau des candidats");
+						ntCand[c->num-1] = c;
+						
 						printf(VERT"Candidat ajouté !\n"RESET);
-						spe = -1;
+						return ntCand;
 					}
 				}
 			}
 		}
 	}
+	
+	printf("Fin de l'opération...\n");
+	return tCand;
 }
 
 float CalculMoyenne(float notes[]) {
