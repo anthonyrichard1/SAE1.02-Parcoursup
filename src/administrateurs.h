@@ -45,14 +45,14 @@ void supprimerIUT(VilleIUT **tiut, int *nbIUT);
 void supprimerDepart(VilleIUT **tiut, int *nbIUT);
 
 /**
- * \brief 
- * \param 
+ * \brief Cette fonction permet de stopper la phase de candidature.
+ * \param *phase Phase - contient l'état de la phase en cours.
  */
 void StopperCandidature(Phase *phase);
 
 /**
- * \brief 
- * \param 
+ * \brief Cette fonction permet de lancer la phase de candidature.
+ * \param *phase Phase - contient l'état de la phase en cours.
  */
 void LancerCandidature(Phase *phase);
 
