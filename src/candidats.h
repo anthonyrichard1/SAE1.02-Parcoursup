@@ -101,7 +101,3 @@ Bool chiffreDansMot(char *mot);
  * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
 */
 Candidat **ajouterCandidats(Candidat **tCand, int *nbCand);
-
-float CalculMoyenne(float notes[]);//LEANA
-
-Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept);//LEANA
