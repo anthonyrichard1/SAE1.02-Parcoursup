@@ -54,28 +54,54 @@ int existeVoeu(Candidat *c, char *iut, char *depart);
 */
 void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand);
 
+/**
+ * \brief Cette fonction permet de sauvegarder les candidats depuis un tableau de pointeurs sur des candidats vers le fichier binaire candidats.don.
+ * \param **tCand Tableau de pointeurs sur des candidats - le tableau à sauvegarder.
+ * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+*/
 void sauvegarderCandidats(Candidat **tCand, int *nbCand);
 
+/**
+ * \brief Cette fonction permet de charger un tableau de pointeurs sur des candidats depuis le fichier binaire candidats.bin
+ * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+*/
 Candidat **chargerCandidats(int *nbCand);
 
-void afficher1Candidat(Candidat **tCand, int pos);
+void afficher1Candidat(Candidat **tCand, int pos);//LEANA
 
-void afficher1Voeu(Candidat** tCand, Voeu* voeu);
+void afficher1Voeu(Candidat** tCand, Voeu* voeu);//LEANA
 
-void afficherCandidats(Candidat **tCand, int *nbCand);
+void afficherCandidats(Candidat **tCand, int *nbCand);//LEANA
 
-void afficherCandidatsDepart(Candidat **tCand, int *nbCand);
+void afficherCandidatsDepart(Candidat **tCand, int *nbCand);//LEANA
 
-Candidat** supprimerVoeux(Candidat** tCand, int *nbCand);
+Candidat** supprimerVoeux(Candidat** tCand, int *nbCand);//LEANA
 
+/**
+ * \brief Cette fonction permet de mettre seulement la première lettre d'un mot en majuscule et les autres en minuscule. Le mot est enfin renvoyé.
+ * \param *motIn Chaîne de caractères - le mot sur lequel il faut appliquer le formatage.
+*/
 char *upperfcase(char *motIn);
 
+/**
+ * \brief Cette fonction permet de mettre toutes les lettres d'un mot en majuscule. Le mot est enfin renvoyé.
+ * \param *motIn Chaîne de caractères - le mot sur lequel il faut appliquer le formatage.
+*/
 char *uppercase(char *motIn);
 
+/**
+ * \brief Cette fonction permet de tester la présence de chiffres dans un mot. Elle renvoie 1 s'il y a un chiffre et 0 dans le cas contraire.
+ * \param *mot Chaîne de caractères - le mot à tester.
+ * \return Bool - ce booléen contient 1 s'il y a un chiffre dans le mot et 0 dans le cas contraire.
+*/
 Bool chiffreDansMot(char *mot);
 
+/**
+ * \param **tCand Tableau de pointeurs sur des candidats - le tableau dans lequel il faut ajouter un candidat.
+ * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+*/
 void ajouterCandidats(Candidat **tCand, int *nbCand);
 
-float CalculMoyenne(float notes[]);
+float CalculMoyenne(float notes[]);//LEANA
 
-Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept);
+Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept);//LEANA
