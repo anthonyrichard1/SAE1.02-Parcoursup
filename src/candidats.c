@@ -295,11 +295,14 @@ void afficher1Voeu(Candidat** tCand, Voeu* voeu) {
 void afficherCandidats(Candidat **tCand, int *nbCand) {
 	int i;
 
-	printf(GRAS UNDERLINE"\nListe des candidats :"RESET);
+	if(*nbCand > 0) {
+		printf(GRAS UNDERLINE"\nListe des candidats :"RESET);
 
-	for(i=0; i < *nbCand; ++i) {
-		afficher1Candidat(tCand, i);
+		for(i=0; i < *nbCand; ++i) {
+			afficher1Candidat(tCand, i);
+		}
 	}
+	else fprintf(stderr, ROUGE"Il n'y a pas de candidat.\n"RESET);
 }
 
 void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
@@ -344,13 +347,10 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
 Candidat** supprimerVoeux(Candidat** tCand, int *nbCand) 
 {
 	int numCand, numVoeu;
-	Bool trouve;
-	char ville[30], dept[30], choix; 
-	Voeu* prec, *voeuSup, *test;
+	Voeu *prec, *voeuSup, *v;
 	int i, j;
-	Voeu* v;
 
-	while(numCand != -1 && strcmp(ville, "-1") != 0 && strcmp(dept, "-1") != 0) {
+	while(numCand != -1 && numVoeu != -1) {
 		printf("Quel est le numéro du candidat pour lequel vous souhaitez supprimé un voeu (-1 pour annuler) ? : ");
 		scanf("%d", &numCand);
 
@@ -404,7 +404,7 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand)
 			}
 		}
 	}	
-
+	fprintf(stderr, ROUGE"Annulation de l'opération.\n"RESET);
 	return tCand;
 }
 
