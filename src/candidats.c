@@ -211,8 +211,8 @@ Candidat **chargerCandidats(int *nbCand)
 		testMalloc(c, "Création d'un candidat");
 
 		fread(&c->num, sizeof(int), 1, f);
-		fread(&c->prenom, sizeof(c->prenom), 1, f);
 		fread(&c->nom, sizeof(c->nom), 1, f);
+		fread(&c->prenom, sizeof(c->prenom), 1, f);
 		fread(&c->notes, sizeof(float), 4, f);
 		fread(&c->nbChoix, sizeof(int), 1, f);
 		ListeVoeux lv = creerListeVoeux();
