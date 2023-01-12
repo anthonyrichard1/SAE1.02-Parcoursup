@@ -1,4 +1,4 @@
-all : menus informations administrateurs candidats
+all : menus informations administrateurs candidats responsable
 
 menus : menus.c testMenus.c informations.c erreur.c administrateurs.c candidats.c
 	gcc -Wall $^ -o menus
@@ -11,6 +11,9 @@ administrateurs : administrateurs.c informations.c erreur.c testAdministrateurs.
 
 candidats : candidats.c testCandidats.c erreur.c informations.c
 	gcc -Wall $^ -o candidats
+
+responsable : responsable.c testResponsable.c
+	gcc -Wall $^ -o responsable
 	
 clean :
-	rm -f menus informations administrateurs candidats
+	rm -f menus informations administrateurs candidats responsable

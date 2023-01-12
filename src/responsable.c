@@ -19,8 +19,3 @@ Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept) {
 	}
 	return NULL;
 }
-
-void filtrerCandidatures()
-{
-    printf("Entrez le nom de votre département ")
-}
