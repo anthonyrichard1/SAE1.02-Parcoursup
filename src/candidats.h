@@ -90,13 +90,6 @@ char *upperfcase(char *motIn);
 char *uppercase(char *motIn);
 
 /**
- * \brief Cette fonction permet de tester la présence de chiffres dans un mot. Elle renvoie 1 s'il y a un chiffre et 0 dans le cas contraire.
- * \param *mot Chaîne de caractères - le mot à tester.
- * \return Bool - ce booléen contient 1 s'il y a un chiffre dans le mot et 0 dans le cas contraire.
-*/
-Bool chiffreDansMot(char *mot);
-
-/**
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau dans lequel il faut ajouter un candidat.
  * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
 */

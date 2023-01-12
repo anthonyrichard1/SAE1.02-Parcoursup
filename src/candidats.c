@@ -417,6 +417,7 @@ char *upperfcase(char *motIn)
 	if (len != 0) motOut[0] = toupper(motIn[0]);
 
 	for (i = 1 ; i < len ; i++) motOut[i] = tolower(motIn[i]);
+	motOut[len] = '\0';
 
 	return motOut;
 }
@@ -428,22 +429,11 @@ char *uppercase(char *motIn)
 	testMalloc(motOut, "Mise en uppercase");
 
 	for (i = 0 ; i < len ; i++) motOut[i] = toupper(motIn[i]);
-
+	motOut[len] = '\0';
+	
 	return motOut;
 }
 
-Bool chiffreDansMot(char *mot)
-{
-	int len = strlen(mot), i;
-
-	for (i = 0 ; i < len ; i++)
-	{
-		if (mot[i] == '0' || mot[i] == '1' || mot[i] == '2' || mot[i] == '3' || mot[i] == '4' || mot[i] == '5' || mot[i] == '6' || mot[i] == '7' || mot[i] == '8' || mot[i] == '9')
-			return 1;
-	}
-
-	return 0;
-}
 
 Candidat **ajouterCandidats(Candidat **tCand, int *nbCand)
 {
