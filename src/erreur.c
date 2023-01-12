@@ -25,3 +25,52 @@ int testFopen(char *nomFichier)
 
     return choix;
 }
+
+void saisieIntControlee(int *var, char *message)
+{
+    printf(message);
+    int resscanf = scanf("%d", var);
+
+    while (!resscanf)
+    {
+        fprintf(stderr, ROUGE"saisie invalide, recommencez : "RESET);
+        resscanf = scanf("%*c%d", var);
+    }
+}
+
+void saisieFloatControlee(float *var, char *message)
+{
+    printf(message);
+    int resscanf = scanf("%f", var);
+
+    while (!resscanf)
+    {
+        fprintf(stderr, ROUGE"saisie invalide, recommencez : "RESET);
+        resscanf = scanf("%*c%f", var);
+    }
+}
+
+void saisieStringControlee(char *var, char *message)
+{
+    printf(message);
+    scanf("%s", var);
+    
+    while (chiffreDansMot(var) && strcmp(var, "-1") != 0)
+    {
+        fprintf(stderr, ROUGE"Saisie invalide, recommencez : "RESET);
+        scanf("%s", var);
+    }
+}
+
+Bool chiffreDansMot(char *mot)
+{
+	int len = strlen(mot), i;
+
+	for (i = 0 ; i < len ; i++)
+	{
+		if (mot[i] == '0' || mot[i] == '1' || mot[i] == '2' || mot[i] == '3' || mot[i] == '4' || mot[i] == '5' || mot[i] == '6' || mot[i] == '7' || mot[i] == '8' || mot[i] == '9')
+			return 1;
+	}
+
+	return 0;
+}

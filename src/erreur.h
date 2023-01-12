@@ -20,3 +20,16 @@ void testMalloc(void *elt, char *procedure);
  * \return Entier - le choix de l'utilisateur, 1 pour réessayer d'ouvrir le fichier ou un autre chiffre pour quitter le programme.
 */
 int testFopen(char *nomFichier);
+
+/**
+ * \brief Cette fonction permet de tester la présence de chiffres dans un mot. Elle renvoie 1 s'il y a un chiffre et 0 dans le cas contraire.
+ * \param *mot Chaîne de caractères - le mot à tester.
+ * \return Bool - ce booléen contient 1 s'il y a un chiffre dans le mot et 0 dans le cas contraire.
+*/
+Bool chiffreDansMot(char *mot);
+
+void saisieIntControlee(int *var, char *message);
+
+void saisieFloatControlee(float *var, char *message);
+
+void saisieStringControlee(char *var, char *message);
