@@ -98,17 +98,21 @@ void afficher1Depart(VilleIUT *v)
 {
 	int i;
 	MaillonDept *m;
-	
-	printf("\nListe des départements de l'IUT de %s\n", v->ville);
-	m = v->ldept->premier;
-	
-	for (i = 0 ; i < v->ldept->nb ; i++)
+
+	if (!v->ldept->nb) printf("Aucun département dans cet IUT...\n");
+	else
 	{
-		printf("\t%s %d %s\n", m->departement, m->nbP, m->nomRes); 
-		m = m->suivant;
-	}
-	
-	printf("\n");
+		printf("\nListe des départements de l'IUT de %s\n", v->ville);
+		m = v->ldept->premier;
+		
+		for (i = 0 ; i < v->ldept->nb ; i++)
+		{
+			printf("\t%s %d %s\n", m->departement, m->nbP, m->nomRes); 
+			m = m->suivant;
+		}
+		
+		printf("\n");
+	}	
 }
 
 void afficherDepart(VilleIUT **tiut, int *nbIUT)
@@ -119,10 +123,10 @@ void afficherDepart(VilleIUT **tiut, int *nbIUT)
 		
 		while (strcmp(choix, "-1") != 0)
 		{
-			printf("\nQuel IUT souhaitez-vous voir en détail (nom de ville/tous/-1 pour annuler) ? ");
-			scanf("%s", choix);
-			
-			if (strcmp(choix, "tous") == 0)
+			saisieStringControlee(choix, "Quel IUT souhaitez-vous voir en détail (nom de ville/tous/-1 pour annuler) ? ");
+			strcpy(choix, upperfcase(choix));
+
+			if (strcmp(choix, "Tous") == 0)
 			{
 				for (i = 0 ; i < *nbIUT ; i++)
 				{
@@ -150,13 +154,13 @@ void afficherDepart(VilleIUT **tiut, int *nbIUT)
 
 void afficherDepartPrecis(VilleIUT **tiut, int *nbIUT) 
 {
-	char choix[30] = "";
+	char choix[30] = "0";
 	int i;
 	MaillonDept *tmp;
 
 	while (strcmp(choix, "-1") != 0) {
-		printf("\nQuel département souhaitez-vous trouver (nom du département/-1 pour annuler) ? ");
-		scanf("%s%*c", choix);
+		saisieStringControlee(choix, "Quel département souhaitez-vous trouver (nom du département/-1 pour annuler) ? ");
+		strcpy(choix, upperfcase(choix));
 
 		printf("\nListe des ville où l'IUT à un département %s\n", choix);
 
