@@ -55,7 +55,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand)
 				exit(0);
 
 			default :
-				printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+				printf(ROUGE"\nChoix incorrect, recommencez\n"RESET);
 				break;
 		}
 	}
@@ -95,33 +95,35 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 				break;
 
 			case 2 :
-				AjouterDepart(tiut, nbIUT);
+				ajouterDepart(tiut, nbIUT);
 				sauvegarde(tiut, nbIUT);
 				break;
 
 			case 3 :
-				
+				supprimerIUT(tiut, nbIUT);
+				sauvegarde(tiut, nbIUT);
 				break;
 
 			case 4 :
-				
+				supprimerDepart(tiut, nbIUT);
+				sauvegarde(tiut, nbIUT);
 				break;
 
 			case 5:
-				LancerCandidature(&phase);
+				lancerCandidature(&phase);
 				break;
 
 			case 6 :
-				StopperCandidature(&phase);
+				stopperCandidature(&phase);
 				break;
 
 			case 7 :
-				ModifPlaces(tiut, nbIUT);
+				modifPlaces(tiut, nbIUT);
 				sauvegarde(tiut, nbIUT);
 				break;
 
 			case 8 :
-				ModifierRes(tiut, nbIUT);
+				modifierRes(tiut, nbIUT);
 				sauvegarde(tiut, nbIUT);
 				break;
 
@@ -145,7 +147,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 				break;
 
 			case 19 :
-				menuPrincipal(tiut, tCand, nbIUT, nbCand);
+				sauvegarde(tiut, nbIUT);
 				return;
 
 			default :

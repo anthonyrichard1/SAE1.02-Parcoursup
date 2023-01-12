@@ -28,7 +28,7 @@ MaillonDept* nouveauMaillonDept(char* newDept);
  * \param **tiut Tableau de pointeurs sur des VilleIUT  - tableau dans lequel il faut recherché la ville où se trouve le département à ajouter.
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
  */
-void AjouterDepart(VilleIUT** tiut, int *nbIUT);
+void ajouterDepart(VilleIUT** tiut, int *nbIUT);
 
 /**
  * \brief Cette fonction permet de supprimer un IUT dans un tableau de pointeurs sur des VilleIUT.
@@ -48,24 +48,24 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT);
  * \brief Cette fonction permet de stopper la phase de candidature.
  * \param *phase Phase - contient l'état de la phase en cours.
  */
-void StopperCandidature(Phase *phase);
+void stopperCandidature(Phase *phase);
 
 /**
  * \brief Cette fonction permet de lancer la phase de candidature.
  * \param *phase Phase - contient l'état de la phase en cours.
  */
-void LancerCandidature(Phase *phase);
+void lancerCandidature(Phase *phase);
 
 /**
  * \brief Cette fonction permet de modifier le nombre de place d'un département d'un IUT. 
  * \param **tiut Tableau de pointeurs sur des VilleIUT - tableau dans lequel il faut recherché la ville où se trouve le département à modifier. 
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
  */
-void ModifPlaces(VilleIUT** tiut, int *nbIUT);
+void modifPlaces(VilleIUT** tiut, int *nbIUT);
 
 /**
  * \brief Cette fonction permet de modifier le nom du responsable d'un département d'un IUT. 
  * \param **tiut Tableau de pointeurs sur des VilleIUT - tableau dans lequel il faut recherché la ville où se trouve le département à modifier. 
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
  */
-void ModifierRes(VilleIUT** tiut, int *nbIUT);
+void modifierRes(VilleIUT** tiut, int *nbIUT);

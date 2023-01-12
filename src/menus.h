@@ -33,8 +33,4 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
  */
 void sauvegarde(VilleIUT ** tiut, int *nbIUT);
 
-
-
-
-
 #endif

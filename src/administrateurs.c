@@ -2,31 +2,30 @@
 
 VilleIUT **ajouterIUT(VilleIUT **tiut, int *nbIUT)
 {
-	char ville[30] = "";
+	char ville[30] = "0";
 	int pos, trouve, i;
 	
 	while (strcmp(ville, "-1") != 0)
 	{
-		printf("Entrez le nom de la ville à ajouter (-1 pour annuler) : ");
-		scanf("%s", ville);
-		
+		saisieStringControlee(ville, "Entrez le nom de la ville à ajouter (-1 pour annuler) : ");
+		strcpy(ville, upperfcase(ville));
+
 		if (strcmp(ville, "-1") != 0)
 		{
 			pos = rechercheIUT(tiut, nbIUT, ville, &trouve);
-			
 			if (!trouve)
 			{
 				i = *nbIUT-1;
 				*nbIUT += 1;
 				VilleIUT **ntiut = (VilleIUT**)realloc(tiut, sizeof(VilleIUT*)*(*nbIUT));
 				testMalloc(tiut, "agrandissement du tableau des IUT");
-				
+
 				VilleIUT *iut = (VilleIUT*)malloc(sizeof(VilleIUT));
 				testMalloc(iut, "IUT");
-				
+
 				strcpy(iut->ville, ville);
 				iut->ldept = creerListeDept();
-				
+
 				while (i >= pos)
 				{
 					ntiut[i+1] = ntiut[i];
@@ -43,7 +42,7 @@ VilleIUT **ajouterIUT(VilleIUT **tiut, int *nbIUT)
 			}
 		}
 	}
-	
+
 	printf("Abandon de l'opération...\n");
 	return tiut;
 }
@@ -51,66 +50,76 @@ VilleIUT **ajouterIUT(VilleIUT **tiut, int *nbIUT)
 MaillonDept* nouveauMaillonDept(char* newDept) 
 {
 	MaillonDept* maillon;
-	
 	maillon = (MaillonDept*) malloc(sizeof(MaillonDept));
 	testMalloc(maillon, "Création d'un maillon département");
 
 	strcpy(maillon->departement, newDept);
 
-	printf("Entrez le nombre de place du nouveau département : ");
-	scanf("%d", &maillon->nbP);
+	saisieIntControlee(&maillon->nbP, "Entrez le nombre de place du nouveau département : ");
+	
+	while(maillon->nbP <= 0)
+	{
+		fprintf(stderr, ROUGE"Erreur : le nombre de places doit être un nombre positif !\n"RESET);
+		saisieIntControlee(&maillon->nbP, "Entrez le nombre de place du nouveau département : ");
+	}
 
-	printf("Entrez le nom du responsable du nouveau département (nom-prénom) : ");
-	scanf("%s", maillon->nomRes);
+	saisieStringControlee(maillon->nomRes, "Entrez le nom du responsable du nouveau département (nom-prénom) : ");
+	while (strcmp(maillon->nomRes, "-1") == 0) saisieStringControlee(maillon->nomRes, "Entrez le nom du responsable du nouveau département (nom-prénom) : ");
 
 	maillon->suivant = NULL;
 
 	return maillon;
 }
 
-void AjouterDepart(VilleIUT** tiut, int *nbIUT) 
+void ajouterDepart(VilleIUT** tiut, int *nbIUT) // A REFAIRE
 {
-	char ville[30] = "", newDept[30] = "";
+	char ville[30] = "0", newDept[30] = "0";
 	Bool trouve, existant = 0;
 	int pos;
 	MaillonDept *tmp;
 
-	while (strcmp(ville, "-1") != 0 && strcmp(newDept, "-1") != 0) {
-		printf("\nEntrez le nom de la ville où ce trouve le département (-1 pour annuler) : ");
-		scanf("%s%*c", ville);
+	while (strcmp(ville, "-1") != 0) {
+
+		saisieStringControlee(ville, "\nEntrez le nom de la ville où ce trouve le département (-1 pour annuler) : ");
+		strcpy(ville, upperfcase(ville));
 		
 		if (strcmp(ville, "-1") != 0) {
+
 			pos = rechercheIUT(tiut, nbIUT, ville, &trouve);
 
 			if(trouve == 1) {
-				printf("Entrez le nom du nouveau département (-1 pour annuler) : ");
-				scanf("%s%*c", newDept);
+				saisieStringControlee(newDept, "Entrez le nom du nouveau département (-1 pour annuler) : ");
+				strcpy(newDept, upperfcase(newDept));
 
-				for(tmp=tiut[pos]->ldept->premier; tmp; tmp = tmp->suivant) {		
-					existant = 0;							
-					if(strcmp(tmp->departement, newDept) == 0) {
-						printf(ROUGE"Dans le département %s existe déjà.\n"RESET, newDept);
-						existant = 1;
+				if (strcmp(newDept, "-1") != 0)
+				{
+					for(tmp=tiut[pos]->ldept->premier; tmp; tmp = tmp->suivant) {		
+						existant = 0;							
+						if(strcmp(tmp->departement, newDept) == 0) {
+							fprintf(stderr, ROUGE"Dans le département %s existe déjà.\n"RESET, newDept);
+							existant = 1;
+						}
+					}
+
+					if(existant == 0) {
+						if(tiut[pos]->ldept->premier == NULL) {
+							tiut[pos]->ldept->premier = nouveauMaillonDept(newDept);
+							tiut[pos]->ldept->dernier = tiut[pos]->ldept->premier;
+							tiut[pos]->ldept->nb += 1;
+						}
+						else {
+							tiut[pos]->ldept->dernier->suivant = nouveauMaillonDept(newDept);
+							tiut[pos]->ldept->dernier = tiut[pos]->ldept->dernier->suivant;
+							tiut[pos]->ldept->nb += 1;
+						}
+
+						printf(VERT"Ajout du département effectué.\n"RESET);
 					}
 				}
-
-				if(existant == 0) {
-					if(tiut[pos]->ldept->premier == NULL) {
-						tiut[pos]->ldept->premier = nouveauMaillonDept(newDept);
-						tiut[pos]->ldept->dernier = tiut[pos]->ldept->premier;
-						tiut[pos]->ldept->nb += 1;
-					}
-					else {
-						tiut[pos]->ldept->dernier->suivant = nouveauMaillonDept(newDept);
-						tiut[pos]->ldept->dernier = tiut[pos]->ldept->dernier->suivant;
-						tiut[pos]->ldept->nb += 1;
-					}
-
-					printf(VERT"Ajout du département effectué.\n"RESET);
-				}
+				
 			}
 			else {
-				printf(ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
+				fprintf(stderr, ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
 			}
 		}
 	}
@@ -118,14 +127,14 @@ void AjouterDepart(VilleIUT** tiut, int *nbIUT)
 
 void supprimerIUT(VilleIUT **tiut, int *nbIUT)
 {
-	char choix[30] = "";
+	char choix[30] = "0";
 	int pos, i;
 	Bool trouve;
 
 	while (strcmp(choix, "-1") != 0)
 	{
-		printf("Entrez le nom de l'IUT à supprimer (-1 pour annuler) : ");
-		scanf("%s", choix);
+		saisieStringControlee(choix, "Entrez le nom de l'IUT à supprimer (-1 pour annuler) : ");
+		strcpy(choix, upperfcase(choix));
 
 		if (strcmp(choix, "-1") != 0)
 		{
@@ -155,8 +164,8 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT)
 
 	while (strcmp(choix, "-1") != 0)
 	{
-		printf("Entrez le nom de l'IUT (-1 pour annuler) : ");
-		scanf("%s", choix);
+		saisieStringControlee(choix, "Entrez le nom de l'IUT (-1 pour annuler) : ");
+		strcpy(choix, upperfcase(choix));
 
 		if (strcmp(choix, "-1") != 0)
 		{
@@ -166,8 +175,8 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT)
 			{
 				afficher1Depart(tiut[pos]);
 
-				printf("\nEntrez le nom du département à supprimer (-1 pour annuler) : ");
-				scanf("%s", choix);
+				saisieStringControlee(choix, "Entrez le nom du département à supprimer (-1 pour annuler) : ");
+				strcpy(choix, upperfcase(choix));
 
 				if (strcmp(choix, "-1") != 0)
 				{
@@ -192,6 +201,7 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT)
 							free(m);
 							tiut[pos]->ldept->nb -= 1;
 							printf(VERT"Département supprimé !\n"RESET);
+							break;
 						}
 						else if (m->suivant == NULL)
 						{
@@ -209,93 +219,98 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT)
 	}
 }
 
-void StopperCandidature(Phase *phase)
+void stopperCandidature(Phase *phase)
 {
 	*phase = 2;
 	printf(VERT"La phase d'admission a bien été stoppé.\n"RESET);
 }
 
-void LancerCandidature(Phase *phase)
+void lancerCandidature(Phase *phase)
 {
 	*phase = 1;
 	printf(VERT"La phase d'admission a bien été lancé.\n"RESET);
 }
 
-void ModifPlaces(VilleIUT** tiut, int *nbIUT) 
+void modifPlaces(VilleIUT** tiut, int *nbIUT) 
 {
-	char ville[30] = "", dept[30] = "";
-	Bool trouve;
-	int pos;
+	char ville[30] = "0", dept[30] = "0";
+	Bool trouve, trouveDept;
+	int pos, nbP;
 	MaillonDept* tmp;
 
 	while (strcmp(ville, "-1") != 0 && strcmp(dept, "-1") != 0) {
-		printf("\nEntrez le nom de la ville où ce trouve le département (-1 pour annuler) : ");
-		scanf("%s%*c", ville);
-		
+		saisieStringControlee(ville, "\nEntrez le nom de la ville où ce trouve le département (-1 pour annuler) : ");
+		strcpy(ville, upperfcase(ville));
+
 		if (strcmp(ville, "-1") != 0) {
 			pos = rechercheIUT(tiut, nbIUT, ville, &trouve);
 
 			if(trouve == 1) {
-				printf("\nEntrez le nom du département pour lequel vous souhaitez modifier le nombre de place (-1 pour annuler) : ");
-				scanf("%s%*c", dept);
+				afficher1Depart(tiut[pos]);
+				saisieStringControlee(dept, "\nEntrez le nom du département pour lequel vous souhaitez modifier le nombre de place (-1 pour annuler) : ");
+				strcpy(dept, upperfcase(dept));
+				trouveDept = 0;
 
 				if (strcmp(dept, "-1") != 0) {
 					for(tmp=tiut[pos]->ldept->premier; tmp; tmp = tmp->suivant) {									
 						if(strcmp(tmp->departement, dept) == 0) {
 							printf("Dans le département %s de %s, il y a %d places.\nNouveau nombre de place : ", dept, ville, tmp->nbP);
-							scanf("%d", &tmp->nbP);
+							saisieIntControlee(&nbP, "");
 
-							while(tmp->nbP <= 0) {
-								printf(ROUGE"Le nombre de place doit être supérieur à 0."RESET);
+							while(nbP <= 0) {
+								printf(ROUGE"Le nombre de place doit être supérieur à 0.\n"RESET);
 								printf("Dans le département %s de %s, il y a %d places.\nNouveau nombre de place : ", dept, ville, tmp->nbP);
-								scanf("%d", &tmp->nbP);
+								saisieIntControlee(&nbP, "");
 							} 
-
-							printf(VERT"Nombre de place modifié"RESET);
+							tmp->nbP = nbP;
+							trouveDept = 1;
+							printf(VERT"Nombre de place modifié\n"RESET);
 						}	
-						else printf(ROUGE"Le département que vous cherchez n'a pas été trouvé.\n"RESET);	
-					} 
+						
+					}
+					if (!trouveDept) fprintf(stderr, ROUGE"Le département que vous cherchez n'a pas été trouvé.\n"RESET);	
 				}
 			}
 			else {
-				printf(ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
+				fprintf(stderr, ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
 			}
 		}
 	}
 }
 
-void ModifierRes(VilleIUT** tiut, int *nbIUT) 
+void modifierRes(VilleIUT** tiut, int *nbIUT) 
 {
-	char ville[30] = "", dept[30] = "";
+	char ville[30] = "0", dept[30] = "0";
 	Bool trouve;
 	int pos;
 	MaillonDept* tmp;
 
 	while (strcmp(ville, "-1") != 0 && strcmp(dept, "-1") != 0) {
-		printf("\nEntrez le nom de la ville où ce trouve le département (-1 pour annuler) : ");
-		scanf("%s%*c", ville);
+		saisieStringControlee(ville, "Entrez le nom de la ville où ce trouve le département (-1 pour annuler) : ");
+		strcpy(ville, upperfcase(ville));
 		
 		if (strcmp(ville, "-1") != 0) {
 			pos = rechercheIUT(tiut, nbIUT, ville, &trouve);
 
 			if(trouve == 1) {
-				printf("\nEntrez le nom du département pour lequel vous souhaitez modifier le responsable (-1 pour annuler) : ");
-				scanf("%s%*c", dept);
+				afficher1Depart(tiut[pos]);
+				saisieStringControlee(dept, "Entrez le nom du département pour lequel vous souhaitez modifier le responsable (-1 pour annuler) : ");
+				strcpy(dept, upperfcase(dept));
 
 				if (strcmp(dept, "-1") != 0) {
 					for(tmp=tiut[pos]->ldept->premier; tmp; tmp = tmp->suivant) {									
 						if(strcmp(tmp->departement, dept) == 0) {
 							printf("Dans le département %s de %s, le responsable est %s.\nNouveau nom du responsable (nom_prénom) : ", dept, ville, tmp->nomRes);
-							scanf("%s%*c", tmp->nomRes);
+							saisieStringControlee(tmp->nomRes, "");
 
-							printf(VERT"Nom du responsable modifié"RESET);
+							printf(VERT"Nom du responsable modifié\n"RESET);
 						}	
-						else printf(ROUGE"Le département que vous cherchez n'a pas été trouvé.\n"RESET);
+						else fprintf(stderr, ROUGE"Le département que vous cherchez n'a pas été trouvé.\n"RESET);
 					} 
 				}
 			}
 			else {
-				printf(ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
+				fprintf(stderr, ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
 			}
 		}
 	}
