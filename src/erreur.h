@@ -28,8 +28,23 @@ int testFopen(char *nomFichier);
 */
 Bool chiffreDansMot(char *mot);
 
+/**
+ * \brief Cette fonction permet de contrôler la saisie d'un entier lu sur l'entrée standard (stdin) pour éviter une boucle infinie dans le cas où l'utilisateur saisirait une chaîne de caractères. En plus du message d'erreur classique, elle affiche le message passé en argument pour donner plus de précision sur les conditions que l'entier saisie donc remplir pour être conforme.
+ * \param *var Pointeur sur un entier - la variable dans laquelle il faut stocker l'entier lu sur l'entrée standard.
+ * \param *message Chaîne de caractères - le message complémentaire à afficher.
+*/
 void saisieIntControlee(int *var, char *message);
 
+/**
+ * \brief Cette fonction permet de contrôler la saisie d'un flottant lu sur l'entrée standard (stdin) pour éviter une boucle infinie dans le cas où l'utilisateur saisirait une chaîne de caractères. En plus du message d'erreur classique, elle affiche le message passé en argument pour donner plus de précision sur les conditions que le flottant saisie donc remplir pour être conforme.
+ * \param *var Pointeur sur un flottant - la variable dans laquelle il faut stocker le flottant lu sur l'entrée standard.
+ * \param *message Chaîne de caractères - le message complémentaire à afficher.
+*/
 void saisieFloatControlee(float *var, char *message);
 
+/**
+ * \brief Cette fonction permet de contrôler la saisie d'une chaîne de caractères lue sur l'entrée standard (stdin) pour éviter par exemple qu'un chiffre se glisse dans le nom de Département ou d'un candidat. En plus du message d'erreur classique, elle affiche le message passé en argument pour donner plus de précision sur les conditions que la chaîne saisie donc remplir pour être conforme.
+ * \param *var Chaîne de caractères - la variable dans laquelle il faut stocker la châine lue sur l'entrée standard.
+ * \param *message Chaîne de caractères - le message complémentaire à afficher.
+*/
 void saisieStringControlee(char *var, char *message);
