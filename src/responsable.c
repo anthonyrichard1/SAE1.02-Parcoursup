@@ -133,7 +133,7 @@ void triNumerique(Candidat **tCand, int nbCand)
   while (i <= j)
   {
 	while (tCand[i]->moyenne <= d->moyenne && i < nbCand-1) i++;
-	while (tCand[i]->moyenne >= d->moyenne && 0 < j) j--;
+	while (tCand[i]->moyenne >= d->moyenne && 0 <= j) j--;
 
 	if (i < j)
 	{
@@ -145,8 +145,8 @@ void triNumerique(Candidat **tCand, int nbCand)
 	tCand[nbCand-1] = tCand[i];
 	tCand[i] = d;
 
-	triAlpha(tCand, i);
-	triAlpha(tCand+i+1, nbCand-i-1);
+	triNumerique(tCand, i);
+	triNumerique(tCand+i+1, nbCand-i-1);
 		
 	return;
   }
