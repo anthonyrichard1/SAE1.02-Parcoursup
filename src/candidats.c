@@ -486,5 +486,6 @@ Candidat **ajouterCandidats(Candidat **tCand, int *nbCand)
 	}
 	
 	printf("Fin de l'opération...\n");
+	free(c);
 	return tCand;
 }

@@ -49,3 +49,5 @@ void afficherDepart(VilleIUT **tiut, int *nbIUT);
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de **tiut).
 */
 void afficherDepartPrecis(VilleIUT **tiut, int *nbIUT);
+
+int existeDepart(ListeDept ld, char *val);

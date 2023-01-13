@@ -3,7 +3,6 @@
 ListeDept creerListeDept(void)
 {
     ListeDept ld = (ListeDept)malloc(sizeof(struct ListeDept));
-
     testMalloc(ld, "Liste de départements");
 
     ld->premier = ld->dernier = NULL;
@@ -18,10 +17,7 @@ VilleIUT **chargerIUT(int *nbIUT)
     int i, j;
     VilleIUT **tab;
 
-    while ((f = fopen("iut.don", "r")) == NULL)
-    {
-        testFopen("iut.don");
-    }
+    while ((f = fopen("iut.don", "r")) == NULL) testFopen("iut.don");
 
     fscanf(f, "%d", nbIUT);
 
@@ -47,10 +43,7 @@ VilleIUT **chargerIUT(int *nbIUT)
 			fscanf(f, "%d", &m->nbP);
 			fscanf(f, "%s", m->nomRes);
 
-			if (listeDept->premier == NULL)
-			{
-				listeDept->premier = listeDept->dernier = m;
-			}
+			if (listeDept->premier == NULL) listeDept->premier = listeDept->dernier = m;
 			else
 			{
 				listeDept->dernier->suivant = m;
@@ -80,14 +73,8 @@ int rechercheIUT(VilleIUT **tab, int *nbIUT, char *val, Bool *trouve)
             *trouve = 1;
             return milieu;
         }
-        if (cmp < 0)
-        {
-            fin = milieu-1;
-        }
-        else
-        {
-            debut = milieu+1;
-        }
+        if (cmp < 0) fin = milieu-1;
+        else debut = milieu+1;
     }
 
     *trouve = 0;
@@ -128,24 +115,14 @@ void afficherDepart(VilleIUT **tiut, int *nbIUT)
 
 			if (strcmp(choix, "Tous") == 0)
 			{
-				for (i = 0 ; i < *nbIUT ; i++)
-				{
-					afficher1Depart(tiut[i]);
-				}
+				for (i = 0 ; i < *nbIUT ; i++) afficher1Depart(tiut[i]);
 			}
 			else if (strcmp(choix, "-1") != 0)
 			{
 				pos = rechercheIUT(tiut, nbIUT, choix, &trouve);
 				
-				if (trouve)
-				{
-					afficher1Depart(tiut[pos]);
-				}
-				else
-				{
-					fprintf(stderr, ROUGE"Erreur : la ville %s ne possède pas d'IUT !\n"RESET, choix);
-				}
-				
+				if (trouve) afficher1Depart(tiut[pos]);
+				else fprintf(stderr, ROUGE"Erreur : la ville %s ne possède pas d'IUT !\n"RESET, choix);				
 			}
 		}
 		
@@ -156,7 +133,6 @@ void afficherDepartPrecis(VilleIUT **tiut, int *nbIUT)
 {
 	char choix[30] = "0";
 	int i;
-	MaillonDept *tmp;
 
 	while (strcmp(choix, "-1") != 0) {
 		saisieStringControlee(choix, "Quel département souhaitez-vous trouver (nom du département/-1 pour annuler) ? ");
@@ -164,14 +140,19 @@ void afficherDepartPrecis(VilleIUT **tiut, int *nbIUT)
 
 		printf("\nListe des ville où l'IUT à un département %s\n", choix);
 
-		for(i=0; i < *nbIUT; i++) {
-			for(tmp=tiut[i]->ldept->premier; tmp; tmp = tmp->suivant) {
-				if(strcmp(tmp->departement, choix) == 0) {
-					printf("\t%s\n", tiut[i]->ville);
-				}
-			}
-		}
+		for(i=0; i < *nbIUT; i++)
+			if (existeDepart(tiut[i]->ldept, choix)) printf("\t%s\n", tiut[i]->ville);
 	}
 
 	printf("Abandon de l'opération...\n");
+}
+
+int existeDepart(ListeDept ld, char *val)
+{
+	MaillonDept *d;
+
+	for (d = ld->premier ; d != NULL ; d = d->suivant)
+		if (strcmp(d->departement, val) == 0) return 1;
+	
+	return 0;
 }

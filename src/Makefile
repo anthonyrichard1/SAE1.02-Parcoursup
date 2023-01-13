@@ -12,7 +12,7 @@ administrateurs : administrateurs.c testAdministrateurs.c erreur.c informations.
 candidats : candidats.c testCandidats.c erreur.c informations.c
 	gcc -Wall $^ -o candidats
 
-responsable : responsable.c testResponsable.c erreur.c
+responsable : responsable.c testResponsable.c erreur.c informations.c candidats.c
 	gcc -Wall $^ -o responsable
 	
 clean :
