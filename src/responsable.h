@@ -12,3 +12,9 @@
 float calculMoyenne(float notes[]);//LEANA
 
 Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept);//LEANA
+
+void filtrerCandidatures(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand);
+
+void triNumerique(Candidat **tab, int nbCand);
+
+void sauvegarderFileCandidats(FileCandidats fc, char *nomFichier);

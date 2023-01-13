@@ -12,24 +12,138 @@ float calculMoyenne(float notes[]) {
 }
 
 Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept) {
-	for(; l->premier != NULL; l->premier = l->premier->suivant) {
-		if(strcmp(l->premier->ville, iut) == 0 && strcmp(l->premier->departement, dept) == 0) {
-			return l->premier;
+	Voeu *v;
+	for(v = l->premier; v != NULL; v = v->suivant) {
+		if(strcmp(v->ville, iut) == 0 && strcmp(v->departement, dept) == 0) {
+			return v;
 		}
 	}
 	return NULL;
 }
 
-void filtrerCandidatures(Candidats **tCand, int *nbCand)
+void filtrerCandidatures(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand)
 {
 	float noteMin = -5;
+	char iut[30] = "0", depart[30] = "0";
+	int pos, trouve, i, nbEligibles = 0, nbMax;
 
-	saisieFloatControlee(&noteMin, "Quel est la note minimale pour être admis dans votre département (-1 pour annuler) : ");
-
-	while ((noteMin < 0 || noteMin != -1) || noteMin > 20)
+	while (strcmp(iut, "-1") != 0)
 	{
-		saisieFloatControlee(&noteMin, "Quel est la note minimale pour être admis dans votre département (-1 pour annuler) : ");
+		saisieStringControlee(iut, "Entrez le nom de votre IUT (-1 pour annuler) : ");
+		strcpy(iut, upperfcase(iut));
+		
+		pos = rechercheIUT(tiut, nbIUT, iut, &trouve);
+
+		if (trouve)
+		{
+			saisieStringControlee(depart, "Entrez le nom de votre département (-1 pour annuler) : ");
+			strcpy(depart, upperfcase(depart));
+
+			if (existeDepart(tiut[pos]->ldept, depart))
+			{
+				saisieFloatControlee(&noteMin, "Quel est la note minimale pour être admis dans votre département (-1 pour annuler) : ");
+				while ((noteMin < 0 && noteMin != -1) || noteMin > 20)
+				{
+					fprintf(stderr, ROUGE"La note minimale doit être comprise entre 0 et 20.\n"RESET);
+					saisieFloatControlee(&noteMin, "Quel est la note minimale pour être admis dans votre département (-1 pour annuler) : ");
+
+					if (noteMin == -1)
+					{
+						printf("Abandon de l'opération...\n");
+						return;
+					}
+				}
+
+				saisieIntControlee(&nbMax, "Combien de candidats souhaitez-vous recruter (-1 pour annuler) : ");
+				while (nbMax <= 0 && nbMax != -1)
+				{
+					fprintf(stderr, ROUGE"Le nombre d'admis doit être supérieur à 0.\n"RESET);
+					saisieIntControlee(&nbMax, "Combien de candidats souhaitez-vous recruter (-1 pour annuler) : ");
+
+					if (nbMax == -1)
+					{
+						printf("Abandon de l'opération...\n");
+						return;
+					}
+				}
+
+				Candidat **tElegibles = (Candidat **)malloc(sizeof(Candidat *)*(*nbCand));
+				testMalloc(tElegibles, "création d'un tableau de candidats");
+
+				for (i = 0 ; i < *nbCand ; i++)
+				{
+					if (existeVoeu(tCand[i], iut, depart))
+					{
+						if (tCand[i]->moyenne >= noteMin) tElegibles[nbEligibles++] = tCand[i];
+						else chercherVoeux(tCand[i]->choix, iut, depart)->decDepartement = -1;
+					}
+				}
+				triNumerique(tElegibles, nbEligibles);
+
+				if (nbEligibles > nbMax)
+				{
+					FileCandidats fc = (FileCandidats)malloc(sizeof(struct FileCandidats));
+					testMalloc(fc, "création d'une file de candidats");
+					fc->nb = nbEligibles-nbMax;
+
+					for (i = nbMax ; i < nbEligibles-1 ; i++)
+					{
+						MaillonFileCandidat *c = (MaillonFileCandidat *)malloc(sizeof(MaillonFileCandidat));
+						testMalloc(c, "création d'un candidat");
+						
+						if (fc->tete == NULL) fc->tete = c;
+						
+						c->candidat = tElegibles[i];
+						fc->queue = c;
+					}
+				}
+				
+				for (i = 0 ; i < nbMax ; i++) chercherVoeux(tElegibles[i]->choix, iut, depart)->decDepartement = 1;
+
+				if (strcmp(iut, "Clermont-ferrand") == 0 && strcmp(depart, "Informatique") == 0)
+				{
+					sauvegarderCandidats(tElegibles, nbCand, "admis.don");
+					void sauvegarderFileCandidats(FileCandidats fc, char *nomFichier);
+				}
+
+				return;
+
+			}
+			else if (strcmp(depart, "-1") != 0) fprintf(stderr, ROUGE"Erreur : le département est introuvable !\n"RESET);
+		}
+		else if (strcmp(iut, "-1") != 0) fprintf(stderr, ROUGE"Erreur : l'iut est introuvable !\n"RESET);
+	}	
+}
+
+void triNumerique(Candidat **tCand, int nbCand)
+{
+  int i, j;
+  Candidat *w, *d;
+
+  if (nbCand <= 1) return ;
+
+  i = 0;
+  j = nbCand-2;
+  d = tCand[nbCand-1];
+
+  while (i <= j)
+  {
+	while (tCand[i]->moyenne <= d->moyenne && i < nbCand-1) i++;
+	while (tCand[i]->moyenne >= d->moyenne && 0 < j) j--;
+
+	if (i < j)
+	{
+		w = tCand[i];
+		tCand[i] = tCand[j];
+		tCand[j] = w;
 	}
 
-	printf(UNDERLINE"Pour le département Informatique de l'IUT de Clermont-Ferrand :\n"RESET);
+	tCand[nbCand-1] = tCand[i];
+	tCand[i] = d;
+
+	triAlpha(tCand, i);
+	triAlpha(tCand+i+1, nbCand-i-1);
+		
+	return;
+  }
 }
