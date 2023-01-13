@@ -51,7 +51,6 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 				if(*phase == 1) {
 					ajouterCandidats(tCand, nbCand);
 					sauvegarderCandidats(tCand, nbCand, "candidats.don");
-					printf("nbCand : %d\n", *nbCand);
 					break;
 				}
 				else {
@@ -103,8 +102,6 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 				break;
 
 			case 9 :
-				sauvegarde(tiut, nbIUT);
-				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				exit(0);
 
 			default :

@@ -6,7 +6,6 @@ int main (void)
 	Candidat** tCand;
 	Phase phase = 0;
 	int nbIUT, nbCand;
-	printf("coucou\n");
 	tiut = chargerIUT(&nbIUT);
 	tCand = chargerCandidats(&nbCand);
 
