@@ -26,6 +26,10 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
  */
 void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
 
+void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
+
+void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
+
 /**
  * \brief Cette fonction permet de récupérer les données contenues dans le tableau de pointeurs sur des VilleIUT pour les stocker dans le fichier iut.don. Elle est utilisée à chaque modification du tableau de pointeur sur VilleIUT et à la fermeture de l'application.
  * \param **tiut Tableau de pointeurs sur des VilleIUT - le tableau qu'il faut sauvegarder dans le fichier iut.don.

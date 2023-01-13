@@ -12,8 +12,8 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand)
 		TITRE"\nMenu principal\n\n"RESET
 		"1 - Afficher les informations des IUT\n"
 		"2 - Afficher les villes où il y a un département\n"
-		"3 - \n"
-		"4 - \n"
+		"\n5 - Menu des candidats\n"
+		"6 - Menu des responsables\n"
 		"7 - Menu des administrateurs\n"
 		"\n9 - Quitter\n"
 		"\nVotre choix : ");
@@ -29,12 +29,12 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand)
 				afficherDepartPrecis(tiut, nbIUT);
 				break;
 
-			case 3 :
-				
+			case 5 :
+				menuCandidat(tiut, tCand, nbIUT, nbCand);
 				break;
 
-			case 4 :
-				
+			case 6 :
+				menuResponsable(tiut, tCand, nbIUT, nbCand);
 				break;
 
 			case 7 :
@@ -81,8 +81,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 		"8 - Modifier le nom du responsable de département\n"
 		"10 - Afficher tous les candidats\n"
 		"11 - Afficher les candidats d'un département\n"
-		"12 - Supprimer un voeu\n"
-		"13 - Ajouter un voeu\n"
+
 		"\n19 - Menu principal\n"
 		"\nVotre choix : ");
 
@@ -158,6 +157,78 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 				break;
 
 			case 19 :
+				sauvegarde(tiut, nbIUT);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
+				return;
+
+			default :
+				printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+				break;
+		}
+	}
+}
+
+void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand) 
+{
+	int choix;
+	Phase phase = 0;
+	
+	while (1) {
+		printf("\n----------------------------------------\n");
+		
+		printf(
+		TITRE"\nMenu des candidats\n\n"RESET
+		"1 - Supprimer un voeu\n"
+		"2 - Ajouter un voeu\n"
+		"\n9 - Menu principal\n"
+		"\nVotre choix : ");
+
+		scanf("%d", &choix);
+
+		switch (choix) {
+			case 1 :
+				tCand = supprimerVoeux(tCand, nbCand);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
+				break;
+
+			case 2 :
+				ajouterVoeu(tiut, nbIUT, tCand, nbCand);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
+				break;
+
+			case 9 :
+				sauvegarde(tiut, nbIUT);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
+				return;
+
+			default :
+				printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+				break;
+		}
+	}
+}
+
+void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand) 
+{
+	int choix;
+	Phase phase = 0;
+	
+	while (1) {
+		printf("\n----------------------------------------\n");
+		
+		printf(
+		TITRE"\nMenu des responsables\n\n"RESET
+		"1 - \n"
+		"\n9 - Menu principal\n"
+		"\nVotre choix : ");
+
+		scanf("%d", &choix);
+
+		switch (choix) {
+			case 1 :
+				break;
+
+			case 9 :
 				sauvegarde(tiut, nbIUT);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				return;
