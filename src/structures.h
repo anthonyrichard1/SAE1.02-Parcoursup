@@ -134,12 +134,25 @@ typedef struct
 
 typedef struct MaillonFileCandidat MaillonFileCandidat;
 
+/**
+ * \struct MaillonFileCandidat structures.h
+ * \brief Cette structure représente un maillon dans une file de candidats.
+ * \param *suivant Pointeur sur un maillon - le maillon suivant dans la file.
+ * \param *candidat Pointeur sur un candidat - le candidat contenu dans le maillon.
+*/
 struct MaillonFileCandidat
 {
     MaillonFileCandidat *suivant;
     Candidat *candidat;
 };
 
+/**
+ * \struct FileCandidats structures.h
+ * \brief Cette structure représente une liste d'attente pour les candidats qui souhaite rejoindre une formation mais n'ont pas le niveau pour être instantanément admis.
+ * \param *tete Pointeur sur un maillon - le candidat en tête de la liste d'attente, le premier qui sera admis.
+ * \param *queue Pointeur sur un maillon - le candidat qui est en fin de liste, celui qui aura le moins de chances d'être admis dans la formation.
+ * \param nb Entier - le nombre de candidats en file d'attente.
+*/
 typedef struct FileCandidats
 {
     MaillonFileCandidat *tete;
