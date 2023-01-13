@@ -297,7 +297,7 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
 
 			for(i=0; i < *nbCand; ++i) {
 				for(v=tCand[i]->choix->premier; v; v = v->suivant) {
-					if(strcmp(v->departement,dept)==0) {
+					if(strcmp(v->departement,dept)==0 && v->decCandidat && v->decDepartement) {
 						tCandDept[nbCandDept]=tCand[i];
 						nbCandDept += 1;
 					}
@@ -308,7 +308,7 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
 			else {
 				triAlpha(tCandDept, nbCandDept);
 				printf(GRAS UNDERLINE"\nListe des candidats du département %s : \n"RESET, dept);
-				for(i=0; i<nbCandDept; ++i) printf("%s %s\n", tCandDept[i]->nom, tCandDept[i]->nom);
+				for(i=0; i<nbCandDept; ++i) printf("%s %s\n", tCandDept[i]->nom, tCandDept[i]->prenom);
 			}
 
 			free(tCandDept);
