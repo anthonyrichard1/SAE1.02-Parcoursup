@@ -26,6 +26,7 @@ void filtrerCandidatures(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbC
 	float noteMin = -5;
 	char iut[30] = "0", depart[30] = "0";
 	int pos, trouve, i, nbEligibles = 0, nbMax;
+	FileCandidats fc;
 
 	while (strcmp(iut, "-1") != 0)
 	{
@@ -79,33 +80,38 @@ void filtrerCandidatures(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbC
 					}
 				}
 				triNumerique(tElegibles, nbEligibles);
-
+printf("%d %d\n", nbEligibles, nbMax);
 				if (nbEligibles > nbMax)
 				{
-					FileCandidats fc = (FileCandidats)malloc(sizeof(struct FileCandidats));
+					fc = (FileCandidats)malloc(sizeof(struct FileCandidats));
 					testMalloc(fc, "création d'une file de candidats");
+					fc->tete = fc->queue = NULL;
 					fc->nb = nbEligibles-nbMax;
 
-					for (i = nbMax ; i < nbEligibles-1 ; i++)
-					{
+					for (i = nbMax ; i < nbEligibles ; i++)
+					{printf("dedand\n");
 						MaillonFileCandidat *c = (MaillonFileCandidat *)malloc(sizeof(MaillonFileCandidat));
 						testMalloc(c, "création d'un candidat");
 						
-						if (fc->tete == NULL) fc->tete = c;
-						
 						c->candidat = tElegibles[i];
+						c->suivant = NULL;
+						
+						if (fc->tete == NULL) fc->tete = c;
+						else fc->queue->suivant = c;
+						
 						fc->queue = c;
+						chercherVoeux(tElegibles[i]->choix, iut, depart)->decDepartement = 2;
 					}
 				}
-				
+
 				for (i = 0 ; i < nbMax ; i++) chercherVoeux(tElegibles[i]->choix, iut, depart)->decDepartement = 1;
 
 				if (strcmp(iut, "Clermont-ferrand") == 0 && strcmp(depart, "Informatique") == 0)
 				{
-					sauvegarderCandidats(tElegibles, nbCand, "admis.don");
-					void sauvegarderFileCandidats(FileCandidats fc, char *nomFichier);
+					sauvegarderCandidats(tElegibles, &nbMax, "admis.don");
+					if (nbEligibles > nbMax) sauvegarderFileCandidats(fc, "attentes.don");
 				}
-
+				printf(VERT"Filtrage terminé !\n"RESET);
 				return;
 
 			}

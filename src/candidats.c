@@ -506,11 +506,11 @@ void sauvegarderFileCandidats(FileCandidats fc, char *nomFichier)
 		fwrite(&(mfc->candidat->prenom), sizeof(mfc->candidat->prenom), 1, f);
 		fwrite(&(mfc->candidat->notes), sizeof(float), 4, f);
 		fwrite(&(mfc->candidat->nbChoix), sizeof(int), 1, f);
-
+		
 		for (v = mfc->candidat->choix->premier ; v != NULL ; v = v->suivant) fwrite(v, sizeof(Voeu), 1, f);
+
+		fprintf(f, "\n");
 	}
-
-	fprintf(f, "\n");
-
+	
 	fclose(f);
 }
