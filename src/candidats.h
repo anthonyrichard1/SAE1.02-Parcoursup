@@ -64,6 +64,7 @@ void sauvegarderCandidats(Candidat **tCand, int *nbCand);
 /**
  * \brief Cette fonction permet de charger un tableau de pointeurs sur des candidats depuis le fichier binaire candidats.bin
  * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+ * \return Tableau de pointeurs sur des candidats - le tableau chargé.
 */
 Candidat **chargerCandidats(int *nbCand);
 
@@ -80,5 +81,6 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand);//LEANA
 /**
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau dans lequel il faut ajouter un candidat.
  * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+ * \return Tableau de pointeur sur des candidats - le nouveau tableau de candidats.
 */
 Candidat **ajouterCandidats(Candidat **tCand, int *nbCand);

@@ -44,10 +44,16 @@ void afficher1Depart(VilleIUT *v);
 void afficherDepart(VilleIUT **tiut, int *nbIUT);
 
 /**
- * \brief 
+ * \brief Cette fonction permet d'afficher tous les IUT contenant un département précis.
  * \param **tiut Tableau de pointeurs sur des VilleIUT - le tableau contenant les IUT que l'on peut afficher.
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de **tiut).
 */
 void afficherDepartPrecis(VilleIUT **tiut, int *nbIUT);
 
+/**
+ * \brief Cette fonction de tester l'existance ou non d'un département dans une liste de départements.
+ * \param ld Liste de départements - la liste dans laquelle il faut chercher le département.
+ * \param *val Chaîne de caractères - le nom du département à rechercher.
+ * \return Entier - renvoie 1 si le département est dans la liste et 0 dans le cas contraire.
+*/
 int existeDepart(ListeDept ld, char *val);
