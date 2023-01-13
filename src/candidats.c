@@ -335,7 +335,7 @@ void supprimerVoeux(Candidat* cand)
 		}
 		saisieIntControlee(&numVoeu, CYAN"Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : "RESET);
 
-		while(numVoeu < 0 && numVoeu > j-1) {
+		while((numVoeu < 0 && numVoeu != -1) || numVoeu > j-1) {
 			fprintf(stderr, ROUGE"\nChoix incorrect.\n"RESET);
 			saisieIntControlee(&numVoeu, CYAN"\nEntrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : "RESET);
 		}
@@ -492,7 +492,12 @@ void validerVoeux(Candidat *cand)
 	for (v = cand->choix->premier ; v != NULL ; v = v->suivant)
 	{
 		if (v->decDepartement)
-		{
+		{ 
+			if (v->decCandidat == 1)
+			{
+				fprintf(stderr, ROUGE"Vous avez déjà accepté un voeu de manière définitive !\n"RESET);
+				return;
+			}
 			valide = 1;
 			nbVoeuxValide++;
 			afficher1Voeu(v);
@@ -501,11 +506,12 @@ void validerVoeux(Candidat *cand)
 	if (valide) 
 	{
         saisieIntControlee(&numVoeu, CYAN"\nEntrez le numéro du voeu à accepter (cette décision est définitive) : "RESET);
-		while (numVoeu > nbVoeuxValide)
+		while (numVoeu > nbVoeuxValide || (numVoeu < 0 && numVoeu != -1))
         {
             fprintf(stderr, ROUGE"\nChoix invalide\n"RESET);
             saisieIntControlee(&numVoeu, CYAN"\nEntrez le numéro du voeu à accepter (cette décision est définitive) : "RESET);
         }
+		if (numVoeu == -1) return;
 
         for (v = cand->choix->premier ; v != NULL ; v = v->suivant)
         {

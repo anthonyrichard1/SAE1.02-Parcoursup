@@ -248,12 +248,15 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Ph
 		printf(CYAN"Bienvenue %s %s !"RESET, tCand[*pos]->prenom, tCand[*pos]->nom);
 		
 		printf(
-		TITRE"\nMenu des candidats\n\n"RESET
+		TITRE"\nMenu des candidats\n\n"RESET);
+		if (*phase ==1) printf(
 		"1 - Afficher vos informations\n"
 		"2 - Ajouter un voeu\n"
 		"3 - Supprimer un voeu\n");
 		
-		if(*phase == 2) printf("4 - Valider des voeux\n");
+		if(*phase == 2) printf(
+			"1 - Afficher vos informations\n"
+			"4 - Valider des voeux\n");
 
 		printf("\n9 - Menu principal\n");
 
@@ -267,15 +270,26 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Ph
 				break;
 
 			case 2 :
+			if(*phase == 1) {
 				ajouterVoeu(tiut, nbIUT, tCand[*pos]);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				break;
+			}
+			else {
+				printf(ROUGE"\nChoix incorrect, recommencez"RESET);
+				break;
+			}
 
 			case 3 :
+			if(*phase == 1) {
 				supprimerVoeux(tCand[*pos]);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				break;
-
+			}
+			else {
+				printf(ROUGE"\nChoix incorrect, recommencez"RESET);
+				break;
+			}
 			case 4 :
 				if(*phase == 2) {
 					validerVoeux(tCand[*pos]);
@@ -288,7 +302,6 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Ph
 				}
 
 			case 9 :
-				sauvegarde(tiut, nbIUT, phase);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				system("clear");
 				return;
@@ -335,6 +348,7 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
 
 			case 3 :
 				if(*phase == 2) {
+					sauvegarderCandidats(tCand, nbCand, "candidats.don");
 					filtrerCandidatures(tiut, nbIUT, tCand, nbCand);
 					break;
 				}
@@ -344,7 +358,6 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
 				}
 
 			case 9 :
-				sauvegarde(tiut, nbIUT, phase);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				system("clear");
 				return;
@@ -388,4 +401,3 @@ void lancement(void) {
 
 	menuPrincipal(tiut, tCand, &nbIUT, &nbCand, &phase);
 }
- 
