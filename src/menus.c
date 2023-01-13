@@ -17,7 +17,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 		"2 - Afficher les villes où il y a un département\n"
 		"3 - Afficher la phase en cours\n");
 
-		if(*phase == 1 || *phase == 2) {
+		if(*phase == 1) {
 			printf(
 			"4 - Inscription\n"
 			"\n5 - Menu des candidats\n");
@@ -156,14 +156,17 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 		switch (choix) {
 			case 1 :
 				lancerCandidature(phase);
+				sauvegarde(tiut, nbIUT, phase);
 				break;
 
 			case 2 :
 				stopperCandidature(phase);
+				sauvegarde(tiut, nbIUT, phase);
 				break;
 
 			case 3 :
 				reinitialiserPhase(phase);
+				sauvegarde(tiut, nbIUT, phase);
 				break;
 			
 			case 4 :
@@ -233,8 +236,6 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 				}
 
 			case 19 :
-				sauvegarde(tiut, nbIUT, phase);
-				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				system("clear");
 				return;
 

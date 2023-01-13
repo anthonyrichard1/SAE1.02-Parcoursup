@@ -105,15 +105,13 @@ void filtrerCandidatures(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbC
 				for (i = 0 ; i < nbEligibles ; i++) chercherVoeux(tElegibles[i]->choix, iut, depart)->decDepartement = 1;
 				int nbTElegibles = nbEligibles-nbMax;
 				if (strcmp(iut, "Clermont-ferrand") == 0 && strcmp(depart, "Informatique") == 0)
-				{printf("%s\n", tElegibles[0]->nom);
+				{
 					sauvegarderCandidats(tElegibles, &nbTElegibles, "admis.don");
 					if (nbEligibles > nbMax) sauvegarderFileCandidats(fc, "attentes.don");
 				}
 				printf(VERT"\nFiltrage terminé !\n"RESET);
 				printf(UNDERLINE"Voici la liste de vos candidats admis :\n");
 				afficherCandidats(tElegibles, &nbTElegibles);
-				free(tElegibles);
-				free(fc);
 				return;
 
 			}
