@@ -271,11 +271,11 @@ void afficher1Candidat(Candidat **tCand, int pos) {
 
 	for(v=tCand[pos]->choix->premier, j=1; v; v = v->suivant, ++j) {
 		printf(GRAS"\t\tChoix n°%d\n"RESET, j);
-		afficher1Voeu(tCand, v);
+		afficher1Voeu(v);
 	}
 }
 
-void afficher1Voeu(Candidat** tCand, Voeu* voeu) {
+void afficher1Voeu(Voeu* voeu) {
 	printf("\t\tIUT choisi : %s\n", voeu->ville);
 	printf("\t\tDépartement : %s\n", voeu->departement);
 	printf("\t\tDécision du département : ");
@@ -360,7 +360,7 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand)
 			printf(GRAS UNDERLINE"\n\tListe de vos voeux : \n"RESET);
 			for(v=tCand[numCand-1]->choix->premier, j=1; v; v = v->suivant, ++j) {
 				printf(GRAS"\t\tChoix n°%d\n"RESET, j);
-				afficher1Voeu(tCand, v);
+				afficher1Voeu(v);
 			}
 			saisieIntControlee(&numVoeu, "Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : ");
 
@@ -392,7 +392,7 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand)
 
 					for(i=1; i < j-3; ++i) prec = voeuSup->suivant;
 
-					afficher1Voeu(tCand, prec);
+					afficher1Voeu(prec);
 					free(voeuSup);
 				}
 				printf(VERT"Le voeu a bien été supprimé.\n"RESET);

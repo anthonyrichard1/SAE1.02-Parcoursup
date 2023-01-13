@@ -69,15 +69,40 @@ void sauvegarderCandidats(Candidat **tCand, int *nbCand, char *nomFichier);
 */
 Candidat **chargerCandidats(int *nbCand);
 
-void afficher1Candidat(Candidat **tCand, int pos);//LEANA
+/**
+ * \brief Cette fonction permet d'afficher un seul candidat.
+ * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient les informations sur le candidat à afficher.
+ * \param pos Entier - la valeur qui représente l'indice du candidat à afficher dans le tableau.
+*/
+void afficher1Candidat(Candidat **tCand, int pos);
 
-void afficher1Voeu(Candidat** tCand, Voeu* voeu);//LEANA
+/**
+ * \brief Cette fonction permet d'afficher un seul voeu. 
+ * \param voeu Poiteur sur une structure voeu - le voeu à affiche. 
+*/
+void afficher1Voeu(Voeu* voeu);
 
-void afficherCandidats(Candidat **tCand, int *nbCand);//LEANA
+/**
+ * \brief Cette fonction permet d'afficher tous les candidats contenu dans le tableau des candidats.
+ * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient les informations sur les candidats à afficher.
+ * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+*/
+void afficherCandidats(Candidat **tCand, int *nbCand);
 
-void afficherCandidatsDepart(Candidat **tCand, int *nbCand);//LEANA
+/**
+ * \brief Cette fonction permet d'afficher tous les candidats en fonction des départements de leur voeu.
+ * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient les informations sur les candidats à afficher.
+ * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+*/
+void afficherCandidatsDepart(Candidat **tCand, int *nbCand);
 
-Candidat** supprimerVoeux(Candidat** tCand, int *nbCand);//LEANA
+/**
+ * \brief Cette fonction permet de supprimer le voeu d'un candidat. 
+ * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient les informations sur les candidats et les voeux à supprimer.
+ * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+ * \return Tableau de pointeurs sur des candidats - le tableau sans le voeu qui a été supprimé. 
+*/
+Candidat** supprimerVoeux(Candidat** tCand, int *nbCand);
 
 /**
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau dans lequel il faut ajouter un candidat.

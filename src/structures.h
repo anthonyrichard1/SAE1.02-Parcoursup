@@ -54,7 +54,7 @@ typedef struct ListeDept
     MaillonDept *premier;
     MaillonDept *dernier;
     int nb;
-}*ListeDept;
+} *ListeDept;
 
 /**
  * \struct VilleIUT structures.h

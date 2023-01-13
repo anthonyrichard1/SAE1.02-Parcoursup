@@ -14,20 +14,38 @@
  
  /**
  * \brief Cette fonction affiche le menu principal, un menu permettant de sélectionner l'opération que l'on souhaite effectuer ou d'aller dans le menus administrateur. Elle ne possède aucun paramètre car l'option choisie est récupéré par une saisie au clavier.
- * \param **tiut Tableau de pointeurs sur des VilleIUT 
+ * \param **tiut Tableau de pointeurs sur des VilleIUT - le tableau qui contient toutes les informations concernant les IUT.
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
+ * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient toutes les informations sur les candidats.
+ * \param nbCand Entier - nombre de candidats contenus dans le tableau.
  */
 void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
 
 /**
  * \brief Cette fonction affiche le menu des administrateurs, et permet de sélectionner l'opération que l'on souhaite effectuer. Le choix de l'utilisateur est récupéré par une saisie au clavier.
- * \param **tiut Tableau de pointeurs sur des VilleIUT
+ * \param **tiut Tableau de pointeurs sur des VilleIUT - le tableau qui contient toutes les informations concernant les IUT.
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
+ * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient toutes les informations sur les candidats.
+ * \param nbCand Entier - nombre de candidats contenus dans le tableau.
  */
 void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
 
+/**
+ * \brief Cette fonction affiche le menu des candidats, et permet de sélectionner l'opération que l'on souhaite effectuer. Le choix de l'utilisateur est récupéré par une saisie au clavier.
+ * \param **tiut Tableau de pointeurs sur des VilleIUT - le tableau qui contient toutes les informations concernant les IUT.
+ * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
+ * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient toutes les informations sur les candidats.
+ * \param nbCand Entier - nombre de candidats contenus dans le tableau.
+ */
 void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
 
+/**
+ * \brief Cette fonction affiche le menu des responsables, et permet de sélectionner l'opération que l'on souhaite effectuer. Le choix de l'utilisateur est récupéré par une saisie au clavier.
+ * \param **tiut Tableau de pointeurs sur des VilleIUT - le tableau qui contient toutes les informations concernant les IUT.
+ * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
+ * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient toutes les informations sur les candidats.
+ * \param nbCand Entier - nombre de candidats contenus dans le tableau.
+ */
 void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
 
 /**

@@ -9,6 +9,11 @@
 #include "structures.h"
 #include "administrateurs.h"
 
+/**
+ * \brief Cette fonction permet de calculer la moyenne de quatre notes. 
+ * \param note[] Tableau de flottant - la tableau qui contient les quatre notes pour lequel il faut calculer la moyenne.
+ * \return Flottant - la moyenne des quatre notes. 
+*/
 float calculMoyenne(float notes[]);//LEANA
 
 Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept);//LEANA
