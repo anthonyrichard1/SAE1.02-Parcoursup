@@ -72,6 +72,8 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 						--pos;
 						system("clear");
 						menuCandidat(tiut, tCand, nbIUT, nbCand, phase, &pos);
+						tiut = chargerIUT(nbIUT, phase);
+						tCand = chargerCandidats(nbCand);
 						break;
 					}
 				}
@@ -84,6 +86,8 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 				if(*phase == 2) {
 					system("clear");
 					menuResponsable(tiut, tCand, nbIUT, nbCand, phase);
+					tiut = chargerIUT(nbIUT, phase);
+					tCand = chargerCandidats(nbCand);
 					break;
 				}
 				else {
@@ -102,6 +106,8 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 				else {
 					system("clear");
 					menuAdministrateur(tiut, tCand, nbIUT, nbCand, phase);
+					tiut = chargerIUT(nbIUT, phase);
+					tCand = chargerCandidats(nbCand);
 				}
 				break;
 
