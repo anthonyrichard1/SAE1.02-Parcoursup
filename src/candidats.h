@@ -52,7 +52,7 @@ int existeVoeu(Candidat *c, char *iut, char *depart);
  * \param **tCand Tableau de pointeurs sur des Candidats - le tableau contenant la liste des candidats.
  * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau des candidats.
 */
-void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand);
+void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, int pos);
 
 /**
  * \brief Cette fonction permet de sauvegarder les candidats depuis un tableau de pointeurs sur des candidats vers le fichier binaire candidats.don.
@@ -102,7 +102,7 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand);
  * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
  * \return Tableau de pointeurs sur des candidats - le tableau sans le voeu qui a été supprimé. 
 */
-Candidat** supprimerVoeux(Candidat** tCand, int *nbCand);
+Candidat** supprimerVoeux(Candidat** tCand, int *nbCand, int pos);
 
 /**
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau dans lequel il faut ajouter un candidat.

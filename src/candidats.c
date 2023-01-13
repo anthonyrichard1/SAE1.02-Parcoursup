@@ -77,9 +77,9 @@ int existeVoeu(Candidat *c, char *iut, char *depart)
 	return 0;
 }
 
-void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand)
+void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, int pos)
 {
-	int num = 0, posIut;
+	int num = 0, posIut, j;
 	Bool trouve;
 	char nom[30], depart[30];
 	MaillonDept *mDept;
@@ -87,100 +87,89 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand)
 
 	while (num != -1)
 	{
-		saisieIntControlee(&num, "Entrez votre numéro de candidat (-1 pour annuler) : ");
-		
-		while ((num < 0 && num != -1) || num > *nbCand)
+		if (tCand[pos]->nbChoix == 0) printf("Vous n'avez pas encore de voeux\n");
+		else if (tCand[pos]->nbChoix == 3)
 		{
-			fprintf(stderr, ROUGE"Erreur : le numéro entré n'est pas valide !\n"RESET);
-			saisieIntControlee(&num, "Entrez votre numéro de candidat (-1 pour annuler) : ");
+			fprintf(stderr, ROUGE"Erreur : vous avez déjà atteint le nombre maximal de voeux !\n"RESET);
+			break;
+		}
+		else {
+			printf(GRAS UNDERLINE"\n\tListe de vos voeux : \n"RESET);
+			for(v=tCand[pos]->choix->premier, j=1; v; v = v->suivant, ++j) {
+				printf(GRAS"\t\tChoix n°%d\n"RESET, j);
+				afficher1Voeu(v);
+			}
 		}
 
-		if (num != -1)
+		strcpy(nom, "0");
+		while (strcmp(nom, "-1") != 0)
 		{
-			if (num <= *nbCand)
+			saisieStringControlee(nom, "Entrez l'IUT correspondant à votre voeux (-1 pour annuler) : ");
+			strcpy(nom, upperfcase(nom));
+
+			if (strcmp(nom, "-1") == 0) num = -1;
+			else
 			{
-				printf("Bonjour %s %s\n", tCand[num-1]->prenom, tCand[num-1]->nom); 
+				posIut = rechercheIUT(tiut, nbIUT, nom, &trouve);
 
-				if (tCand[num-1]->nbChoix == 0) printf("Vous n'avez pas encore de voeux\n");
-				else if (tCand[num-1]->nbChoix == 3)
+				if (trouve)
 				{
-					fprintf(stderr, ROUGE"Erreur : vous avez déjà atteint le nombre maximal de voeux !\n"RESET);
-					break;
-				}
-				else afficher1Candidat(tCand, num-1);
+					afficher1Depart(tiut[posIut]);
 
-				strcpy(nom, "0");
-				while (strcmp(nom, "-1") != 0)
-				{
-					saisieStringControlee(nom, "Entrez l'IUT correspondant à votre voeux (-1 pour annuler) : ");
-					strcpy(nom, upperfcase(nom));
-
-					if (strcmp(nom, "-1") == 0) num = -1;
-					else
+					strcpy(depart, "0");
+					while (strcmp(depart, "-1") != 0)
 					{
-						posIut = rechercheIUT(tiut, nbIUT, nom, &trouve);
+						saisieStringControlee(depart, "Entrez le nom du département auquel vous voulez candidater (-1 pour annuler) : ");
+						strcpy(depart, upperfcase(depart));
 
-						if (trouve)
+						if (strcmp(depart, "-1") == 0)
 						{
-							afficher1Depart(tiut[posIut]);
-
-							strcpy(depart, "0");
-							while (strcmp(depart, "-1") != 0)
+							strcpy(nom, "-1");
+							num = -1;
+						}		
+						else
+						{
+							int trouve = 0;
+							for(mDept = tiut[posIut]->ldept->premier; mDept != NULL ; mDept = mDept->suivant)
 							{
-								saisieStringControlee(depart, "Entrez le nom du département auquel vous voulez candidater (-1 pour annuler) : ");
-								strcpy(depart, upperfcase(depart));
-
-								if (strcmp(depart, "-1") == 0)
+								if (strcmp(mDept->departement, depart) == 0)
 								{
-									strcpy(nom, "-1");
-									num = -1;
-								}		
-								else
-								{
-									int trouve = 0;
-									for(mDept = tiut[posIut]->ldept->premier; mDept != NULL ; mDept = mDept->suivant)
+									if (!existeVoeu(tCand[pos], nom, depart))
 									{
-										if (strcmp(mDept->departement, depart) == 0)
-										{
-											if (!existeVoeu(tCand[num-1], nom, depart))
-											{
-												v = creerVoeu(nom, depart);
+										v = creerVoeu(nom, depart);
 
-												if (tCand[num-1]->nbChoix == 0)
-												{
-													tCand[num-1]->choix->premier = v;
-													tCand[num-1]->choix->dernier = v;
-												}
-												else
-												{
-													tCand[num-1]->choix->dernier->suivant = v;
-													tCand[num-1]->choix->dernier = v;
-												}
-												
-												tCand[num-1]->nbChoix += 1;
-												printf(VERT"Voeu ajouté !\n"RESET);
-												strcpy(depart, "-1"); strcpy(nom, "-1");
-												trouve = 1;
-											}
-											else
-											{
-												fprintf(stderr, ROUGE"Erreur : vous avez déjà formulé ce voeu !\n"RESET);
-												strcpy(depart, "-1"); strcpy(nom, "-1");
-												trouve = 1;
-											}
-											
+										if (tCand[pos]->nbChoix == 0)
+										{
+											tCand[pos]->choix->premier = v;
+											tCand[pos]->choix->dernier = v;
 										}
-										
+										else
+										{
+											tCand[pos]->choix->dernier->suivant = v;
+											tCand[pos]->choix->dernier = v;
+										}
+												
+										tCand[pos]->nbChoix += 1;
+										printf(VERT"Voeu ajouté !\n"RESET);
+										strcpy(depart, "-1"); strcpy(nom, "-1");
+										trouve = 1;
 									}
-									if (!trouve) fprintf(stderr, ROUGE"Erreur : le département est introuvable !\n"RESET);
-								}		
+									else
+									{
+										fprintf(stderr, ROUGE"Erreur : vous avez déjà formulé ce voeu !\n"RESET);
+										strcpy(depart, "-1"); strcpy(nom, "-1");
+										trouve = 1;
+									}
+											
+								}
+										
 							}
-						}
-						else fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"RESET);
+							if (!trouve) fprintf(stderr, ROUGE"Erreur : le département est introuvable !\n"RESET);
+						}		
 					}
 				}
+				else fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"RESET);
 			}
-			else fprintf(stderr, ROUGE"Erreur : ce numéro de candidat est introuvable !\n"RESET);
 		}
 	}	
 
@@ -340,64 +329,55 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
 	}
 }
 
-Candidat** supprimerVoeux(Candidat** tCand, int *nbCand) 
+Candidat** supprimerVoeux(Candidat** tCand, int *nbCand, int pos) 
 {
-	int numCand, numVoeu;
+	int numVoeu;
 	Voeu *prec, *voeuSup, *v;
 	int i, j;
 
-	while(numCand != -1 && numVoeu != -1) {
-		saisieIntControlee(&numCand, "Quel est le numéro du candidat pour lequel vous souhaitez supprimé un voeu (-1 pour annuler) ? : ");
+	if(tCand[pos] == 0) {
+		fprintf(stderr, ROUGE"Vous n'avez pas de voeu.\n"RESET);
+		return tCand;
+	}
 
-		while (numCand > *nbCand || (numCand < 0 && numCand != -1))
-		{
-			fprintf(stderr, ROUGE"Le numéro de candidat saisie est invalide.\n"RESET);
-			saisieIntControlee(&numCand, "Quel est le numéro du candidat pour lequel vous souhaitez supprimé un voeu (-1 pour annuler) ? : ");
+	while(numVoeu != -1) {
+		printf(GRAS UNDERLINE"\n\tListe de vos voeux : \n"RESET);
+		for(v=tCand[pos]->choix->premier, j=1; v; v = v->suivant, ++j) {
+			printf(GRAS"\t\tChoix n°%d\n"RESET, j);
+			afficher1Voeu(v);
+		}
+		saisieIntControlee(&numVoeu, "Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : ");
+
+		while(numVoeu < 0 && numVoeu > j-1) {
+			fprintf(stderr, ROUGE"Choix incorrect.\n"RESET);
+			saisieIntControlee(&numVoeu, "Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : ");
 		}
 
-		if(numCand != -1) {
-			printf("Bonjour %s %s !\n", tCand[numCand-1]->prenom, tCand[numCand-1]->nom);
-			printf(GRAS UNDERLINE"\n\tListe de vos voeux : \n"RESET);
-			for(v=tCand[numCand-1]->choix->premier, j=1; v; v = v->suivant, ++j) {
-				printf(GRAS"\t\tChoix n°%d\n"RESET, j);
-				afficher1Voeu(v);
+		if(numVoeu != -1) {
+			if(numVoeu == 1) {
+				voeuSup = tCand[pos]->choix->premier;
+				tCand[pos]->choix->premier = tCand[pos]->choix->premier->suivant;
+				free(voeuSup);
 			}
-			saisieIntControlee(&numVoeu, "Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : ");
-
-			while(numVoeu < 0 && numVoeu > j-1) {
-				fprintf(stderr, ROUGE"Choix incorrect.\n"RESET);
-				saisieIntControlee(&numVoeu, "Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : ");
+			else if (numVoeu == j-1) {
+				voeuSup = tCand[pos]->choix->dernier;
+				prec = tCand[pos]->choix->premier;
+				for(i=1; i < j-2; ++i) prec = prec->suivant;
+				prec->suivant = NULL;
+				free(tCand[pos]->choix->dernier);
+				tCand[pos]->choix->dernier = prec;
 			}
-
-			if(numVoeu != -1) {
-				if(numVoeu == 1) {
-					printf("Je suis là\n");
-					voeuSup = tCand[numCand-1]->choix->premier;
-					tCand[numCand-1]->choix->premier = tCand[numCand-1]->choix->premier->suivant;
-					free(voeuSup);
-				}
-				else if (numVoeu == j-1) {
-					printf("Par là !\n");
-					voeuSup = tCand[numCand-1]->choix->dernier;
-					prec = tCand[numCand-1]->choix->premier;
-					for(i=1; i < j-2; ++i) prec = prec->suivant;
-
-					prec->suivant = NULL;
-					free(tCand[numCand-1]->choix->dernier);
-					tCand[numCand-1]->choix->dernier = prec;
-				}
-				else {
-					printf("Ici\n");
-					voeuSup = tCand[numCand-1]->choix->premier;
-					prec = tCand[numCand-1]->choix->premier;
-					for(i=1; i < j-2; ++i) voeuSup = voeuSup->suivant;
-					for(i=1; i < j-3; ++i) prec = voeuSup->suivant;
-					prec->suivant = voeuSup->suivant;
-					free(voeuSup);
-				}
-				--tCand[numCand-1]->nbChoix;
-				printf(VERT"Le voeu a bien été supprimé.\n"RESET);
+			else {
+				voeuSup = tCand[pos]->choix->premier;
+				prec = tCand[pos]->choix->premier;
+				for(i=1; i < j-2; ++i) voeuSup = voeuSup->suivant;
+				for(i=1; i < j-3; ++i) prec = voeuSup->suivant;
+				prec->suivant = voeuSup->suivant;
+				free(voeuSup);
 			}
+			--tCand[pos]->nbChoix;
+			printf(VERT"Le voeu a bien été supprimé.\n"RESET);
+			
 		}
 	}	
 	printf("Annulation de l'opération.\n");

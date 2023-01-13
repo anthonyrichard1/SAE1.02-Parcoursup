@@ -2,7 +2,7 @@
 
 void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase) 
 {
-	int choix;
+	int choix, pos;
 	char motDePasse[12];
 
 	tiut = chargerIUT(nbIUT);
@@ -24,7 +24,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 		}
 		else printf("\n");
 		
-		if(*phase != 0) {
+		if(*phase == 2) {
 			printf("6 - Menu des responsables\n");
 		}
 		
@@ -32,7 +32,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 		"7 - Menu des administrateurs\n"
 		"\n9 - Quitter\n");
 
-		saisieIntControlee(&choix, "Votre choix : ");
+		saisieIntControlee(&choix, "\nVotre choix : ");
 
 		switch (choix) {
 			case 1 :
@@ -61,8 +61,18 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 
 			case 5 :
 				if(*phase == 1) {
-					afficherPhase(phase);
-					fprintf(stderr, ROUGE"Nous ne pouvez pas accéder à ce menus.\n"RESET);
+					saisieIntControlee(&pos, "Entrez votre numéro de candidat (-1 pour annuler) : ");
+					
+					while (pos < -1 || pos > *nbCand)
+					{
+						fprintf(stderr, ROUGE"Le numéro de candidat saisie est invalide.\n"RESET);
+						saisieIntControlee(&pos, "Entrez votre numéro de candidat (-1 pour annuler) : ");
+					}
+
+					if(pos > -1) {
+						--pos;
+						menuCandidat(tiut, tCand, nbIUT, nbCand, phase, pos);
+					}
 				}
 				else {
 					printf(ROUGE"\nChoix incorrect, recommencez\n"RESET);
@@ -70,7 +80,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 				}
 
 			case 6 :
-				if(*phase != 0) {
+				if(*phase == 2) {
 					menuResponsable(tiut, tCand, nbIUT, nbCand, phase);
 					break;
 				}
@@ -129,9 +139,9 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 			"8 - Modifier le nom du responsable de département\n");
 		}
 
-		printf(
-		"\n9 - Menu principal\n");
-		saisieIntControlee(&choix, "Votre choix : ");
+		printf("\n9 - Menu principal\n");
+		
+		saisieIntControlee(&choix, "\nVotre choix : ");
 
 		switch (choix) {
 			case 1 :
@@ -221,7 +231,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 	}
 }
 
-void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase) 
+void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase, int pos) 
 {
 	int choix;
 
@@ -233,20 +243,26 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Ph
 		
 		printf(
 		TITRE"\nMenu des candidats\n\n"RESET
-		"1 - Supprimer un voeu\n"
+		"1 - Afficher vos informations\n"
 		"2 - Ajouter un voeu\n"
+		"3 - Supprimer un voeu\n"
 		"\n9 - Menu principal\n");
 
-		saisieIntControlee(&choix, "Votre choix : ");
+		saisieIntControlee(&choix, "\nVotre choix : ");
 
 		switch (choix) {
 			case 1 :
-				tCand = supprimerVoeux(tCand, nbCand);
-				sauvegarderCandidats(tCand, nbCand, "candidats.don");
+				printf(GRAS UNDERLINE"\nVos informations : "RESET);
+				afficher1Candidat(tCand, pos);
 				break;
 
 			case 2 :
-				ajouterVoeu(tiut, nbIUT, tCand, nbCand);
+				ajouterVoeu(tiut, nbIUT, tCand, nbCand, pos);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
+				break;
+
+			case 3 :
+				tCand = supprimerVoeux(tCand, nbCand, pos);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				break;
 
@@ -284,7 +300,7 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
 		printf(
 		"\n9 - Menu principal\n");
 
-		saisieIntControlee(&choix, "Votre chiox : ");
+		saisieIntControlee(&choix, "\nVotre choix : ");
 
 		switch (choix) {
 			case 1 :
