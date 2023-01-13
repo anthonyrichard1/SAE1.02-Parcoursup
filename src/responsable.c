@@ -30,40 +30,40 @@ void filtrerCandidatures(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbC
 
 	while (strcmp(iut, "-1") != 0)
 	{
-		saisieStringControlee(iut, "Entrez le nom de votre IUT (-1 pour annuler) : ");
+		saisieStringControlee(iut, CYAN"\nEntrez le nom de votre IUT (-1 pour annuler) : "RESET);
 		strcpy(iut, upperfcase(iut));
 		
 		pos = rechercheIUT(tiut, nbIUT, iut, &trouve);
 
 		if (trouve)
 		{
-			saisieStringControlee(depart, "Entrez le nom de votre département (-1 pour annuler) : ");
+			saisieStringControlee(depart, CYAN"Entrez le nom de votre département (-1 pour annuler) : "RESET);
 			strcpy(depart, upperfcase(depart));
 
 			if (existeDepart(tiut[pos]->ldept, depart))
 			{
-				saisieFloatControlee(&noteMin, "Quel est la note minimale pour être admis dans votre département (-1 pour annuler) : ");
+				saisieFloatControlee(&noteMin, CYAN"Quel est la note minimale pour être admis dans votre département (-1 pour annuler) : "RESET);
 				while ((noteMin < 0 && noteMin != -1) || noteMin > 20)
 				{
-					fprintf(stderr, ROUGE"La note minimale doit être comprise entre 0 et 20.\n"RESET);
-					saisieFloatControlee(&noteMin, "Quel est la note minimale pour être admis dans votre département (-1 pour annuler) : ");
+					fprintf(stderr, ROUGE"\nLa note minimale doit être comprise entre 0 et 20.\n"RESET);
+					saisieFloatControlee(&noteMin, CYAN"\nQuel est la note minimale pour être admis dans votre département (-1 pour annuler) : "RESET);
 
 					if (noteMin == -1)
 					{
-						printf("Abandon de l'opération...\n");
+						printf("\nFin de l'opération...\n");
 						return;
 					}
 				}
 
-				saisieIntControlee(&nbMax, "Combien de candidats souhaitez-vous recruter (-1 pour annuler) : ");
+				saisieIntControlee(&nbMax, CYAN"Combien de candidats souhaitez-vous recruter (-1 pour annuler) : "RESET);
 				while (nbMax <= 0 && nbMax != -1)
 				{
-					fprintf(stderr, ROUGE"Le nombre d'admis doit être supérieur à 0.\n"RESET);
-					saisieIntControlee(&nbMax, "Combien de candidats souhaitez-vous recruter (-1 pour annuler) : ");
+					fprintf(stderr, ROUGE"\nLe nombre d'admis doit être supérieur à 0.\n"RESET);
+					saisieIntControlee(&nbMax, CYAN"\nCombien de candidats souhaitez-vous recruter (-1 pour annuler) : "RESET);
 
 					if (nbMax == -1)
 					{
-						printf("Abandon de l'opération...\n");
+						printf("\nFin de l'opération...\n");
 						return;
 					}
 				}
@@ -109,13 +109,13 @@ void filtrerCandidatures(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbC
 					sauvegarderCandidats(tElegibles, &tmp, "admis.don");
 					if (nbEligibles > nbMax) sauvegarderFileCandidats(fc, "attentes.don");
 				}
-				printf(VERT"Filtrage terminé !\n"RESET);
+				printf(VERT"\nFiltrage terminé !\n"RESET);
 				return;
 
 			}
-			else if (strcmp(depart, "-1") != 0) fprintf(stderr, ROUGE"Erreur : le département est introuvable !\n"RESET);
+			else if (strcmp(depart, "-1") != 0) fprintf(stderr, ROUGE"\nErreur : le département est introuvable !\n"RESET);
 		}
-		else if (strcmp(iut, "-1") != 0) fprintf(stderr, ROUGE"Erreur : l'iut est introuvable !\n"RESET);
+		else if (strcmp(iut, "-1") != 0) fprintf(stderr, ROUGE"\nErreur : l'iut est introuvable !\n"RESET);
 	}	
 }
 

@@ -17,7 +17,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 		"2 - Afficher les villes où il y a un département\n"
 		"3 - Afficher la phase en cours\n");
 
-		if(*phase == 1) {
+		if(*phase == 1 || *phase == 2) {
 			printf(
 			"4 - Inscription\n"
 			"\n5 - Menu des candidats\n");
@@ -59,7 +59,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 				}
 
 			case 5 :
-				if(*phase == 1) {
+				if(*phase == 1  || *phase == 2) {
 					saisieIntControlee(&pos, CYAN"\nEntrez votre numéro de candidat (-1 pour annuler) : "RESET);
 					
 					while (pos < -1 || pos > *nbCand)
@@ -251,8 +251,11 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Ph
 		TITRE"\nMenu des candidats\n\n"RESET
 		"1 - Afficher vos informations\n"
 		"2 - Ajouter un voeu\n"
-		"3 - Supprimer un voeu\n"
-		"\n9 - Menu principal\n");
+		"3 - Supprimer un voeu\n");
+		
+		if(*phase == 2) printf("4 - Valider des voeux\n");
+
+		printf("\n9 - Menu principal\n");
 
 		saisieIntControlee(&choix, CYAN"\nVotre choix : "RESET);
 		scanf("%*c");
@@ -274,9 +277,15 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Ph
 				break;
 
 			case 4 :
-				validerVoeux(tCand[*pos]);
-				sauvegarderCandidats(tCand, nbCand, "candidats.don");
-				break;
+				if(*phase == 2) {
+					validerVoeux(tCand[*pos]);
+					sauvegarderCandidats(tCand, nbCand, "candidats.don");
+					break;
+				}
+				else {
+					printf(ROUGE"\nChoix incorrect, recommencez"RESET);
+					break;
+				}
 
 			case 9 :
 				sauvegarde(tiut, nbIUT, phase);

@@ -500,11 +500,11 @@ void validerVoeux(Candidat *cand)
 	}
 	if (valide) 
 	{
-        saisieIntControlee(&numVoeu, "Entrez le numéro du voeu à accepter (cette décision est définitive) : ");
+        saisieIntControlee(&numVoeu, CYAN"\nEntrez le numéro du voeu à accepter (cette décision est définitive) : "RESET);
 		while (numVoeu > nbVoeuxValide)
         {
-            fprintf(stderr, ROUGE"choix invalide\n"RESET);
-            saisieIntControlee(&numVoeu, "Entrez le numéro du voeu à accepter (cette décision est définitive) : ");
+            fprintf(stderr, ROUGE"\nChoix invalide\n"RESET);
+            saisieIntControlee(&numVoeu, CYAN"\nEntrez le numéro du voeu à accepter (cette décision est définitive) : "RESET);
         }
 
         for (v = cand->choix->premier ; v != NULL ; v = v->suivant)
@@ -513,8 +513,8 @@ void validerVoeux(Candidat *cand)
             else v->decCandidat = -1;
         }
 
-		printf(VERT"Votre voeu à bien été validé !\n"RESET);
+		printf(VERT"\nVotre voeu à bien été validé !\n"RESET);
 		
 	}
-	else printf("Aucun département ne vous a accepté...\n");
+	else printf("\nAucun département ne vous a accepté...\n");
 }
