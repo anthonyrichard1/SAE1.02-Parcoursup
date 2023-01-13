@@ -14,9 +14,16 @@
  * \param note[] Tableau de flottant - la tableau qui contient les quatre notes pour lequel il faut calculer la moyenne.
  * \return Flottant - la moyenne des quatre notes. 
 */
-float calculMoyenne(float notes[]);//LEANA
+float calculMoyenne(float notes[]);
 
-Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept);//LEANA
+/**
+ * \brief Cette fonction permet de chercher un voeu en fonction d'un IUT et d'un département.
+ * \param l Structure ListeVoeux - liste de voeux où il faut chercher le voeu.
+ * \param *iut Chaîne de caractère - nom de l'IUT qui faut chercher.
+ * \param *dept Chaîne de caratère - nom du département qu'il faut chercher. 
+ * \return Pointeur sur un Voeu - le voeu qui a été trouvé ou NULL si le voeu n'a pas été trouvé. 
+*/
+Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept);
 
 /**
  * \brief Cette fonction permet de filtrer les candidats pour stocker dans des fichiers différents les admis, les listes d'attentes et les refusés.

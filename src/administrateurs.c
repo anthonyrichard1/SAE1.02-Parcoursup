@@ -222,7 +222,7 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT)
 void stopperCandidature(Phase *phase)
 {
 	*phase = 2;
-	printf(VERT"La phase d'admission a bien été stoppé.\n"RESET);
+	printf(VERT"La phase d'admission a bien été arrêté.\n"RESET);
 }
 
 void lancerCandidature(Phase *phase)

@@ -18,8 +18,9 @@
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient toutes les informations sur les candidats.
  * \param nbCand Entier - nombre de candidats contenus dans le tableau.
+ * \param *phase Pointeur sur une structure Phase - contient l'état de la phase en cours.
  */
-void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
+void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase);
 
 /**
  * \brief Cette fonction affiche le menu des administrateurs, et permet de sélectionner l'opération que l'on souhaite effectuer. Le choix de l'utilisateur est récupéré par une saisie au clavier.
@@ -27,8 +28,9 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient toutes les informations sur les candidats.
  * \param nbCand Entier - nombre de candidats contenus dans le tableau.
+ * \param *phase Pointeur sur une structure Phase - contient l'état de la phase en cours.
  */
-void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
+void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase);
 
 /**
  * \brief Cette fonction affiche le menu des candidats, et permet de sélectionner l'opération que l'on souhaite effectuer. Le choix de l'utilisateur est récupéré par une saisie au clavier.
@@ -36,8 +38,9 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient toutes les informations sur les candidats.
  * \param nbCand Entier - nombre de candidats contenus dans le tableau.
+ * \param *phase Pointeur sur une structure Phase - contient l'état de la phase en cours.
  */
-void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
+void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase);
 
 /**
  * \brief Cette fonction affiche le menu des responsables, et permet de sélectionner l'opération que l'on souhaite effectuer. Le choix de l'utilisateur est récupéré par une saisie au clavier.
@@ -45,8 +48,9 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient toutes les informations sur les candidats.
  * \param nbCand Entier - nombre de candidats contenus dans le tableau.
+ * \param *phase Pointeur sur une structure Phase - contient l'état de la phase en cours.
  */
-void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand);
+void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase);
 
 /**
  * \brief Cette fonction permet de récupérer les données contenues dans le tableau de pointeurs sur des VilleIUT pour les stocker dans le fichier iut.don. Elle est utilisée à chaque modification du tableau de pointeur sur VilleIUT et à la fermeture de l'application.

@@ -1,9 +1,12 @@
 #include "menus.h"
 
-void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand) 
+void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase) 
 {
 	int choix;
 	char motDePasse[12];
+
+	tiut = chargerIUT(nbIUT);
+	tCand = chargerCandidats(nbCand);
 
 	while (1) {
 		printf("\n----------------------------------------\n");
@@ -12,6 +15,8 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand)
 		TITRE"\nMenu principal\n\n"RESET
 		"1 - Afficher les informations des IUT\n"
 		"2 - Afficher les villes où il y a un département\n"
+		"3 - Afficher la phase en cours\n"
+		"4 - Inscription\n"
 		"\n5 - Menu des candidats\n"
 		"6 - Menu des responsables\n"
 		"7 - Menu des administrateurs\n"
@@ -29,12 +34,26 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand)
 				afficherDepartPrecis(tiut, nbIUT);
 				break;
 
+			case 3 :
+				afficherPhase(phase);
+				break;
+
+			case 4 :
+				ajouterCandidats(tCand, nbCand);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
+				printf("nbCand : %d\n", *nbCand);
+				break;
+
 			case 5 :
-				menuCandidat(tiut, tCand, nbIUT, nbCand);
+				if(*phase != 1) {
+					afficherPhase(phase);
+					fprintf(stderr, ROUGE"Nous ne pouvez pas accéder à ce menus.\n"RESET);
+				}
+				else menuCandidat(tiut, tCand, nbIUT, nbCand, phase);
 				break;
 
 			case 6 :
-				menuResponsable(tiut, tCand, nbIUT, nbCand);
+				menuResponsable(tiut, tCand, nbIUT, nbCand, phase);
 				break;
 
 			case 7 :
@@ -46,12 +65,13 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand)
 					fprintf(stderr, ROUGE"Mot de passe incorrect..."RESET);
 				}
 				else {
-					menuAdministrateur(tiut, tCand, nbIUT, nbCand);
+					menuAdministrateur(tiut, tCand, nbIUT, nbCand, phase);
 				}
 				break;
 
 			case 9 :
 				sauvegarde(tiut, nbIUT);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				exit(0);
 
 			default :
@@ -61,11 +81,13 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand)
 	}
 }
 
-void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand) 
+void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase) 
 {
 	int choix;
-	Phase phase = 0;
-	
+
+	tiut = chargerIUT(nbIUT);
+	tCand = chargerCandidats(nbCand);
+
 	while (1) {
 		printf("\n----------------------------------------\n");
 		
@@ -79,10 +101,8 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 		"6 - Arrêter la phase de candidature\n"
 		"7 - Modifier le nombre de places\n"
 		"8 - Modifier le nom du responsable de département\n"
-		"10 - Afficher tous les candidats\n"
-		"11 - Afficher les candidats d'un département\n"
 
-		"\n19 - Menu principal\n"
+		"\n9 - Menu principal\n"
 		"\nVotre choix : ");
 
 		scanf("%d", &choix);
@@ -109,11 +129,11 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 				break;
 
 			case 5:
-				lancerCandidature(&phase);
+				lancerCandidature(phase);
 				break;
 
 			case 6 :
-				stopperCandidature(&phase);
+				stopperCandidature(phase);
 				break;
 
 			case 7 :
@@ -126,37 +146,13 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 				sauvegarde(tiut, nbIUT);
 				break;
 
-			case 9 :
-				break;
-
-			case 10 :
-				afficherCandidats(tCand, nbCand);
-				break;
-
-			case 11 :
-				afficherCandidatsDepart(tCand, nbCand);
-				break;
-
-			case 12 :
-				tCand = supprimerVoeux(tCand, nbCand);
-				sauvegarderCandidats(tCand, nbCand, "candidats.don");
-				break;
-
-			case 13 :
-				ajouterVoeu(tiut, nbIUT, tCand, nbCand);
-				sauvegarderCandidats(tCand, nbCand, "candidats.don");
-				break;
-
 			case 14 :
 				tCand = ajouterCandidats(tCand, nbCand);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				break;
 			
-			case 15 :
-				filtrerCandidatures(tiut, nbIUT, tCand, nbCand);
-				break;
 
-			case 19 :
+			case 9 :
 				sauvegarde(tiut, nbIUT);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				return;
@@ -168,11 +164,15 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 	}
 }
 
-void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand) 
+void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase) 
 {
 	int choix;
-	Phase phase = 0;
+
+	tiut = chargerIUT(nbIUT);
+	tCand = chargerCandidats(nbCand);
 	
+	printf("nbCand : %d\n", *nbCand);
+
 	while (1) {
 		printf("\n----------------------------------------\n");
 		
@@ -208,17 +208,21 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand)
 	}
 }
 
-void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand) 
+void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase) 
 {
 	int choix;
-	Phase phase = 0;
+
+	tiut = chargerIUT(nbIUT);
+	tCand = chargerCandidats(nbCand);
 	
 	while (1) {
 		printf("\n----------------------------------------\n");
 		
 		printf(
-		TITRE"\nMenu des responsables\n\n"RESET
-		"1 - \n"
+		TITRE"\nMenu des responsables\n\n"RESET	
+		"1 - Afficher tous les candidats\n"
+		"2 - Afficher les candidats d'un département\n"
+		"3 - Filtrer les candidats\n"	
 		"\n9 - Menu principal\n"
 		"\nVotre choix : ");
 
@@ -226,6 +230,15 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand)
 
 		switch (choix) {
 			case 1 :
+				afficherCandidats(tCand, nbCand);
+				break;
+
+			case 2 :
+				afficherCandidatsDepart(tCand, nbCand);
+				break;
+
+			case 3 :
+				filtrerCandidatures(tiut, nbIUT, tCand, nbCand);
 				break;
 
 			case 9 :

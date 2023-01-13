@@ -371,11 +371,13 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand)
 
 			if(numVoeu != -1) {
 				if(numVoeu == 1) {
+					printf("Je suis là\n");
 					voeuSup = tCand[numCand-1]->choix->premier;
 					tCand[numCand-1]->choix->premier = tCand[numCand-1]->choix->premier->suivant;
 					free(voeuSup);
 				}
 				else if (numVoeu == j-1) {
+					printf("Par là !\n");
 					voeuSup = tCand[numCand-1]->choix->dernier;
 					prec = tCand[numCand-1]->choix->premier;
 					for(i=1; i < j-2; ++i) prec = prec->suivant;
@@ -389,12 +391,11 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand)
 					voeuSup = tCand[numCand-1]->choix->premier;
 					prec = tCand[numCand-1]->choix->premier;
 					for(i=1; i < j-2; ++i) voeuSup = voeuSup->suivant;
-
 					for(i=1; i < j-3; ++i) prec = voeuSup->suivant;
-
-					afficher1Voeu(prec);
+					prec->suivant = voeuSup->suivant;
 					free(voeuSup);
 				}
+				--tCand[numCand-1]->nbChoix;
 				printf(VERT"Le voeu a bien été supprimé.\n"RESET);
 			}
 		}
