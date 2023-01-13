@@ -8,7 +8,7 @@
 
 ### Utilisation :
 
-Pour lancer l'application, ouvrez un terminal dans le dossier `src` et executez le fichier `parcoursup.exe` avec la commande suivante :  `./parcoursup.exe`
+Pour lancer l'application, ouvrez un terminal dans le dossier `src` et executez le fichier `parcoursup` avec la commande suivante :  `./parcoursup`
 
 ### Documentation :
 
