@@ -16,7 +16,7 @@
 Phase afficherPhase(Phase *phase);
 
 /**
- * \brief Cette fonction permet de trier un tableau de candidat par ordre alphabétique de nom.
+ * \brief Cette fonction permet de trier un tableau de candidat par ordre alphabétique de nom, avec la méthode du tri rapide récursif.
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau à trier.
  * \param nbCand Entier - nombre de candidats contenus dans le tableau.
 */

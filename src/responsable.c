@@ -130,12 +130,12 @@ void triNumerique(Candidat **tCand, int nbCand)
   j = nbCand-2;
   d = tCand[nbCand-1];
 
-  while (i <= j)
+  while (i >= j)
   {
-	while (tCand[i]->moyenne <= d->moyenne && i < nbCand-1) i++;
-	while (tCand[i]->moyenne >= d->moyenne && 0 <= j) j--;
+	while (tCand[i]->moyenne >= d->moyenne && i < nbCand-1) i++;
+	while (tCand[i]->moyenne <= d->moyenne && 0 <= j) j--;
 
-	if (i < j)
+	if (i > j)
 	{
 		w = tCand[i];
 		tCand[i] = tCand[j];

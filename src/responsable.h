@@ -35,7 +35,7 @@ Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept);
 void filtrerCandidatures(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand);
 
 /**
- * \brief Cette fonction permet de trier un tableau de pointeurs sur des candidats par numéro.
+ * \brief Cette fonction permet de trier un tableau de pointeurs sur des candidats par moyenne décroissante, avec la méthode du tri rapide récursif (quick sort inversé récursif).
  * \param **tab Tableau de pointeur sur des candidats - le tableau contenant les candidats à trier.
  * \param nbCand Entier - le nombre de candidats contenus dans le tableau.
 */

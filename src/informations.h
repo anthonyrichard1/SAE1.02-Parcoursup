@@ -21,7 +21,7 @@ ListeDept creerListeDept(void);
 VilleIUT **chargerIUT(int *nbIUT);
 
 /**
- * \brief Cette fonction permet de rechercher un IUT dans un tableau de pointeurs sur des VilleIUT. Elle renvoie la position de la VilleIUT dans le tableau si elle est présente ou la position d'insertion dans le cas contraire. Elle renvoie aussi par *trouve si la valeur est présente dans le tableau ou non.
+ * \brief Cette fonction permet de rechercher un IUT dans un tableau de pointeurs sur des VilleIUT, avec la méthode dicotomique. Elle renvoie la position de la VilleIUT dans le tableau si elle est présente ou la position d'insertion dans le cas contraire. Elle renvoie aussi par *trouve si la valeur est présente dans le tableau ou non.
  * \param **tab Tableau de pointeurs sur des VilleIUT - le tableau dans lequel il faut rechercher une ville.
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau **tab (taille logique du tableau).
  * \param *val Chaîne de caractères - la ville à chercher dans le tableau.
