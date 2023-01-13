@@ -140,22 +140,26 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 
 			case 12 :
 				tCand = supprimerVoeux(tCand, nbCand);
-				sauvegarderCandidats(tCand, nbCand);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				break;
 
 			case 13 :
 				ajouterVoeu(tiut, nbIUT, tCand, nbCand);
-				sauvegarderCandidats(tCand, nbCand);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				break;
 
 			case 14 :
 				tCand = ajouterCandidats(tCand, nbCand);
-				sauvegarderCandidats(tCand, nbCand);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
+				break;
+			
+			case 15 :
+				filtrerCandidatures(tiut, nbIUT, tCand, nbCand);
 				break;
 
 			case 19 :
 				sauvegarde(tiut, nbIUT);
-				sauvegarderCandidats(tCand, nbCand);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				return;
 
 			default :
