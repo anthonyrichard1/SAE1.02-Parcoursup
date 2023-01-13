@@ -47,3 +47,10 @@ void triNumerique(Candidat **tab, int nbCand);
  * \param *nomFichier Chaîne de caractères - le nom du fichier dans lequel il faut sauvegarder les candidats.
 */
 void sauvegarderFileCandidats(FileCandidats fc, char *nomFichier);
+
+/**
+ * \brief Cette fonction permet d'afficher tous les candidats admis dans un IUT quelque soit le département.
+ * \param **tCnand Tableau de pointeurs sur des candidats - le tableau contenant les candidats à afficher.
+ * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+*/
+void afficherCandidatsIUT(Candidat **tCand, int *nbCand);

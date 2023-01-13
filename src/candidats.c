@@ -308,7 +308,7 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
 			else {
 				triAlpha(tCandDept, nbCandDept);
 				printf(GRAS UNDERLINE"\nListe des candidats du département %s : \n"RESET, dept);
-				for(i=0; i<nbCandDept; ++i) afficher1Candidat(tCandDept[i]);
+				for(i=0; i<nbCandDept; ++i) printf("%s %s\n", tCandDept[i]->nom, tCandDept[i]->nom);
 			}
 
 			free(tCandDept);

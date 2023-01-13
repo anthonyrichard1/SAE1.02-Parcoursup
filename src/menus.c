@@ -326,10 +326,11 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
 		printf(
 		TITRE"\nMenu des responsables\n\n"RESET	
 		"1 - Afficher tous les candidats\n"
-		"2 - Afficher les candidats d'un département\n");
+		"2 - Afficher les candidats d'un IUT\n"
+		"3 - Afficher les candidats d'un département\n");
 
 		if(*phase == 2) {
-			printf("3 - Filtrer les candidats\n");
+			printf("4 - Filtrer les candidats\n");
 		}
 
 		printf(
@@ -343,13 +344,17 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
 				break;
 
 			case 2 :
+				afficherCandidatsIUT(tCand, nbCand);
+				break;
+				
+			case 3 :
 				afficherCandidatsDepart(tCand, nbCand);
 				break;
 
-			case 3 :
+			case 4 :
 				if(*phase == 2) {
-					sauvegarderCandidats(tCand, nbCand, "candidats.don");
 					filtrerCandidatures(tiut, nbIUT, tCand, nbCand);
+					sauvegarderCandidats(tCand, nbCand, "candidats.don");
 					break;
 				}
 				else {

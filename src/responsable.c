@@ -103,13 +103,17 @@ void filtrerCandidatures(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbC
 				}
 
 				for (i = 0 ; i < nbEligibles ; i++) chercherVoeux(tElegibles[i]->choix, iut, depart)->decDepartement = 1;
+				int nbTElegibles = nbEligibles-nbMax;
 				if (strcmp(iut, "Clermont-ferrand") == 0 && strcmp(depart, "Informatique") == 0)
 				{printf("%s\n", tElegibles[0]->nom);
-					int tmp = nbEligibles-nbMax;
-					sauvegarderCandidats(tElegibles, &tmp, "admis.don");
+					sauvegarderCandidats(tElegibles, &nbTElegibles, "admis.don");
 					if (nbEligibles > nbMax) sauvegarderFileCandidats(fc, "attentes.don");
 				}
 				printf(VERT"\nFiltrage terminé !\n"RESET);
+				printf(UNDERLINE"Voici la liste de vos candidats admis :\n");
+				afficherCandidats(tElegibles, &nbTElegibles);
+				free(tElegibles);
+				free(fc);
 				return;
 
 			}
@@ -152,3 +156,38 @@ void triNumerique(Candidat **tCand, int nbCand)
   }
 }
 
+void afficherCandidatsIUT(Candidat **tCand, int *nbCand)
+{
+	int i, nbCandTrie = 0, trouve = 0;
+	char iut[30];
+	Voeu *v;
+	Candidat **tCandTri = (Candidat **)malloc(sizeof(Candidat *) *(*nbCand));
+	testMalloc(tCandTri, "création d'un tableau d'étudiants");
+
+	saisieStringControlee(iut, CYAN"Entrez le nom de votre IUT (-1 pour annuler) : "RESET);
+	strcpy(iut, upperfcase(iut));
+
+	if (strcmp(iut, "-1") == 0) return;
+
+	for (i = 0 ; i < *nbCand ; i++)
+	{
+		for (v = tCand[i]->choix->premier ; v != NULL ; v = v->suivant)
+		{
+			if (strcmp(v->ville, iut) == 0 && v->decDepartement && v->decCandidat)
+			{
+				trouve = 1;
+				tCandTri[nbCandTrie++] = tCand[i];
+			}
+		}
+	}
+
+	if (trouve)
+	{
+		triAlpha(tCandTri, nbCandTrie);
+		printf(UNDERLINE"Voici la liste de vos candidats admis :\n"RESET);
+		for (i = 0 ; i < nbCandTrie ; i++) printf("%s %s\n", tCandTri[i]->nom, tCandTri[i]->prenom);
+	}
+	else fprintf(stderr, ROUGE"Aucun candidat n'a été admis dans votre IUT...\n"RESET);
+
+	free(tCandTri);
+}
