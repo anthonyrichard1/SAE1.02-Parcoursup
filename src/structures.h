@@ -127,9 +127,26 @@ typedef struct
     char nom[30];
     char prenom[30];
     float notes[4];
+    float moyenne;
     int nbChoix;
     ListeVoeux choix;
 }Candidat;
+
+typedef struct MaillonFileCandidat MaillonFileCandidat;
+
+struct MaillonFileCandidat
+{
+    MaillonFileCandidat *suivant;
+    Candidat candidat;
+};
+
+typedef struct
+{
+    MaillonFileCandidat *premier;
+    MaillonFileCandidat *dernier;
+    int nb;
+}FileCandidats;
+
 
 /**
  * \typedef int Phase

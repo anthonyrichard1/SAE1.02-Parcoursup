@@ -209,6 +209,7 @@ Candidat **chargerCandidats(int *nbCand)
 		fread(&c->nom, sizeof(c->nom), 1, f);
 		fread(&c->prenom, sizeof(c->prenom), 1, f);
 		fread(&c->notes, sizeof(float), 4, f);
+		c->moyenne = calculMoyenne(c->notes);
 		fread(&c->nbChoix, sizeof(int), 1, f);
 		ListeVoeux lv = creerListeVoeux();
 
@@ -470,6 +471,7 @@ Candidat **ajouterCandidats(Candidat **tCand, int *nbCand)
 						c->notes[1] = fr;
 						c->notes[2] = an;
 						c->notes[3] = spe;
+						c->moyenne = calculMoyenne(c->notes);
 						c->nbChoix = 0;
 						c->choix = creerListeVoeux();
 						*nbCand += 1;
