@@ -137,15 +137,15 @@ typedef struct MaillonFileCandidat MaillonFileCandidat;
 struct MaillonFileCandidat
 {
     MaillonFileCandidat *suivant;
-    Candidat candidat;
+    Candidat *candidat;
 };
 
-typedef struct
+typedef struct FileCandidats
 {
-    MaillonFileCandidat *premier;
-    MaillonFileCandidat *dernier;
+    MaillonFileCandidat *tete;
+    MaillonFileCandidat *queue;
     int nb;
-}FileCandidats;
+}*FileCandidats;
 
 
 /**
