@@ -12,11 +12,11 @@ ListeVoeux creerListeVoeux(void)
 
 Phase afficherPhase(Phase *phase)
 {
-	if (!*phase) printf("La phase de candidature n'est pas encore lancée...\n");
+	if (!*phase) printf("\nLa phase de candidature n'est pas encore lancée...\n");
 
-	else if (*phase == 1) printf("La phase de candidature est en cours !\n");
+	else if (*phase == 1) printf("\nLa phase de candidature est en cours !\n");
 
-	else printf("La phase de candidature est terminée...\n");
+	else printf("\nLa phase de candidature est terminée...\n");
 
 	return *phase;
 }
@@ -84,10 +84,10 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat *cand)
 	char nom[30], depart[30];
 	MaillonDept *mDept;
 	Voeu *v;
-	if (cand->nbChoix == 0) printf("Vous n'avez pas encore de voeux\n");
+	if (cand->nbChoix == 0) printf("\nVous n'avez pas encore de voeux\n");
 	else if (cand->nbChoix == 3)
 	{
-		fprintf(stderr, ROUGE"Erreur : vous avez déjà atteint le nombre maximal de voeux !\n"RESET);
+		fprintf(stderr, ROUGE"\nErreur : vous avez déjà atteint le nombre maximal de voeux !\n"RESET);
 		return;
 	}
 	else {
@@ -101,7 +101,7 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat *cand)
 	strcpy(nom, "0");
 	while (strcmp(nom, "-1") != 0)
 	{
-		saisieStringControlee(nom, "Entrez l'IUT correspondant à votre voeux (-1 pour annuler) : ");
+		saisieStringControlee(nom, CYAN"\nEntrez l'IUT correspondant à votre voeux (-1 pour annuler) : "RESET);
 		strcpy(nom, upperfcase(nom));
 
 		if (strcmp(nom, "-1") == 0) return;
@@ -115,7 +115,7 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat *cand)
 
 				while (strcmp(depart, "-1") != 0)
 				{
-					saisieStringControlee(depart, "Entrez le nom du département auquel vous voulez candidater (-1 pour annuler) : ");
+					saisieStringControlee(depart, CYAN"Entrez le nom du département auquel vous voulez candidater (-1 pour annuler) : "RESET);
 					strcpy(depart, upperfcase(depart));
 
 					if (strcmp(depart, "-1") == 0) return;	
@@ -142,23 +142,23 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat *cand)
 									}
 											
 									cand->nbChoix += 1;
-									printf(VERT"Voeu ajouté !\n"RESET);
+									printf(VERT"\nVoeu ajouté !\n"RESET);
 									return;
 								}
 								else
 								{
-									fprintf(stderr, ROUGE"Erreur : vous avez déjà formulé ce voeu !\n"RESET);
+									fprintf(stderr, ROUGE"\nErreur : vous avez déjà formulé ce voeu !\n"RESET);
 									return;
 								}
 										
 							}
 									
 						}
-						if (!trouve) fprintf(stderr, ROUGE"Erreur : le département est introuvable !\n"RESET);
+						if (!trouve) fprintf(stderr, ROUGE"\nErreur : le département est introuvable !\n"RESET);
 					}		
 				}
 			}
-			else fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"RESET);
+			else fprintf(stderr, ROUGE"\nErreur : l'IUT est introuvable !\n"RESET);
 		}
 	}
 }
@@ -276,7 +276,7 @@ void afficherCandidats(Candidat **tCand, int *nbCand) {
 
 		for(i=0; i < *nbCand; ++i) afficher1Candidat(tCand[i]);
 	}
-	else fprintf(stderr, ROUGE"Il n'y a pas de candidat.\n"RESET);
+	else fprintf(stderr, ROUGE"\nIl n'y a pas de candidat.\n"RESET);
 }
 
 void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
@@ -288,7 +288,7 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
 	while (strcmp(dept, "-1") != 0) {
 		nbCandDept = 0;
 
-		saisieStringControlee(dept, "Pour quel département souhaitez-vous avoir la liste des candidats (-1 pour annuler) ? ");
+		saisieStringControlee(dept, CYAN"\nPour quel département souhaitez-vous avoir la liste des candidats (-1 pour annuler) ? "RESET);
 		strcpy(dept, upperfcase(dept));
 
 		if(strcmp(dept, "-1") != 0) {
@@ -323,7 +323,7 @@ void supprimerVoeux(Candidat* cand)
 	int i, j;
 
 	if(cand->nbChoix == 0) {
-		fprintf(stderr, ROUGE"Vous n'avez pas de voeu.\n"RESET);
+		fprintf(stderr, ROUGE"\nVous n'avez pas de voeu.\n"RESET);
 		return;
 	}
 
@@ -333,11 +333,11 @@ void supprimerVoeux(Candidat* cand)
 			printf(GRAS"\t\tChoix n°%d\n"RESET, j);
 			afficher1Voeu(v);
 		}
-		saisieIntControlee(&numVoeu, "Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : ");
+		saisieIntControlee(&numVoeu, CYAN"Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : "RESET);
 
 		while(numVoeu < 0 && numVoeu > j-1) {
-			fprintf(stderr, ROUGE"Choix incorrect.\n"RESET);
-			saisieIntControlee(&numVoeu, "Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : ");
+			fprintf(stderr, ROUGE"\nChoix incorrect.\n"RESET);
+			saisieIntControlee(&numVoeu, CYAN"\nEntrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : "RESET);
 		}
 
 		if(numVoeu != -1) {
@@ -363,11 +363,11 @@ void supprimerVoeux(Candidat* cand)
 				free(voeuSup);
 			}
 			--cand->nbChoix;
-			printf(VERT"Le voeu a bien été supprimé.\n"RESET);
+			printf(VERT"\nLe voeu a bien été supprimé.\n"RESET);
 			
 		}
 	}	
-	printf("Annulation de l'opération.\n");
+	printf("\nFin de l'opération.\n");
 	return;
 }
 
@@ -384,7 +384,7 @@ Candidat **ajouterCandidats(Candidat **tCand, int *nbCand)
 
 	while (strcmp(prenom, "-1") != 0)
 	{
-		saisieStringControlee(prenom, "Entrez votre prénom (-1 pour annuler) : ");
+		saisieStringControlee(prenom, CYAN"\nEntrez votre prénom (-1 pour annuler) : "RESET);
 		strcpy(prenom, upperfcase(prenom));
 
 		if (strcmp(prenom, "-1") != 0)
@@ -393,7 +393,7 @@ Candidat **ajouterCandidats(Candidat **tCand, int *nbCand)
 			strcpy(prenom, "-1");
 			while (strcmp(nom, "-1") != 0)
 			{
-				saisieStringControlee(nom, "Entrez votre nom (-1 pour annuler) : ");
+				saisieStringControlee(nom, CYAN"Entrez votre nom (-1 pour annuler) : "RESET);
 				strcpy(nom, uppercase(nom));
 
 				if (strcmp(nom, "-1") != 0)
@@ -403,35 +403,35 @@ Candidat **ajouterCandidats(Candidat **tCand, int *nbCand)
 					ma=0;fr=0;an=0;spe=0;
 					while (ma != -1 && fr != -1 && an != -1 && spe != -1)
 					{
-						saisieFloatControlee(&ma, "Entrez votre note de maths (-1 pour annuler) : ");
+						saisieFloatControlee(&ma, CYAN"Entrez votre note de maths (-1 pour annuler) : "RESET);
 						while ((ma < 0 && ma != -1) || ma > 20)
 						{
-							fprintf(stderr, ROUGE"La note doit être comprise entre 0 et 20\n"RESET);
-							saisieFloatControlee(&ma, "Entrez votre note de maths (-1 pour annuler) : ");
+							fprintf(stderr, ROUGE"\nLa note doit être comprise entre 0 et 20\n"RESET);
+							saisieFloatControlee(&ma, CYAN"\nEntrez votre note de maths (-1 pour annuler) : ");
 						}
 						if (ma == -1) break;
 
-						saisieFloatControlee(&fr, "Entrez votre note de français (-1 pour annuler) : ");
+						saisieFloatControlee(&fr, CYAN"Entrez votre note de français (-1 pour annuler) : "RESET);
 						while ((fr < 0 && fr != -1) || fr > 20)
 						{
-							fprintf(stderr, ROUGE"La note doit être comprise entre 0 et 20\n"RESET);
-							saisieFloatControlee(&fr, "Entrez votre note de français (-1 pour annuler) : ");
+							fprintf(stderr, ROUGE"\nLa note doit être comprise entre 0 et 20\n"RESET);
+							saisieFloatControlee(&fr, CYAN"\nEntrez votre note de français (-1 pour annuler) : "RESET);
 						}
 						if (fr == -1) break;
 						
-						saisieFloatControlee(&an, "Entrez votre note d'anglais (-1 pour annuler) : ");
+						saisieFloatControlee(&an, CYAN"Entrez votre note d'anglais (-1 pour annuler) : "RESET);
 						while ((an < 0 && an != -1) || an > 20)
 						{
-							fprintf(stderr, ROUGE"La note doit être comprise entre 0 et 20\n"RESET);
-							saisieFloatControlee(&an, "Entrez votre note d'anglais (-1 pour annuler) : ");
+							fprintf(stderr, ROUGE"\nLa note doit être comprise entre 0 et 20\n"RESET);
+							saisieFloatControlee(&an, CYAN"\nEntrez votre note d'anglais (-1 pour annuler) : "RESET);
 						}
 						if (an == -1) break;
 
-						saisieFloatControlee(&spe, "Entrez votre note de spécialité (-1 pour annuler) : ");
+						saisieFloatControlee(&spe, CYAN"Entrez votre note de spécialité (-1 pour annuler) : "RESET);
 						while ((spe < 0 && spe != -1) || spe > 20)
 						{
-							fprintf(stderr, ROUGE"La note doit être comprise entre 0 et 20\n"RESET);
-							saisieFloatControlee(&spe, "Entrez votre note de spécialité (-1 pour annuler) : ");
+							fprintf(stderr, ROUGE"\nLa note doit être comprise entre 0 et 20\n"RESET);
+							saisieFloatControlee(&spe, CYAN"\nEntrez votre note de spécialité (-1 pour annuler) : "RESET);
 						}
 						if (spe == -1) break;
 
@@ -447,7 +447,7 @@ Candidat **ajouterCandidats(Candidat **tCand, int *nbCand)
 						testMalloc(ntCand, "aggrandissement du tableau des candidats");
 						ntCand[c->num-1] = c;
 						
-						printf(VERT"Candidat ajouté !\n"RESET);
+						printf(VERT"\nCandidat ajouté !\n"RESET);
 						return ntCand;
 					}
 				}
@@ -455,7 +455,7 @@ Candidat **ajouterCandidats(Candidat **tCand, int *nbCand)
 		}
 	}
 	
-	printf("Fin de l'opération...\n");
+	printf("\nFin de l'opération...\n");
 	free(c);
 	return tCand;
 }

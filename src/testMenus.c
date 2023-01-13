@@ -2,13 +2,7 @@
 
 int main (void)
 {
-	VilleIUT** tiut;
-	Candidat** tCand;
-	Phase phase = 0;
-	int nbIUT, nbCand;
-	tiut = chargerIUT(&nbIUT);
-	tCand = chargerCandidats(&nbCand);
-
-	menuPrincipal(tiut, tCand, &nbIUT, &nbCand, &phase);
+	lancement();
+	
 	return 0;
 }

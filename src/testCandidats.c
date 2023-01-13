@@ -2,14 +2,14 @@
 
 int main(void)
 {
-    int nbCand = 0;
-    Candidat **tCand = chargerCandidats(&nbCand);
-    afficherCandidats(tCand, &nbCand);
+    //int nbCand = 0;
+    //Candidat **tCand = chargerCandidats(&nbCand);
+    //afficherCandidats(tCand, &nbCand);
 
 
-    ajouterCandidats(tCand, &nbCand);
+    //ajouterCandidats(tCand, &nbCand);
 
-    sauvegarderCandidats(tCand, &nbCand, "candidats.don"); 
+    //sauvegarderCandidats(tCand, &nbCand, "candidats.don"); 
     
     return 0; 
 }

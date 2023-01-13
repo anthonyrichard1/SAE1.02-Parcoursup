@@ -5,7 +5,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 	int choix, pos;
 	char motDePasse[12];
 
-	tiut = chargerIUT(nbIUT);
+	tiut = chargerIUT(nbIUT, phase);
 	tCand = chargerCandidats(nbCand);
 
 	while (1) {
@@ -32,7 +32,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 		"7 - Menu des administrateurs\n"
 		"\n9 - Quitter\n");
 
-		saisieIntControlee(&choix, "\nVotre choix : ");
+		saisieIntControlee(&choix, CYAN"\nVotre choix : "RESET);
 
 		switch (choix) {
 			case 1 :
@@ -60,17 +60,19 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 
 			case 5 :
 				if(*phase == 1) {
-					saisieIntControlee(&pos, "Entrez votre numéro de candidat (-1 pour annuler) : ");
+					saisieIntControlee(&pos, CYAN"\nEntrez votre numéro de candidat (-1 pour annuler) : "RESET);
 					
 					while (pos < -1 || pos > *nbCand)
 					{
-						fprintf(stderr, ROUGE"Le numéro de candidat saisie est invalide.\n"RESET);
-						saisieIntControlee(&pos, "Entrez votre numéro de candidat (-1 pour annuler) : ");
+						fprintf(stderr, ROUGE"\nLe numéro de candidat saisie est invalide.\n"RESET);
+						saisieIntControlee(&pos, CYAN"\nEntrez votre numéro de candidat (-1 pour annuler) : "RESET);
 					}
 
 					if(pos > -1) {
 						--pos;
-						menuCandidat(tiut, tCand, nbIUT, nbCand, phase, &pos);
+						system("clear");
+						menuCandidat(tiut, tCand, nbIUT, nbCand, phase, pos);
+						break;
 					}
 				}
 				else {
@@ -80,6 +82,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 
 			case 6 :
 				if(*phase == 2) {
+					system("clear");
 					menuResponsable(tiut, tCand, nbIUT, nbCand, phase);
 					break;
 				}
@@ -91,17 +94,20 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 			case 7 :
 				printf("\n----------------------------------------\n");
 
-				printf("\nEntrez le mot de passe : ");
+				printf(CYAN"\nEntrez le mot de passe : "RESET);
 				scanf("%s%*c", motDePasse);
 				if(strcmp(motDePasse, "mdp") != 0) {
-					fprintf(stderr, ROUGE"Mot de passe incorrect..."RESET);
+					fprintf(stderr, ROUGE"\nMot de passe incorrect...\n"RESET);
 				}
 				else {
+					system("clear");
 					menuAdministrateur(tiut, tCand, nbIUT, nbCand, phase);
 				}
 				break;
 
 			case 9 :
+				sauvegarde(tiut, nbIUT, phase);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				exit(0);
 
 			default :
@@ -115,7 +121,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 {
 	int choix;
 
-	tiut = chargerIUT(nbIUT);
+	tiut = chargerIUT(nbIUT, phase);
 	tCand = chargerCandidats(nbCand);
 
 	while (1) {
@@ -138,7 +144,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 
 		printf("\n9 - Menu principal\n");
 		
-		saisieIntControlee(&choix, "\nVotre choix : ");
+		saisieIntControlee(&choix, CYAN"\nVotre choix : "RESET);
 
 		switch (choix) {
 			case 1 :
@@ -153,76 +159,77 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 			case 3 :
 				if(*phase == 0) {
 					tiut = ajouterIUT(tiut, nbIUT);
-					sauvegarde(tiut, nbIUT);
+					sauvegarde(tiut, nbIUT, phase);
 					break;
 				}
 				else {
-					printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+					printf(ROUGE"\nChoix incorrect, recommencez"RESET);
 					break;
 				}
 
 			case 4 :
 				if(*phase == 0) {
 					ajouterDepart(tiut, nbIUT);
-					sauvegarde(tiut, nbIUT);
+					sauvegarde(tiut, nbIUT, phase);
 					break;
 				}
 				else {
-					printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+					printf(ROUGE"\nChoix incorrect, recommencez"RESET);
 					break;
 				}
 
 			case 5 :
 				if(*phase == 0) {
 					supprimerIUT(tiut, nbIUT);
-					sauvegarde(tiut, nbIUT);
+					sauvegarde(tiut, nbIUT, phase);
 					break;
 				}
 				else {
-					printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+					printf(ROUGE"\nChoix incorrect, recommencez"RESET);
 					break;
 				}
 
 			case 6 :
 				if(*phase == 0) {
 					supprimerDepart(tiut, nbIUT);
-					sauvegarde(tiut, nbIUT);
+					sauvegarde(tiut, nbIUT, phase);
 					break;
 				}
 				else {
-					printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+					printf(ROUGE"\nChoix incorrect, recommencez"RESET);
 					break;
 				}
 
 			case 7 :
 				if(*phase == 0) {
 					modifPlaces(tiut, nbIUT);
-					sauvegarde(tiut, nbIUT);
+					sauvegarde(tiut, nbIUT, phase);
 					break;
 				}
 				else {
-					printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+					printf(ROUGE"\nChoix incorrect, recommencez"RESET);
 					break;
 				}
 
 			case 8 :
 				if(*phase == 0) {
 					modifierRes(tiut, nbIUT);
-					sauvegarde(tiut, nbIUT);
+					sauvegarde(tiut, nbIUT, phase);
 					break;
 				}
 				else {
-					printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+					printf(ROUGE"\nChoix incorrect, recommencez"RESET);
 					break;
 				}
 
 			case 9 :
-				sauvegarde(tiut, nbIUT);
+				sauvegarde(tiut, nbIUT, phase);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
+				system("clear");
 				return;
 
 			default :
-				printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+				printf(ROUGE"\nChoix incorrect, recommencez"RESET);
 				break;
 		}
 	}
@@ -232,11 +239,13 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Ph
 {
 	int choix;
 
-	tiut = chargerIUT(nbIUT);
+	tiut = chargerIUT(nbIUT, phase);
 	tCand = chargerCandidats(nbCand);
 	
 	while (1) {
 		printf("\n----------------------------------------\n");
+		
+		printf(CYAN"Bienvenue %s %s !"RESET, tCand[*pos]->prenom, tCand[*pos]->nom);
 		
 		printf(
 		TITRE"\nMenu des candidats\n\n"RESET
@@ -245,7 +254,8 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Ph
 		"3 - Supprimer un voeu\n"
 		"\n9 - Menu principal\n");
 
-		saisieIntControlee(&choix, "\nVotre choix : ");
+		saisieIntControlee(&choix, CYAN"\nVotre choix : "RESET);
+		scanf("%*c");
 
 		switch (choix) {
 			case 1 :
@@ -269,12 +279,13 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Ph
 				break;
 
 			case 9 :
-				sauvegarde(tiut, nbIUT);
+				sauvegarde(tiut, nbIUT, phase);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
+				system("clear");
 				return;
 
 			default :
-				printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+				printf(ROUGE"\nChoix incorrect, recommencez"RESET);
 				break;
 		}
 	}
@@ -284,7 +295,7 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
 {
 	int choix;
 
-	tiut = chargerIUT(nbIUT);
+	tiut = chargerIUT(nbIUT, phase);
 	tCand = chargerCandidats(nbCand);
 	
 	while (1) {
@@ -302,7 +313,7 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
 		printf(
 		"\n9 - Menu principal\n");
 
-		saisieIntControlee(&choix, "\nVotre choix : ");
+		saisieIntControlee(&choix, CYAN"\nVotre choix : "RESET);
 
 		switch (choix) {
 			case 1 :
@@ -324,18 +335,19 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
 				}
 
 			case 9 :
-				sauvegarde(tiut, nbIUT);
+				sauvegarde(tiut, nbIUT, phase);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
+				system("clear");
 				return;
 
 			default :
-				printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+				printf(ROUGE"\nChoix incorrect, recommencez"RESET);
 				break;
 		}
 	}
 }
 
-void sauvegarde(VilleIUT ** tiut, int *nbIUT) 
+void sauvegarde(VilleIUT ** tiut, int *nbIUT, Phase *phase) 
 { 
 	FILE *fo; 
 	int i; 
@@ -343,7 +355,8 @@ void sauvegarde(VilleIUT ** tiut, int *nbIUT)
 
 	fo = fopen("iut.don", "w"); 
 
-	fprintf(fo, "%d\n", *nbIUT); 
+	
+	fprintf(fo, "%d\n%d\n", *phase, *nbIUT); 
 	for(i=0; i < *nbIUT; i++) { 
 		fprintf(fo, "%s %d ", tiut[i]->ville, tiut[i]->ldept->nb); 
 		for(tmp = tiut[i]->ldept->premier; tmp != NULL; tmp = tmp->suivant) { 
@@ -354,3 +367,16 @@ void sauvegarde(VilleIUT ** tiut, int *nbIUT)
 	fclose(fo); 
 	return; 
 } 
+
+void lancement(void) {
+	VilleIUT** tiut;
+	Candidat** tCand;
+	Phase phase;
+	int nbIUT, nbCand;
+
+	tiut = chargerIUT(&nbIUT, &phase);
+	tCand = chargerCandidats(&nbCand);
+
+	menuPrincipal(tiut, tCand, &nbIUT, &nbCand, &phase);
+}
+ 

@@ -60,4 +60,9 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
  */
 void sauvegarde(VilleIUT ** tiut, int *nbIUT);
 
+/**
+ * \brief Cette fonction gère le lancement de l'application en chargeant les différents tableaux et en lançant le menus principal.
+*/
+void lancement(void);
+
 #endif

@@ -7,7 +7,7 @@ VilleIUT **ajouterIUT(VilleIUT **tiut, int *nbIUT)
 	
 	while (strcmp(ville, "-1") != 0)
 	{
-		saisieStringControlee(ville, "Entrez le nom de la ville à ajouter (-1 pour annuler) : ");
+		saisieStringControlee(ville, CYAN"\nEntrez le nom de la ville à ajouter (-1 pour annuler) : "RESET);
 		strcpy(ville, upperfcase(ville));
 
 		if (strcmp(ville, "-1") != 0)
@@ -38,12 +38,12 @@ VilleIUT **ajouterIUT(VilleIUT **tiut, int *nbIUT)
 			}
 			else
 			{
-				fprintf(stderr, ROUGE"Erreur : la ville %s est déjà enregistrée !\n"RESET, ville);
+				fprintf(stderr, ROUGE"\nErreur : la ville %s est déjà enregistrée !\n"RESET, ville);
 			}
 		}
 	}
 
-	printf("Abandon de l'opération...\n");
+	printf("\nFin de l'opération...\n");
 	return tiut;
 }
 
@@ -55,16 +55,16 @@ MaillonDept* nouveauMaillonDept(char* newDept)
 
 	strcpy(maillon->departement, newDept);
 
-	saisieIntControlee(&maillon->nbP, "Entrez le nombre de place du nouveau département : ");
+	saisieIntControlee(&maillon->nbP, CYAN"Entrez le nombre de place du nouveau département : "RESET);
 	
 	while(maillon->nbP <= 0)
 	{
-		fprintf(stderr, ROUGE"Erreur : le nombre de places doit être un nombre positif !\n"RESET);
-		saisieIntControlee(&maillon->nbP, "Entrez le nombre de place du nouveau département : ");
+		fprintf(stderr, ROUGE"\nErreur : le nombre de places doit être un nombre positif !\n"RESET);
+		saisieIntControlee(&maillon->nbP, CYAN"Entrez le nombre de place du nouveau département : "RESET);
 	}
 
-	saisieStringControlee(maillon->nomRes, "Entrez le nom du responsable du nouveau département (nom-prénom) : ");
-	while (strcmp(maillon->nomRes, "-1") == 0) saisieStringControlee(maillon->nomRes, "Entrez le nom du responsable du nouveau département (nom-prénom) : ");
+	saisieStringControlee(maillon->nomRes, CYAN"Entrez le nom du responsable du nouveau département (nom_prénom) : "RESET);
+	while (strcmp(maillon->nomRes, "-1") == 0) saisieStringControlee(maillon->nomRes, CYAN"Entrez le nom du responsable du nouveau département (nom-prénom) : "RESET);
 
 	maillon->suivant = NULL;
 
@@ -80,7 +80,7 @@ void ajouterDepart(VilleIUT** tiut, int *nbIUT)
 
 	while (strcmp(ville, "-1") != 0) {
 
-		saisieStringControlee(ville, "\nEntrez le nom de la ville où ce trouve le département (-1 pour annuler) : ");
+		saisieStringControlee(ville, CYAN"\nEntrez le nom de la ville où ce trouve le département (-1 pour annuler) : "RESET);
 		strcpy(ville, upperfcase(ville));
 		
 		if (strcmp(ville, "-1") != 0) {
@@ -88,7 +88,7 @@ void ajouterDepart(VilleIUT** tiut, int *nbIUT)
 			pos = rechercheIUT(tiut, nbIUT, ville, &trouve);
 
 			if(trouve == 1) {
-				saisieStringControlee(newDept, "Entrez le nom du nouveau département (-1 pour annuler) : ");
+				saisieStringControlee(newDept, CYAN"Entrez le nom du nouveau département (-1 pour annuler) : "RESET);
 				strcpy(newDept, upperfcase(newDept));
 
 				if (strcmp(newDept, "-1") != 0)
@@ -96,7 +96,7 @@ void ajouterDepart(VilleIUT** tiut, int *nbIUT)
 					for(tmp=tiut[pos]->ldept->premier; tmp; tmp = tmp->suivant) {		
 						existant = 0;							
 						if(strcmp(tmp->departement, newDept) == 0) {
-							fprintf(stderr, ROUGE"Dans le département %s existe déjà.\n"RESET, newDept);
+							fprintf(stderr, ROUGE"\nDans le département %s existe déjà.\n"RESET, newDept);
 							existant = 1;
 						}
 					}
@@ -113,16 +113,17 @@ void ajouterDepart(VilleIUT** tiut, int *nbIUT)
 							tiut[pos]->ldept->nb += 1;
 						}
 
-						printf(VERT"Ajout du département effectué.\n"RESET);
+						printf(VERT"\nAjout du département effectué.\n"RESET);
 					}
 				}
 				
 			}
 			else {
-				fprintf(stderr, ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
+				fprintf(stderr, ROUGE"\nL'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
 			}
 		}
 	}
+	printf("\nFin de l'opération...\n");
 }
 
 void supprimerIUT(VilleIUT **tiut, int *nbIUT)
@@ -133,7 +134,7 @@ void supprimerIUT(VilleIUT **tiut, int *nbIUT)
 
 	while (strcmp(choix, "-1") != 0)
 	{
-		saisieStringControlee(choix, "Entrez le nom de l'IUT à supprimer (-1 pour annuler) : ");
+		saisieStringControlee(choix, CYAN"\nEntrez le nom de l'IUT à supprimer (-1 pour annuler) : "RESET);
 		strcpy(choix, upperfcase(choix));
 
 		if (strcmp(choix, "-1") != 0)
@@ -148,11 +149,12 @@ void supprimerIUT(VilleIUT **tiut, int *nbIUT)
 				}
 
 				*nbIUT-=1;
-				printf(VERT"IUT supprimé !\n"RESET);
+				printf(VERT"\nIUT supprimé !\n"RESET);
 			}
-			else fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"RESET);
+			else fprintf(stderr, ROUGE"\nErreur : l'IUT est introuvable !\n"RESET);
 		}
 	}
+	printf("\nFin de l'opération...\n");
 }
 
 void supprimerDepart(VilleIUT **tiut, int *nbIUT)
@@ -164,7 +166,7 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT)
 
 	while (strcmp(choix, "-1") != 0)
 	{
-		saisieStringControlee(choix, "Entrez le nom de l'IUT (-1 pour annuler) : ");
+		saisieStringControlee(choix, CYAN"\nEntrez le nom de l'IUT (-1 pour annuler) : "RESET);
 		strcpy(choix, upperfcase(choix));
 
 		if (strcmp(choix, "-1") != 0)
@@ -175,7 +177,7 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT)
 			{
 				afficher1Depart(tiut[pos]);
 
-				saisieStringControlee(choix, "Entrez le nom du département à supprimer (-1 pour annuler) : ");
+				saisieStringControlee(choix, CYAN"\nEntrez le nom du département à supprimer (-1 pour annuler) : "RESET);
 				strcpy(choix, upperfcase(choix));
 
 				if (strcmp(choix, "-1") != 0)
@@ -200,35 +202,42 @@ void supprimerDepart(VilleIUT **tiut, int *nbIUT)
 
 							free(m);
 							tiut[pos]->ldept->nb -= 1;
-							printf(VERT"Département supprimé !\n"RESET);
+							printf(VERT"\nDépartement supprimé !\n"RESET);
 							break;
 						}
 						else if (m->suivant == NULL)
 						{
-							fprintf(stderr, ROUGE"Erreur : le département est introuvable !\n"RESET);
+							fprintf(stderr, ROUGE"\nErreur : le département est introuvable !\n"RESET);
 						}
 					}
 				}
 			}
 			else
 			{
-				fprintf(stderr, ROUGE"Erreur : l'IUT est introuvable !\n"RESET);
+				fprintf(stderr, ROUGE"\nErreur : l'IUT est introuvable !\n"RESET);
 			}
 			
 		}
 	}
+	printf("\nFin de l'opération...\n");
 }
 
 void stopperCandidature(Phase *phase)
 {
-	*phase = 2;
-	printf(VERT"La phase d'admission a bien été arrêté.\n"RESET);
+	if(*phase == 2) fprintf(stderr, ROUGE"\nLa phase d'admission est déjà arrêté.\n"RESET);
+	else {
+		*phase = 2;
+		printf(VERT"\nLa phase d'admission a bien été arrêté.\n"RESET);
+	}
 }
 
 void lancerCandidature(Phase *phase)
 {
-	*phase = 1;
-	printf(VERT"La phase d'admission a bien été lancé.\n"RESET);
+	if(*phase == 1) fprintf(stderr, ROUGE"\nLa phase d'admission est déjà lancé.\n"RESET);
+	else {
+		*phase = 1;
+		printf(VERT"\nLa phase d'admission a bien été lancé.\n"RESET);
+	}
 }
 
 void modifPlaces(VilleIUT** tiut, int *nbIUT) 
@@ -239,7 +248,7 @@ void modifPlaces(VilleIUT** tiut, int *nbIUT)
 	MaillonDept* tmp;
 
 	while (strcmp(ville, "-1") != 0 && strcmp(dept, "-1") != 0) {
-		saisieStringControlee(ville, "\nEntrez le nom de la ville où ce trouve le département (-1 pour annuler) : ");
+		saisieStringControlee(ville, CYAN"\nEntrez le nom de la ville où ce trouve le département (-1 pour annuler) : "RESET);
 		strcpy(ville, upperfcase(ville));
 
 		if (strcmp(ville, "-1") != 0) {
@@ -247,35 +256,36 @@ void modifPlaces(VilleIUT** tiut, int *nbIUT)
 
 			if(trouve == 1) {
 				afficher1Depart(tiut[pos]);
-				saisieStringControlee(dept, "\nEntrez le nom du département pour lequel vous souhaitez modifier le nombre de place (-1 pour annuler) : ");
+				saisieStringControlee(dept, CYAN"\nEntrez le nom du département pour lequel vous souhaitez modifier le nombre de place (-1 pour annuler) : "RESET);
 				strcpy(dept, upperfcase(dept));
 				trouveDept = 0;
 
 				if (strcmp(dept, "-1") != 0) {
 					for(tmp=tiut[pos]->ldept->premier; tmp; tmp = tmp->suivant) {									
 						if(strcmp(tmp->departement, dept) == 0) {
-							printf("Dans le département %s de %s, il y a %d places.\nNouveau nombre de place : ", dept, ville, tmp->nbP);
+							printf("\nDans le département %s de %s, il y a %d places.\n" CYAN"Nouveau nombre de place : "RESET, dept, ville, tmp->nbP);
 							saisieIntControlee(&nbP, "");
 
 							while(nbP <= 0) {
 								fprintf(stderr, ROUGE"Le nombre de place doit être supérieur à 0.\n"RESET);
-								printf("Dans le département %s de %s, il y a %d places.\nNouveau nombre de place : ", dept, ville, tmp->nbP);
+								printf("\nDans le département %s de %s, il y a %d places.\n" CYAN"Nouveau nombre de place : "RESET, dept, ville, tmp->nbP);
 								saisieIntControlee(&nbP, "");
 							} 
 							tmp->nbP = nbP;
 							trouveDept = 1;
-							printf(VERT"Nombre de place modifié\n"RESET);
+							printf(VERT"\nNombre de place modifié\n"RESET);
 						}	
 						
 					}
-					if (!trouveDept) fprintf(stderr, ROUGE"Le département que vous cherchez n'a pas été trouvé.\n"RESET);	
+					if (!trouveDept) fprintf(stderr, ROUGE"\nLe département que vous cherchez n'a pas été trouvé.\n"RESET);	
 				}
 			}
 			else {
-				fprintf(stderr, ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
+				fprintf(stderr, ROUGE"\nL'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
 			}
 		}
 	}
+	printf("\nFin de l'opération...\n");
 }
 
 void modifierRes(VilleIUT** tiut, int *nbIUT) 
@@ -286,7 +296,7 @@ void modifierRes(VilleIUT** tiut, int *nbIUT)
 	MaillonDept* tmp;
 
 	while (strcmp(ville, "-1") != 0 && strcmp(dept, "-1") != 0) {
-		saisieStringControlee(ville, "Entrez le nom de la ville où ce trouve le département (-1 pour annuler) : ");
+		saisieStringControlee(ville, CYAN"\nEntrez le nom de la ville où ce trouve le département (-1 pour annuler) : "RESET);
 		strcpy(ville, upperfcase(ville));
 		
 		if (strcmp(ville, "-1") != 0) {
@@ -294,24 +304,25 @@ void modifierRes(VilleIUT** tiut, int *nbIUT)
 
 			if(trouve == 1) {
 				afficher1Depart(tiut[pos]);
-				saisieStringControlee(dept, "Entrez le nom du département pour lequel vous souhaitez modifier le responsable (-1 pour annuler) : ");
+				saisieStringControlee(dept, CYAN"Entrez le nom du département pour lequel vous souhaitez modifier le responsable (-1 pour annuler) : "RESET);
 				strcpy(dept, upperfcase(dept));
 
 				if (strcmp(dept, "-1") != 0) {
 					for(tmp=tiut[pos]->ldept->premier; tmp; tmp = tmp->suivant) {									
 						if(strcmp(tmp->departement, dept) == 0) {
-							printf("Dans le département %s de %s, le responsable est %s.\nNouveau nom du responsable (nom_prénom) : ", dept, ville, tmp->nomRes);
+							printf("\nDans le département %s de %s, le responsable est %s.\n" CYAN"Nouveau nom du responsable (nom_prénom) : "RESET, dept, ville, tmp->nomRes);
 							saisieStringControlee(tmp->nomRes, "");
 
-							printf(VERT"Nom du responsable modifié\n"RESET);
+							printf(VERT"\nNom du responsable modifié\n"RESET);
 						}	
-						else fprintf(stderr, ROUGE"Le département que vous cherchez n'a pas été trouvé.\n"RESET);
+						else fprintf(stderr, ROUGE"\nLe département que vous cherchez n'a pas été trouvé.\n"RESET);
 					} 
 				}
 			}
 			else {
-				fprintf(stderr, ROUGE"L'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
+				fprintf(stderr, ROUGE"\nL'IUT que vous cherchez n'a pas été trouvé.\n"RESET);
 			}
 		}
 	}
+	printf("\nFin de l'opération...\n");
 }
