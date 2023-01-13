@@ -15,10 +15,20 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 		TITRE"\nMenu principal\n\n"RESET
 		"1 - Afficher les informations des IUT\n"
 		"2 - Afficher les villes où il y a un département\n"
-		"3 - Afficher la phase en cours\n"
-		"4 - Inscription\n"
-		"\n5 - Menu des candidats\n"
-		"6 - Menu des responsables\n"
+		"3 - Afficher la phase en cours\n");
+
+		if(*phase == 1) {
+			printf(
+			"4 - Inscription\n"
+			"\n5 - Menu des candidats\n");
+		}
+		else printf("\n");
+		
+		if(*phase != 0) {
+			printf("6 - Menu des responsables\n");
+		}
+		
+		printf(
 		"7 - Menu des administrateurs\n"
 		"\n9 - Quitter\n"
 		"\nVotre choix : ");
@@ -39,22 +49,36 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 				break;
 
 			case 4 :
-				ajouterCandidats(tCand, nbCand);
-				sauvegarderCandidats(tCand, nbCand, "candidats.don");
-				printf("nbCand : %d\n", *nbCand);
-				break;
+				if(*phase == 1) {
+					ajouterCandidats(tCand, nbCand);
+					sauvegarderCandidats(tCand, nbCand, "candidats.don");
+					printf("nbCand : %d\n", *nbCand);
+					break;
+				}
+				else {
+					printf(ROUGE"\nChoix incorrect, recommencez\n"RESET);
+					break;
+				}
 
 			case 5 :
-				if(*phase != 1) {
+				if(*phase == 1) {
 					afficherPhase(phase);
 					fprintf(stderr, ROUGE"Nous ne pouvez pas accéder à ce menus.\n"RESET);
 				}
-				else menuCandidat(tiut, tCand, nbIUT, nbCand, phase);
-				break;
+				else {
+					printf(ROUGE"\nChoix incorrect, recommencez\n"RESET);
+					break;
+				}
 
 			case 6 :
-				menuResponsable(tiut, tCand, nbIUT, nbCand, phase);
-				break;
+				if(*phase != 0) {
+					menuResponsable(tiut, tCand, nbIUT, nbCand, phase);
+					break;
+				}
+				else {
+					printf(ROUGE"\nChoix incorrect, recommencez\n"RESET);
+					break;
+				}
 
 			case 7 :
 				printf("\n----------------------------------------\n");
@@ -93,15 +117,20 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 		
 		printf(
 		TITRE"\nMenu des administrateurs\n\n"RESET
-		"1 - Créer un IUT\n"
-		"2 - Créer un département\n"
-		"3 - Supprimer un IUT\n"
-		"4 - Supprimer un département\n"
-		"5 - Lancer la phase de candidature\n"
-		"6 - Arrêter la phase de candidature\n"
-		"7 - Modifier le nombre de places\n"
-		"8 - Modifier le nom du responsable de département\n"
+		"1 - Lancer la phase de candidature\n"
+		"2 - Arrêter la phase de candidature\n");
+		
+		if(*phase == 0) {
+			printf(
+			"3 - Créer un IUT\n"
+			"4 - Créer un département\n"
+			"5 - Supprimer un IUT\n"
+			"6 - Supprimer un département\n"
+			"7 - Modifier le nombre de places\n"
+			"8 - Modifier le nom du responsable de département\n");
+		}
 
+		printf(
 		"\n9 - Menu principal\n"
 		"\nVotre choix : ");
 
@@ -109,48 +138,79 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 
 		switch (choix) {
 			case 1 :
-				tiut = ajouterIUT(tiut, nbIUT);
-				sauvegarde(tiut, nbIUT);
-				break;
-
-			case 2 :
-				ajouterDepart(tiut, nbIUT);
-				sauvegarde(tiut, nbIUT);
-				break;
-
-			case 3 :
-				supprimerIUT(tiut, nbIUT);
-				sauvegarde(tiut, nbIUT);
-				break;
-
-			case 4 :
-				supprimerDepart(tiut, nbIUT);
-				sauvegarde(tiut, nbIUT);
-				break;
-
-			case 5:
 				lancerCandidature(phase);
 				break;
 
-			case 6 :
+			case 2 :
 				stopperCandidature(phase);
 				break;
 
+			
+			case 3 :
+				if(*phase == 0) {
+					tiut = ajouterIUT(tiut, nbIUT);
+					sauvegarde(tiut, nbIUT);
+					break;
+				}
+				else {
+					printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+					break;
+				}
+
+			case 4 :
+				if(*phase == 0) {
+					ajouterDepart(tiut, nbIUT);
+					sauvegarde(tiut, nbIUT);
+					break;
+				}
+				else {
+					printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+					break;
+				}
+
+			case 5 :
+				if(*phase == 0) {
+					supprimerIUT(tiut, nbIUT);
+					sauvegarde(tiut, nbIUT);
+					break;
+				}
+				else {
+					printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+					break;
+				}
+
+			case 6 :
+				if(*phase == 0) {
+					supprimerDepart(tiut, nbIUT);
+					sauvegarde(tiut, nbIUT);
+					break;
+				}
+				else {
+					printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+					break;
+				}
+
 			case 7 :
-				modifPlaces(tiut, nbIUT);
-				sauvegarde(tiut, nbIUT);
-				break;
+				if(*phase == 0) {
+					modifPlaces(tiut, nbIUT);
+					sauvegarde(tiut, nbIUT);
+					break;
+				}
+				else {
+					printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+					break;
+				}
 
 			case 8 :
-				modifierRes(tiut, nbIUT);
-				sauvegarde(tiut, nbIUT);
-				break;
-
-			case 14 :
-				tCand = ajouterCandidats(tCand, nbCand);
-				sauvegarderCandidats(tCand, nbCand, "candidats.don");
-				break;
-			
+				if(*phase == 0) {
+					modifierRes(tiut, nbIUT);
+					sauvegarde(tiut, nbIUT);
+					break;
+				}
+				else {
+					printf("\n\e[1;91mChoix incorrect, recommencez\e[0m\n");
+					break;
+				}
 
 			case 9 :
 				sauvegarde(tiut, nbIUT);
@@ -171,8 +231,6 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Ph
 	tiut = chargerIUT(nbIUT);
 	tCand = chargerCandidats(nbCand);
 	
-	printf("nbCand : %d\n", *nbCand);
-
 	while (1) {
 		printf("\n----------------------------------------\n");
 		
@@ -221,8 +279,13 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
 		printf(
 		TITRE"\nMenu des responsables\n\n"RESET	
 		"1 - Afficher tous les candidats\n"
-		"2 - Afficher les candidats d'un département\n"
-		"3 - Filtrer les candidats\n"	
+		"2 - Afficher les candidats d'un département\n");
+
+		if(*phase == 2) {
+			printf("3 - Filtrer les candidats\n");
+		}
+
+		printf(
 		"\n9 - Menu principal\n"
 		"\nVotre choix : ");
 
@@ -238,8 +301,14 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
 				break;
 
 			case 3 :
-				filtrerCandidatures(tiut, nbIUT, tCand, nbCand);
-				break;
+				if(*phase == 2) {
+					filtrerCandidatures(tiut, nbIUT, tCand, nbCand);
+					break;
+				}
+				else {
+					printf(ROUGE"\nChoix incorrect, recommencez\n"RESET);
+					break;
+				}
 
 			case 9 :
 				sauvegarde(tiut, nbIUT);
