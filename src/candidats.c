@@ -402,32 +402,6 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand)
 	return tCand;
 }
 
-char *upperfcase(char *motIn)
-{	
-	int len = strlen(motIn), i;
-	char *motOut = (char *)malloc(sizeof(char)*len);
-	testMalloc(motOut, "Mise en uppercase");
-
-	if (len != 0) motOut[0] = toupper(motIn[0]);
-
-	for (i = 1 ; i < len ; i++) motOut[i] = tolower(motIn[i]);
-	motOut[len] = '\0';
-
-	return motOut;
-}
-
-char *uppercase(char *motIn)
-{
-	int len = strlen(motIn), i;
-	char *motOut = (char *)malloc(sizeof(char)*len);
-	testMalloc(motOut, "Mise en uppercase");
-
-	for (i = 0 ; i < len ; i++) motOut[i] = toupper(motIn[i]);
-	motOut[len] = '\0';
-	
-	return motOut;
-}
-
 Candidat **ajouterCandidats(Candidat **tCand, int *nbCand)
 {
 	char prenom[30] = "0";

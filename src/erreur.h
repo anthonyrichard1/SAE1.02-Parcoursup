@@ -48,3 +48,15 @@ void saisieFloatControlee(float *var, char *message);
  * \param *message Chaîne de caractères - le message complémentaire à afficher.
 */
 void saisieStringControlee(char *var, char *message);
+
+/**
+ * \brief Cette fonction permet de mettre seulement la première lettre d'un mot en majuscule et les autres en minuscule. Le mot est enfin renvoyé.
+ * \param *motIn Chaîne de caractères - le mot sur lequel il faut appliquer le formatage.
+*/
+char *upperfcase(char *motIn);
+
+/**
+ * \brief Cette fonction permet de mettre toutes les lettres d'un mot en majuscule. Le mot est enfin renvoyé.
+ * \param *motIn Chaîne de caractères - le mot sur lequel il faut appliquer le formatage.
+*/
+char *uppercase(char *motIn);

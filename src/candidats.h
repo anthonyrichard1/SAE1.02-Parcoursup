@@ -78,18 +78,6 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand);//LEANA
 Candidat** supprimerVoeux(Candidat** tCand, int *nbCand);//LEANA
 
 /**
- * \brief Cette fonction permet de mettre seulement la première lettre d'un mot en majuscule et les autres en minuscule. Le mot est enfin renvoyé.
- * \param *motIn Chaîne de caractères - le mot sur lequel il faut appliquer le formatage.
-*/
-char *upperfcase(char *motIn);
-
-/**
- * \brief Cette fonction permet de mettre toutes les lettres d'un mot en majuscule. Le mot est enfin renvoyé.
- * \param *motIn Chaîne de caractères - le mot sur lequel il faut appliquer le formatage.
-*/
-char *uppercase(char *motIn);
-
-/**
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau dans lequel il faut ajouter un candidat.
  * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
 */
