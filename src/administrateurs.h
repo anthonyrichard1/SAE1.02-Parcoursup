@@ -57,6 +57,12 @@ void stopperCandidature(Phase *phase);
 void lancerCandidature(Phase *phase);
 
 /**
+ * \brief Cette fonction permet de remettre la phase dans son initial.
+ * \param *phase Phase - contient l'état de la phase en cours.
+*/
+void reinitialiserPhase(Phase *phase);
+
+/**
  * \brief Cette fonction permet de modifier le nombre de place d'un département d'un IUT. 
  * \param **tiut Tableau de pointeurs sur des VilleIUT - tableau dans lequel il faut recherché la ville où se trouve le département à modifier. 
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).

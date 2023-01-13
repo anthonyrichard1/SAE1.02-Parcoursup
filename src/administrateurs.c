@@ -239,6 +239,11 @@ void lancerCandidature(Phase *phase)
 		printf(VERT"\nLa phase d'admission a bien été lancé.\n"RESET);
 	}
 }
+void reinitialiserPhase(Phase *phase)
+{
+	*phase = 0;
+	printf(VERT"\nReinitialisation terminée.\n"RESET);
+}
 
 void modifPlaces(VilleIUT** tiut, int *nbIUT) 
 {
