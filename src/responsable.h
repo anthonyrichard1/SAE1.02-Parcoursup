@@ -13,8 +13,25 @@ float calculMoyenne(float notes[]);//LEANA
 
 Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept);//LEANA
 
+/**
+ * \brief Cette fonction permet de filtrer les candidats pour stocker dans des fichiers différents les admis, les listes d'attentes et les refusés.
+ * \param **tiut Tableau de pointeur sur des IUT - le tableau dans lequel sont répertoriés les iut.
+ * \param *nbIUT Pointeur sur un entier - le nombre d'iut contenus dans le tableau.
+ * \param **tCnand Tableau de pointeurs sur des candidats - le tableau contenant les candidats à filtrer.
+ * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+*/
 void filtrerCandidatures(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand);
 
+/**
+ * \brief Cette fonction permet de trier un tableau de pointeurs sur des candidats par numéro.
+ * \param **tab Tableau de pointeur sur des candidats - le tableau contenant les candidats à trier.
+ * \param nbCand Entier - le nombre de candidats contenus dans le tableau.
+*/
 void triNumerique(Candidat **tab, int nbCand);
 
+/**
+ * \brief Cette fonction permet de sauvegarder dans un fichier une file de candidats.
+ * \param fc File de candidats - la file de candidats à sauvegarder.
+ * \param *nomFichier Chaîne de caractères - le nom du fichier dans lequel il faut sauvegarder les candidats.
+*/
 void sauvegarderFileCandidats(FileCandidats fc, char *nomFichier);
