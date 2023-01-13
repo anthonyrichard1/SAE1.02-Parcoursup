@@ -11,7 +11,7 @@ ListeDept creerListeDept(void)
     return ld;
 }
 
-VilleIUT **chargerIUT(int *nbIUT)
+VilleIUT **chargerIUT(int *nbIUT, Phase *phase)
 {
     FILE *f;
     int i, j;

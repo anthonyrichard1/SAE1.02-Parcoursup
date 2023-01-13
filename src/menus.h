@@ -58,7 +58,7 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
  * \param **tiut Tableau de pointeurs sur des VilleIUT - le tableau qu'il faut sauvegarder dans le fichier iut.don.
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau (taille logique de tiut).
  */
-void sauvegarde(VilleIUT ** tiut, int *nbIUT);
+void sauvegarde(VilleIUT ** tiut, int *nbIUT, Phase *phase);
 
 /**
  * \brief Cette fonction gère le lancement de l'application en chargeant les différents tableaux et en lançant le menus principal.

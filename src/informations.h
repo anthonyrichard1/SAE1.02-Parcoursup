@@ -18,7 +18,7 @@ ListeDept creerListeDept(void);
  * \brief Cette fonction permet de charger des VilleIUT depuis un fichier texte vers un tableau de pointeurs sur des VilleIUT, en retournant par *nbIUT la taille logique du tableau.
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau.
  */
-VilleIUT **chargerIUT(int *nbIUT);
+VilleIUT **chargerIUT(int *nbIUT, Phase *phase);
 
 /**
  * \brief Cette fonction permet de rechercher un IUT dans un tableau de pointeurs sur des VilleIUT, avec la méthode dicotomique. Elle renvoie la position de la VilleIUT dans le tableau si elle est présente ou la position d'insertion dans le cas contraire. Elle renvoie aussi par *trouve si la valeur est présente dans le tableau ou non.

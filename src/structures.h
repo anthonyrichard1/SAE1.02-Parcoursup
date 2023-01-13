@@ -23,6 +23,7 @@
 #define GRAS "\e[1;37m"
 #define UNDERLINE "\e[4;37m"
 #define TITRE "\e[1;36m\e[4;36m"
+#define CYAN "\e[0,36m"
 
 typedef struct MaillonDept MaillonDept;
 

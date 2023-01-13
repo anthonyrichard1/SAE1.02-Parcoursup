@@ -71,7 +71,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 					if(pos > -1) {
 						--pos;
 						system("clear");
-						menuCandidat(tiut, tCand, nbIUT, nbCand, phase, pos);
+						menuCandidat(tiut, tCand, nbIUT, nbCand, phase, &pos);
 						break;
 					}
 				}
