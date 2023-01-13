@@ -494,3 +494,49 @@ void sauvegarderFileCandidats(FileCandidats fc, char *nomFichier)
 	
 	fclose(f);
 }
+
+void validerVoeux(Candidat **tCand, int *nbCand)
+{
+	int numCand, numVoeu, nbVoeuxValide = 0, i = 0;
+	Bool valide = 0;
+	Voeu *v;
+
+	saisieIntControlee(&numCand, "Entrez votre numéro de candidat (-1 pour annuler) : ");
+	while (numCand < 0 || numCand > *nbCand)
+	{
+		if (numCand == -1) return;
+
+		fprintf(stderr, ROUGE"Erreur : numéro invalide !\n"RESET);
+		saisieIntControlee(&numCand, "Entrez votre numéro de candidat (-1 pour annuler) : ");
+	}
+
+	printf("Voici les départements où vous avez été accepté :\n");
+	for (v = tCand[numCand-1]->choix->premier ; v != NULL ; v = v->suivant)
+	{
+		if (v->decDepartement)
+		{
+			valide = 1;
+			nbVoeuxValide++;
+			afficher1Voeu(v);
+		}
+	}
+	if (valide) 
+	{
+        saisieIntControlee(&numVoeu, "Entrez le numéro du voeu à accepter (cette décision est définitive) : ");
+		while (numVoeu > nbVoeuxValide)
+        {
+            fprintf(stderr, ROUGE"choix invalide\n"RESET);
+            saisieIntControlee(&numVoeu, "Entrez le numéro du voeu à accepter (cette décision est définitive) : ");
+        }
+
+        for (v = tCand[numCand-1]->choix->premier ; v != NULL ; v = v->suivant)
+        {
+            if (v->decDepartement && ++i == numVoeu) v->decCandidat = 1;
+            else v->decCandidat = -1;
+        }
+
+		printf(VERT"Votre voeu à bien été validé !\n"RESET);
+		
+	}
+	else printf("Aucun département ne vous a accepté...\n");
+}

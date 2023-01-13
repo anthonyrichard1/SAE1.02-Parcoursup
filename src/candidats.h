@@ -110,3 +110,10 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand, int pos);
  * \return Tableau de pointeur sur des candidats - le nouveau tableau de candidats.
 */
 Candidat **ajouterCandidats(Candidat **tCand, int *nbCand);
+
+/**
+ * \brief Cette fonction permet au candidat de voir les voeux qui ont été accepté et de valider un voeu.
+ * \param **tCand Tableau de pointeurs sur des candidats - le tableau dans lequel il y a les candidats.
+ * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+*/
+void validerVoeux(Candidat **tCand, int *nbCand);

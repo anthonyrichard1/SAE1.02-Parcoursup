@@ -153,3 +153,4 @@ void triNumerique(Candidat **tCand, int nbCand)
 	return;
   }
 }
+
