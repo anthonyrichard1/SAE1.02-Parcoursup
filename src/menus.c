@@ -170,21 +170,23 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 }
 
 void sauvegarde(VilleIUT ** tiut, int *nbIUT) 
-{
-	FILE *fo;
-	int i;
-	MaillonDept *tmp;
+{ 
+	FILE *fo; 
+	int i; 
+	MaillonDept *tmp; 
 
-	fo = fopen("iut.don", "w");
+	fo = fopen("iut.don", "w"); 
 
-	fprintf(fo, "%d\n", *nbIUT);
-	for(i=0; i < *nbIUT; i++) {
-		fprintf(fo, "%s %d ", tiut[i]->ville, tiut[i]->ldept->nb);
-		for(tmp = tiut[i]->ldept->premier; tmp != NULL; tmp = tmp->suivant) {
-			fprintf(fo, "%s %d %s ", tmp->departement, tmp->nbP, tmp->nomRes);
-		}
-		fprintf(fo, "\n");
-	}
-	fclose(fo);
-	return;
-}
+	fprintf(fo, "%d\n", *nbIUT); 
+	for(i=0; i < *nbIUT; i++) { 
+		fprintf(fo, "%s %d ", tiut[i]->ville, tiut[i]->ldept->nb); 
+		for(tmp = tiut[i]->ldept->premier; tmp != NULL; tmp = tmp->suivant) { 
+			fprintf(fo, "%s %d %s ", tmp->departement, tmp->nbP, tmp->nomRes); 
+		} 
+		fprintf(fo, "\n"); 
+	} 
+	fclose(fo); 
+	return; 
+} 
+
+ 
