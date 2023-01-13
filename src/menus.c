@@ -30,10 +30,9 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 		
 		printf(
 		"7 - Menu des administrateurs\n"
-		"\n9 - Quitter\n"
-		"\nVotre choix : ");
+		"\n9 - Quitter\n");
 
-		scanf("%d", &choix);
+		saisieIntControlee(&choix, "Votre choix : ");
 
 		switch (choix) {
 			case 1 :
@@ -131,10 +130,8 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 		}
 
 		printf(
-		"\n9 - Menu principal\n"
-		"\nVotre choix : ");
-
-		scanf("%d", &choix);
+		"\n9 - Menu principal\n");
+		saisieIntControlee(&choix, "Votre choix : ");
 
 		switch (choix) {
 			case 1 :
@@ -238,10 +235,9 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Ph
 		TITRE"\nMenu des candidats\n\n"RESET
 		"1 - Supprimer un voeu\n"
 		"2 - Ajouter un voeu\n"
-		"\n9 - Menu principal\n"
-		"\nVotre choix : ");
+		"\n9 - Menu principal\n");
 
-		scanf("%d", &choix);
+		saisieIntControlee(&choix, "Votre choix : ");
 
 		switch (choix) {
 			case 1 :
@@ -286,10 +282,9 @@ void menuResponsable(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand,
 		}
 
 		printf(
-		"\n9 - Menu principal\n"
-		"\nVotre choix : ");
+		"\n9 - Menu principal\n");
 
-		scanf("%d", &choix);
+		saisieIntControlee(&choix, "Votre chiox : ");
 
 		switch (choix) {
 			case 1 :
