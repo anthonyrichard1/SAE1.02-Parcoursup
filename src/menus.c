@@ -130,19 +130,20 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 		printf(
 		TITRE"\nMenu des administrateurs\n\n"RESET
 		"1 - Lancer la phase de candidature\n"
-		"2 - Arrêter la phase de candidature\n");
+		"2 - Arrêter la phase de candidature\n"
+		"3 - Réinitialiser la phase\n");
 		
 		if(*phase == 0) {
 			printf(
-			"3 - Créer un IUT\n"
-			"4 - Créer un département\n"
-			"5 - Supprimer un IUT\n"
-			"6 - Supprimer un département\n"
-			"7 - Modifier le nombre de places\n"
-			"8 - Modifier le nom du responsable de département\n");
+			"4 - Créer un IUT\n"
+			"5 - Créer un département\n"
+			"6 - Supprimer un IUT\n"
+			"7 - Supprimer un département\n"
+			"8 - Modifier le nombre de places\n"
+			"9 - Modifier le nom du responsable de département\n");
 		}
 
-		printf("\n9 - Menu principal\n");
+		printf("\n19 - Menu principal\n");
 		
 		saisieIntControlee(&choix, CYAN"\nVotre choix : "RESET);
 
@@ -155,8 +156,11 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 				stopperCandidature(phase);
 				break;
 
-			
 			case 3 :
+				reinitialiserPhase(phase);
+				break;
+			
+			case 4 :
 				if(*phase == 0) {
 					tiut = ajouterIUT(tiut, nbIUT);
 					sauvegarde(tiut, nbIUT, phase);
@@ -167,7 +171,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 					break;
 				}
 
-			case 4 :
+			case 5 :
 				if(*phase == 0) {
 					ajouterDepart(tiut, nbIUT);
 					sauvegarde(tiut, nbIUT, phase);
@@ -178,7 +182,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 					break;
 				}
 
-			case 5 :
+			case 6 :
 				if(*phase == 0) {
 					supprimerIUT(tiut, nbIUT);
 					sauvegarde(tiut, nbIUT, phase);
@@ -189,7 +193,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 					break;
 				}
 
-			case 6 :
+			case 7 :
 				if(*phase == 0) {
 					supprimerDepart(tiut, nbIUT);
 					sauvegarde(tiut, nbIUT, phase);
@@ -200,7 +204,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 					break;
 				}
 
-			case 7 :
+			case 8 :
 				if(*phase == 0) {
 					modifPlaces(tiut, nbIUT);
 					sauvegarde(tiut, nbIUT, phase);
@@ -211,7 +215,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 					break;
 				}
 
-			case 8 :
+			case 9 :
 				if(*phase == 0) {
 					modifierRes(tiut, nbIUT);
 					sauvegarde(tiut, nbIUT, phase);
@@ -222,7 +226,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 					break;
 				}
 
-			case 9 :
+			case 19 :
 				sauvegarde(tiut, nbIUT, phase);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				system("clear");

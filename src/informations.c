@@ -141,12 +141,11 @@ void afficherDepartPrecis(VilleIUT **tiut, int *nbIUT)
 
 		if(strcmp(choix, "-1") != 0) {
 			trouve = 0;
-
+			printf(GRAS UNDERLINE"\nListe des ville où l'IUT à un département %s\n"RESET, choix);
 			for(i=0; i < *nbIUT; i++) 
 			{
 				if (existeDepart(tiut[i]->ldept, choix)) {
 					trouve = 1;
-					printf(GRAS UNDERLINE"\nListe des ville où l'IUT à un département %s\n"RESET, choix);
 					printf("\t%s\n", tiut[i]->ville);
 				}
 			}
