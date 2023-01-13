@@ -49,10 +49,9 @@ int existeVoeu(Candidat *c, char *iut, char *depart);
  * \brief Cette fonction permet d'ajouter un voeu à un candidat.
  * \param **tiut Tableau de pointeurs sur des VillesIUT - le tableau contenant la liste des IUT.
  * \param *nbIUT Pointeur sur un entier - le nombre d'IUT contenus dans le tableau des IUT.
- * \param **tCand Tableau de pointeurs sur des Candidats - le tableau contenant la liste des candidats.
- * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau des candidats.
+ * \param *cand Pointeur sur un candidat - le candidat auquel il faut ajouter un voeu.
 */
-void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat *cand); // A MODIF
+void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat *cand);
 
 /**
  * \brief Cette fonction permet de sauvegarder les candidats depuis un tableau de pointeurs sur des candidats vers le fichier binaire candidats.don.

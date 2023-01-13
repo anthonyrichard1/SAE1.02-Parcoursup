@@ -71,7 +71,7 @@ MaillonDept* nouveauMaillonDept(char* newDept)
 	return maillon;
 }
 
-void ajouterDepart(VilleIUT** tiut, int *nbIUT) // A REFAIRE
+void ajouterDepart(VilleIUT** tiut, int *nbIUT)
 {
 	char ville[30] = "0", newDept[30] = "0";
 	Bool trouve, existant = 0;
