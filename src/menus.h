@@ -39,8 +39,9 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient toutes les informations sur les candidats.
  * \param nbCand Entier - nombre de candidats contenus dans le tableau.
  * \param *phase Pointeur sur une structure Phase - contient l'état de la phase en cours.
+ * \param *pos Pointeur sur un enter - position du candidat dans le tableau.
  */
-void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase, int pos);
+void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase, int *pos);
 
 /**
  * \brief Cette fonction affiche le menu des responsables, et permet de sélectionner l'opération que l'on souhaite effectuer. Le choix de l'utilisateur est récupéré par une saisie au clavier.

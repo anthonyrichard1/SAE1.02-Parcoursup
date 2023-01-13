@@ -71,7 +71,7 @@ void menuPrincipal(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, P
 
 					if(pos > -1) {
 						--pos;
-						menuCandidat(tiut, tCand, nbIUT, nbCand, phase, pos);
+						menuCandidat(tiut, tCand, nbIUT, nbCand, phase, &pos);
 					}
 				}
 				else {
@@ -231,7 +231,7 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 	}
 }
 
-void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase, int pos) 
+void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Phase *phase, int *pos) 
 {
 	int choix;
 
@@ -253,16 +253,21 @@ void menuCandidat(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCand, Ph
 		switch (choix) {
 			case 1 :
 				printf(GRAS UNDERLINE"\nVos informations : "RESET);
-				afficher1Candidat(tCand, pos);
+				afficher1Candidat(tCand[*pos]);
 				break;
 
 			case 2 :
-				ajouterVoeu(tiut, nbIUT, tCand, nbCand, pos);
+				ajouterVoeu(tiut, nbIUT, tCand[*pos]);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				break;
 
 			case 3 :
-				tCand = supprimerVoeux(tCand, nbCand, pos);
+				supprimerVoeux(tCand[*pos]);
+				sauvegarderCandidats(tCand, nbCand, "candidats.don");
+				break;
+
+			case 4 :
+				validerVoeux(tCand[*pos]);
 				sauvegarderCandidats(tCand, nbCand, "candidats.don");
 				break;
 
@@ -352,5 +357,3 @@ void sauvegarde(VilleIUT ** tiut, int *nbIUT)
 	fclose(fo); 
 	return; 
 } 
-
- 

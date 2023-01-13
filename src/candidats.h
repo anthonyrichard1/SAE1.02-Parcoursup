@@ -52,7 +52,7 @@ int existeVoeu(Candidat *c, char *iut, char *depart);
  * \param **tCand Tableau de pointeurs sur des Candidats - le tableau contenant la liste des candidats.
  * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau des candidats.
 */
-void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand, int pos);
+void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat *cand); // A MODIF
 
 /**
  * \brief Cette fonction permet de sauvegarder les candidats depuis un tableau de pointeurs sur des candidats vers le fichier binaire candidats.don.
@@ -71,10 +71,9 @@ Candidat **chargerCandidats(int *nbCand);
 
 /**
  * \brief Cette fonction permet d'afficher un seul candidat.
- * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient les informations sur le candidat à afficher.
- * \param pos Entier - la valeur qui représente l'indice du candidat à afficher dans le tableau.
+ * \param *cand Pointeur sur un candidat - le candidat qu'il faut afficher.
 */
-void afficher1Candidat(Candidat **tCand, int pos);
+void afficher1Candidat(Candidat *cand);
 
 /**
  * \brief Cette fonction permet d'afficher un seul voeu. 
@@ -98,11 +97,9 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand);
 
 /**
  * \brief Cette fonction permet de supprimer le voeu d'un candidat. 
- * \param **tCand Tableau de pointeurs sur des candidats - le tableau qui contient les informations sur les candidats et les voeux à supprimer.
- * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
- * \return Tableau de pointeurs sur des candidats - le tableau sans le voeu qui a été supprimé. 
+ * \param *cand Pointeur sur un candidat - le candidat doit il faut supprimer le voeu.
 */
-Candidat** supprimerVoeux(Candidat** tCand, int *nbCand, int pos);
+void supprimerVoeux(Candidat* cand);
 
 /**
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau dans lequel il faut ajouter un candidat.
@@ -113,7 +110,6 @@ Candidat **ajouterCandidats(Candidat **tCand, int *nbCand);
 
 /**
  * \brief Cette fonction permet au candidat de voir les voeux qui ont été accepté et de valider un voeu.
- * \param **tCand Tableau de pointeurs sur des candidats - le tableau dans lequel il y a les candidats.
- * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+ * \param *cand Pointeur sur un candidat - le candidat doit il faut valider un voeu.
 */
-void validerVoeux(Candidat **tCand, int *nbCand);
+void validerVoeux(Candidat *cand);
