@@ -58,8 +58,9 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand);
  * \brief Cette fonction permet de sauvegarder les candidats depuis un tableau de pointeurs sur des candidats vers le fichier binaire candidats.don.
  * \param **tCand Tableau de pointeurs sur des candidats - le tableau à sauvegarder.
  * \param *nbCand Pointeur sur un entier - le nombre de candidats contenus dans le tableau.
+ * \param *nomFichier Chaîne de caractères - le fichier dans lequel il faut sauvegarder les données.
 */
-void sauvegarderCandidats(Candidat **tCand, int *nbCand);
+void sauvegarderCandidats(Candidat **tCand, int *nbCand, char *nomFichier);
 
 /**
  * \brief Cette fonction permet de charger un tableau de pointeurs sur des candidats depuis le fichier binaire candidats.bin
