@@ -140,14 +140,22 @@ void menuAdministrateur(VilleIUT** tiut, Candidat** tCand, int *nbIUT, int *nbCa
 
 			case 12 :
 				tCand = supprimerVoeux(tCand, nbCand);
+				sauvegarderCandidats(tCand, nbCand);
 				break;
 
 			case 13 :
 				ajouterVoeu(tiut, nbIUT, tCand, nbCand);
+				sauvegarderCandidats(tCand, nbCand);
+				break;
+
+			case 14 :
+				tCand = ajouterCandidats(tCand, nbCand);
+				sauvegarderCandidats(tCand, nbCand);
 				break;
 
 			case 19 :
 				sauvegarde(tiut, nbIUT);
+				sauvegarderCandidats(tCand, nbCand);
 				return;
 
 			default :
@@ -161,14 +169,15 @@ void sauvegarde(VilleIUT ** tiut, int *nbIUT)
 {
 	FILE *fo;
 	int i;
+	MaillonDept *tmp;
 
 	fo = fopen("iut.don", "w");
 
 	fprintf(fo, "%d\n", *nbIUT);
 	for(i=0; i < *nbIUT; i++) {
 		fprintf(fo, "%s %d ", tiut[i]->ville, tiut[i]->ldept->nb);
-		for(; tiut[i]->ldept->premier; tiut[i]->ldept->premier = tiut[i]->ldept->premier->suivant) {
-			fprintf(fo, "%s %d %s ", tiut[i]->ldept->premier->departement, tiut[i]->ldept->premier->nbP, tiut[i]->ldept->premier->nomRes);
+		for(tmp = tiut[i]->ldept->premier; tmp != NULL; tmp = tmp->suivant) {
+			fprintf(fo, "%s %d %s ", tmp->departement, tmp->nbP, tmp->nomRes);
 		}
 		fprintf(fo, "\n");
 	}

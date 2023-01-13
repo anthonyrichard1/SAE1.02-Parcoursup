@@ -34,8 +34,8 @@ void triAlpha(Candidat **tCand, int nbCand)
 
   while (i <= j)
   {
-	while (strcmp(tCand[i]->nom, d->nom) <= 0 && i < nbCand-1) i++;
-	while (strcmp(tCand[i]->nom, d->nom) >= 0 && 0 < j) j--;
+	while ((strcmp(tCand[i]->nom, d->nom) <= 0 || (strcmp(tCand[i]->nom, d->nom) == 0 && strcmp(tCand[i]->prenom, d->prenom) <= 0)) && i < nbCand-1) i++;
+	while ((strcmp(tCand[i]->nom, d->nom) >= 0 || (strcmp(tCand[i]->nom, d->nom) == 0 && strcmp(tCand[i]->prenom, d->prenom) >= 0)) && 0 < j) j--;
 
 	if (i < j)
 	{
@@ -72,12 +72,7 @@ int existeVoeu(Candidat *c, char *iut, char *depart)
 	Voeu *v;
 
 	for (v = c->choix->premier ; v != NULL ; v = v->suivant)
-	{
-		if (strcmp(v->ville, iut) == 0 && strcmp(v->departement, depart) == 0)
-		{
-			return 1;
-		}
-	}
+		if (strcmp(v->ville, iut) == 0 && strcmp(v->departement, depart) == 0) return 1;
 
 	return 0;
 }
@@ -92,10 +87,15 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand)
 
 	while (num != -1)
 	{
-		printf("Entrez votre numéro de candidat (-1 pour annuler) : ");
-		scanf("%d", &num);
+		saisieIntControlee(&num, "Entrez votre numéro de candidat (-1 pour annuler) : ");
+		
+		while ((num < 0 && num != -1) || num > *nbCand)
+		{
+			fprintf(stderr, ROUGE"Erreur : le numéro entré n'est pas valide !\n"RESET);
+			saisieIntControlee(&num, "Entrez votre numéro de candidat (-1 pour annuler) : ");
+		}
 
-		if (num > 0)
+		if (num != -1)
 		{
 			if (num <= *nbCand)
 			{
@@ -112,9 +112,8 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand)
 				strcpy(nom, "0");
 				while (strcmp(nom, "-1") != 0)
 				{
-					
-					printf("Entrez l'IUT correspondant à votre voeux (-1 pour annuler) : ");
-					scanf("%s", nom);
+					saisieStringControlee(nom, "Entrez l'IUT correspondant à votre voeux (-1 pour annuler) : ");
+					strcpy(nom, upperfcase(nom));
 
 					if (strcmp(nom, "-1") == 0) num = -1;
 					else
@@ -128,8 +127,8 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand)
 							strcpy(depart, "0");
 							while (strcmp(depart, "-1") != 0)
 							{
-								printf("Entrez le nom du département auquel vous voulez candidater (-1 pour annuler) : ");
-								scanf("%s", depart);
+								saisieStringControlee(depart, "Entrez le nom du département auquel vous voulez candidater (-1 pour annuler) : ");
+								strcpy(depart, upperfcase(depart));
 
 								if (strcmp(depart, "-1") == 0)
 								{
@@ -183,7 +182,6 @@ void ajouterVoeu(VilleIUT **tiut, int *nbIUT, Candidat **tCand, int *nbCand)
 			}
 			else fprintf(stderr, ROUGE"Erreur : ce numéro de candidat est introuvable !\n"RESET);
 		}
-		else if (num != -1) fprintf(stderr, ROUGE"Erreur : le numéro entré n'est pas valide !\n"RESET);
 	}	
 
 	printf("Fin de l'opération...\n");	
@@ -195,10 +193,7 @@ Candidat **chargerCandidats(int *nbCand)
 	Candidat **tCand;
 	int i, j;
 
-	while ((f = fopen("candidats.don", "rb")) == NULL)
-	{
-		testFopen("candidats.don");
-	}
+	while ((f = fopen("candidats.don", "rb")) == NULL) testFopen("candidats.don");
 
 	fread(nbCand, sizeof(int), 1, f);
 
@@ -233,8 +228,11 @@ Candidat **chargerCandidats(int *nbCand)
 
 		c->choix = lv;
 		tCand[i] = c;
+		fscanf(f, "\n");
 	}
 
+	fclose(f);
+	
 	return tCand;	
 }
 
@@ -254,11 +252,12 @@ void sauvegarderCandidats(Candidat **tCand, int *nbCand)
 		fwrite(&(tCand[i]->notes), sizeof(float), 4, f);
 		fwrite(&(tCand[i]->nbChoix), sizeof(int), 1, f);
 
-		for (v = tCand[i]->choix->premier ; v != NULL ; v = v->suivant)
-		{
-			fwrite(v, sizeof(Voeu), 1, f);
-		}
+		for (v = tCand[i]->choix->premier ; v != NULL ; v = v->suivant) fwrite(v, sizeof(Voeu), 1, f);
+
+		fprintf(f, "\n");
 	}
+
+	fclose(f);
 }
 
 void afficher1Candidat(Candidat **tCand, int pos) {
@@ -298,9 +297,7 @@ void afficherCandidats(Candidat **tCand, int *nbCand) {
 	if(*nbCand > 0) {
 		printf(GRAS UNDERLINE"\nListe des candidats :"RESET);
 
-		for(i=0; i < *nbCand; ++i) {
-			afficher1Candidat(tCand, i);
-		}
+		for(i=0; i < *nbCand; ++i) afficher1Candidat(tCand, i);
 	}
 	else fprintf(stderr, ROUGE"Il n'y a pas de candidat.\n"RESET);
 }
@@ -314,8 +311,8 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
 	while (strcmp(dept, "-1") != 0) {
 		nbCandDept = 0;
 
-		printf("\nPour quel département souhaitez-vous avoir la liste des candidats (-1 pour annuler) ? ");
-		scanf("%s", dept);
+		saisieStringControlee(dept, "Pour quel département souhaitez-vous avoir la liste des candidats (-1 pour annuler) ? ");
+		strcpy(dept, upperfcase(dept));
 
 		if(strcmp(dept, "-1") != 0) {
 			tCandDept = (Candidat **)malloc(sizeof(Candidat *)*(*nbCand));
@@ -334,9 +331,7 @@ void afficherCandidatsDepart(Candidat **tCand, int *nbCand) {
 			else {
 				triAlpha(tCandDept, nbCandDept);
 				printf(GRAS UNDERLINE"\nListe des candidats du département %s : \n"RESET, dept);
-				for(i=0; i<nbCandDept; ++i) {
-					afficher1Candidat(tCandDept, i);
-				}
+				for(i=0; i<nbCandDept; ++i) afficher1Candidat(tCandDept, i);
 			}
 
 			free(tCandDept);
@@ -351,8 +346,13 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand)
 	int i, j;
 
 	while(numCand != -1 && numVoeu != -1) {
-		printf("Quel est le numéro du candidat pour lequel vous souhaitez supprimé un voeu (-1 pour annuler) ? : ");
-		scanf("%d", &numCand);
+		saisieIntControlee(&numCand, "Quel est le numéro du candidat pour lequel vous souhaitez supprimé un voeu (-1 pour annuler) ? : ");
+
+		while (numCand > *nbCand || (numCand < 0 && numCand != -1))
+		{
+			fprintf(stderr, ROUGE"Le numéro de candidat saisie est invalide.\n"RESET);
+			saisieIntControlee(&numCand, "Quel est le numéro du candidat pour lequel vous souhaitez supprimé un voeu (-1 pour annuler) ? : ");
+		}
 
 		if(numCand != -1) {
 			printf("Bonjour %s %s !\n", tCand[numCand-1]->prenom, tCand[numCand-1]->nom);
@@ -361,14 +361,11 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand)
 				printf(GRAS"\t\tChoix n°%d\n"RESET, j);
 				afficher1Voeu(tCand, v);
 			}
-
-			printf("Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : ");
-			scanf("%d", &numVoeu);
+			saisieIntControlee(&numVoeu, "Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : ");
 
 			while(numVoeu < 0 && numVoeu > j-1) {
 				fprintf(stderr, ROUGE"Choix incorrect.\n"RESET);
-				printf("Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : ");
-				scanf("%d", &numVoeu);
+				saisieIntControlee(&numVoeu, "Entrez le numéro du voeu que vous voulez supprimé (-1 pour annuler) : ");
 			}
 
 			if(numVoeu != -1) {
@@ -380,9 +377,8 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand)
 				else if (numVoeu == j-1) {
 					voeuSup = tCand[numCand-1]->choix->dernier;
 					prec = tCand[numCand-1]->choix->premier;
-					for(i=1; i < j-2; ++i) {
-						prec = prec->suivant;
-					}
+					for(i=1; i < j-2; ++i) prec = prec->suivant;
+
 					prec->suivant = NULL;
 					free(tCand[numCand-1]->choix->dernier);
 					tCand[numCand-1]->choix->dernier = prec;
@@ -391,12 +387,10 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand)
 					printf("Ici\n");
 					voeuSup = tCand[numCand-1]->choix->premier;
 					prec = tCand[numCand-1]->choix->premier;
-					for(i=1; i < j-2; ++i) {
-						voeuSup = voeuSup->suivant;
-					}
-					for(i=1; i < j-3; ++i) {
-						prec = voeuSup->suivant;
-					}
+					for(i=1; i < j-2; ++i) voeuSup = voeuSup->suivant;
+
+					for(i=1; i < j-3; ++i) prec = voeuSup->suivant;
+
 					afficher1Voeu(tCand, prec);
 					free(voeuSup);
 				}
@@ -404,7 +398,7 @@ Candidat** supprimerVoeux(Candidat** tCand, int *nbCand)
 			}
 		}
 	}	
-	fprintf(stderr, ROUGE"Annulation de l'opération.\n"RESET);
+	printf("Annulation de l'opération.\n");
 	return tCand;
 }
 
@@ -434,13 +428,11 @@ char *uppercase(char *motIn)
 	return motOut;
 }
 
-
 Candidat **ajouterCandidats(Candidat **tCand, int *nbCand)
 {
 	char prenom[30] = "0";
 	char nom[30] = "0";
 	float ma = 50, fr = 50, an = 50, spe = 50;
-	int resscanf;
 
 	Candidat *c = (Candidat *)malloc(sizeof(Candidat));
 	testMalloc(c, "création d'un candidat");
@@ -449,72 +441,56 @@ Candidat **ajouterCandidats(Candidat **tCand, int *nbCand)
 
 	while (strcmp(prenom, "-1") != 0)
 	{
-		printf("Entrez votre prénom (-1 pour annuler) : ");
-		scanf("%s", prenom);
+		saisieStringControlee(prenom, "Entrez votre prénom (-1 pour annuler) : ");
 		strcpy(prenom, upperfcase(prenom));
 
-		if (strcmp(prenom, "") == 0 || (chiffreDansMot(prenom) && strcmp(prenom, "-1") != 0)) fprintf(stderr, ROUGE"Erreur : prénom invalide !\n"RESET);
-		else if (strcmp(prenom, "-1") != 0)
+		if (strcmp(prenom, "-1") != 0)
 		{
 			strcpy(c->prenom, prenom);
 			strcpy(prenom, "-1");
 			while (strcmp(nom, "-1") != 0)
 			{
-				printf("Entrez votre nom (-1 pour annuler) : ");
-				scanf("%s%*c", nom);
+				saisieStringControlee(nom, "Entrez votre nom (-1 pour annuler) : ");
 				strcpy(nom, uppercase(nom));
 
-				if (strcmp(nom, "") == 0 || (chiffreDansMot(nom) && strcmp(nom, "-1") != 0)) fprintf(stderr, ROUGE"Erreur : nom invalide !\n"RESET);
-				else if (strcmp(nom, "-1") != 0)
+				if (strcmp(nom, "-1") != 0)
 				{
 					strcpy(c->nom, nom);
 					strcpy(nom, "-1");
 					ma=0;fr=0;an=0;spe=0;
 					while (ma != -1 && fr != -1 && an != -1 && spe != -1)
 					{
-						printf("Entrez votre note de maths (-1 pour annuler) : ");
-						resscanf = scanf("%f", &ma);
+						saisieFloatControlee(&ma, "Entrez votre note de maths (-1 pour annuler) : ");
+						while ((ma < 0 && ma != -1) || ma > 20)
+						{
+							fprintf(stderr, ROUGE"La note doit être comprise entre 0 et 20\n"RESET);
+							saisieFloatControlee(&ma, "Entrez votre note de maths (-1 pour annuler) : ");
+						}
 						if (ma == -1) break;
-						while (!resscanf || ma < 0 || ma > 20)
-						{
-							fprintf(stderr, ROUGE"Saisie invalide, recommencez : "RESET);
-							resscanf = scanf("%*c%f", &ma);
-							
-							if (ma == -1) break;
-						}
 
-						printf("Entrez votre note de français (-1 pour annuler) : ");
-						resscanf = scanf("%f", &fr);
+						saisieFloatControlee(&fr, "Entrez votre note de français (-1 pour annuler) : ");
+						while ((fr < 0 && fr != -1) || fr > 20)
+						{
+							fprintf(stderr, ROUGE"La note doit être comprise entre 0 et 20\n"RESET);
+							saisieFloatControlee(&fr, "Entrez votre note de français (-1 pour annuler) : ");
+						}
 						if (fr == -1) break;
-						while (!resscanf || fr < 0 || fr > 20)
+						
+						saisieFloatControlee(&an, "Entrez votre note d'anglais (-1 pour annuler) : ");
+						while ((an < 0 && an != -1) || an > 20)
 						{
-							fprintf(stderr, ROUGE"Saisie invalide, recommencez : "RESET);
-							resscanf = scanf("%*c%f", &fr);
-							
-							if (fr == -1) break;
+							fprintf(stderr, ROUGE"La note doit être comprise entre 0 et 20\n"RESET);
+							saisieFloatControlee(&an, "Entrez votre note d'anglais (-1 pour annuler) : ");
 						}
-
-						printf("Entrez votre note d'anglais (-1 pour annuler) : ");
-						resscanf = scanf("%f", &an);
 						if (an == -1) break;
-						while (!resscanf || an < 0 || an > 20)
-						{
-							fprintf(stderr, ROUGE"Saisie invalide, recommencez : "RESET);
-							resscanf = scanf("%*c%f", &an);
-							
-							if (an == -1) break;
-						}
 
-						printf("Entrez votre note de spécialité (-1 pour annuler) : ");
-						resscanf = scanf("%f", &spe);
-						if (spe == -1) break;
-						while (!resscanf || spe < 0 || spe > 20)
+						saisieFloatControlee(&spe, "Entrez votre note de spécialité (-1 pour annuler) : ");
+						while ((spe < 0 && spe != -1) || spe > 20)
 						{
-							fprintf(stderr, ROUGE"Saisie invalide, recommencez : "RESET);
-							resscanf = scanf("%*c%f", &spe);
-							
-							if (spe == -1) break;
+							fprintf(stderr, ROUGE"La note doit être comprise entre 0 et 20\n"RESET);
+							saisieFloatControlee(&spe, "Entrez votre note de spécialité (-1 pour annuler) : ");
 						}
+						if (spe == -1) break;
 
 						c->notes[0] = ma;
 						c->notes[1] = fr;

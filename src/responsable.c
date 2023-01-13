@@ -19,3 +19,17 @@ Voeu* chercherVoeux(ListeVoeux l, char *iut, char *dept) {
 	}
 	return NULL;
 }
+
+void filtrerCandidatures(Candidats **tCand, int *nbCand)
+{
+	float noteMin = -5;
+
+	saisieFloatControlee(&noteMin, "Quel est la note minimale pour être admis dans votre département (-1 pour annuler) : ");
+
+	while ((noteMin < 0 || noteMin != -1) || noteMin > 20)
+	{
+		saisieFloatControlee(&noteMin, "Quel est la note minimale pour être admis dans votre département (-1 pour annuler) : ");
+	}
+
+	printf(UNDERLINE"Pour le département Informatique de l'IUT de Clermont-Ferrand :\n"RESET);
+}

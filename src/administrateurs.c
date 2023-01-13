@@ -258,7 +258,7 @@ void modifPlaces(VilleIUT** tiut, int *nbIUT)
 							saisieIntControlee(&nbP, "");
 
 							while(nbP <= 0) {
-								printf(ROUGE"Le nombre de place doit être supérieur à 0.\n"RESET);
+								fprintf(stderr, ROUGE"Le nombre de place doit être supérieur à 0.\n"RESET);
 								printf("Dans le département %s de %s, il y a %d places.\nNouveau nombre de place : ", dept, ville, tmp->nbP);
 								saisieIntControlee(&nbP, "");
 							} 
