@@ -237,9 +237,9 @@ Candidat **chargerCandidats(int *nbCand)
 	return tCand;	
 }
 
-void sauvegarderCandidats(Candidat **tCand, int *nbCand)
+void sauvegarderCandidats(Candidat **tCand, int *nbCand, char *nomFichier)
 {
-	FILE *f = fopen("candidats.don", "wb");
+	FILE *f = fopen(nomFichier, "wb");
 	int i;
 	Voeu *v;
 
@@ -266,7 +266,7 @@ void afficher1Candidat(Candidat **tCand, int pos) {
 	Voeu* v;
 
 	printf("\n\tNuméro du candidat : %d\n\tNommination : %s %s\n", tCand[pos]->num, tCand[pos]->prenom, tCand[pos]->nom);
-	printf("\tNote de mathématique : %.2f\n\tNote de français : %.2f\n\tNote d'anglais : %.2f\n\tNote de la matière de spécialité : %.2f\n", tCand[pos]->notes[0], tCand[pos]->notes[1],  tCand[pos]->notes[2], tCand[pos]->notes[3]); 
+	printf("\tNote de mathématique : %.2f\n\tNote de français : %.2f\n\tNote d'anglais : %.2f\n\tNote de la matière de spécialité : %.2f\n\tMoyenne des notes : %.2f\n", tCand[pos]->notes[0], tCand[pos]->notes[1],  tCand[pos]->notes[2], tCand[pos]->notes[3], tCand[pos]->moyenne); 
 	printf("\tNombre de voeux : %d\n", tCand[pos]->nbChoix);
 
 	for(v=tCand[pos]->choix->premier, j=1; v; v = v->suivant, ++j) {

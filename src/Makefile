@@ -9,10 +9,10 @@ informations : informations.c testInformations.c erreur.c
 administrateurs : administrateurs.c testAdministrateurs.c erreur.c informations.c
 	gcc -Wall $^ -o administrateurs
 
-candidats : candidats.c testCandidats.c erreur.c informations.c
+candidats : candidats.c testCandidats.c erreur.c informations.c candidats.c administrateurs.c responsable.c
 	gcc -Wall $^ -o candidats
 
-responsable : responsable.c testResponsable.c erreur.c informations.c candidats.c
+responsable : responsable.c testResponsable.c erreur.c candidats.c informations.c
 	gcc -Wall $^ -o responsable
 	
 clean :
